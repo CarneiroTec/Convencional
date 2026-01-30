@@ -4,7 +4,7 @@ Versão = "0.1.0",
 
 Autores = {
     { Nome = "Anildo", EndereçoEletrônico = "anildo.10@hotmail.com"}
-}
+},
 
 Comandos = {
     Compilar = "ctec Inicio.ctec -o convencional.exe"
