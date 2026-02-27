@@ -11,7 +11,6 @@ Caso testa_gerenciamento_erro() {
 
     GerenciadorErro.defina_erro(ERRO_PERMISSÃO_NEGADA);
     Erro atual = GerenciadorErro.obtenha_erro();
-    
     Se (atual != ERRO_PERMISSÃO_NEGADA) {
         caso.estado = 0;
         caso.linha = LINHA;
@@ -19,7 +18,7 @@ Caso testa_gerenciamento_erro() {
         Retorne caso;
     }
 
-    GerenciadorErro.defina_erro(ERRO_NÃO_EXISTE); // Usando valor arbitrário para testar
+    GerenciadorErro.defina_erro(ERRO_NÃO_EXISTE);
     Caractere *msg = GerenciadorErro.mensagem(ERRO_ARQUIVO_MUITO_GRANDE);
     Se (msg == (Vazio*)0) {
         caso.estado = 0;

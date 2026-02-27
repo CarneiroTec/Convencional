@@ -4,9 +4,6 @@ Vazio funcao_variadica_teste(Inteiro contagem, ...) {
     ListaVariádicos lista;
     GerenciadorVariádicos.inicie(&lista, (Vazio*)((Caractere*)&contagem + meça(Inteiro)));
 
-    // Simulação: se soubermos os tipos em vez de depender apenas do deslocamento
-    // Vazio* arg1 = GerenciadorVariádicos.obtenha(&lista, TIPO_INTEIRO, meça(Inteiro), ...);
-    
     GerenciadorVariádicos.finalize(&lista);
 }
 

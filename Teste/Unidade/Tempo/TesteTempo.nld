@@ -10,7 +10,7 @@ Caso testa_tempo_e_espera() {
     };
 
     Longo inicio = GerenciadorTempo.obtenha_relógio();
-    GerenciadorTempo.aguarde(50); // aguarda 50ms
+    GerenciadorTempo.aguarde(50);
     Longo fim = GerenciadorTempo.obtenha_relógio();
 
     Se (fim <= inicio) {

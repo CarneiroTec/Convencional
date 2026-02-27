@@ -27,7 +27,6 @@ Vazio __va_copy(
 Vazio __va_end(
     ListaVariádicos *lista
 ) {
-    /* não há recursos a liberar neste gerenciador */
 }
 
 Vazio __va_start(

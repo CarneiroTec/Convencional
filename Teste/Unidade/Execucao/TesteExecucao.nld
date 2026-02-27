@@ -3,8 +3,6 @@
 Inteiro flag_sucesso = 0;
 
 Vazio funcao_ao_sair(Vazio) {
-    // Isso executará apenas quando o processo for finalizado.
-    // Em testes unitários em memória, essa função pode ser registrada para cobrir atexit.
     flag_sucesso = 1;
 }
 
@@ -25,8 +23,6 @@ Caso testa_registro_saida() {
         Retorne caso;
     }
 
-    // Não chamamos aborte, finalize ou finalize_imediamente pois encerrariam o teste prematuramente.
-    
     caso.mensagem = "Passou: Registro de evento de sucesso de execução (atexit)";
     Retorne caso;
 }
