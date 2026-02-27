@@ -1,0 +1,22 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_DADOS
+#Defina CTEC_CONVENCIONAL_DADOS
+
+Pseudônimo Estrutura {
+    Caractere *ponteiro;
+    Inteiro tamanho;
+    Caractere *base;
+    Inteiro tipo;
+    Inteiro arquivo;
+    Inteiro reservaCaractere;
+    Inteiro tamanhoReserva;
+    Caractere *nomeArquivo;
+} Dados;
+
+Pseudônimo Estrutura {
+    Vazio (*inicialize)(Dados *dados);
+    Vazio (*limpe)(Dados *dados);
+} InterfaceGerenciadorDados;
+
+Externo InterfaceGerenciadorDados GerenciadorDados;
+
+#FimSe

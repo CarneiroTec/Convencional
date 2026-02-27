@@ -1,0 +1,12 @@
+#SeNãoDefinido Convencional_Erro_GerenciadorErro
+#Defina Convencional_Erro_GerenciadorErro
+
+Pseudônimo Estrutura {
+    Erro  (*obtenha_erro)(Vazio);
+    Vazio (*defina_erro)(Erro valor);
+    Caractere *(*mensagem)(Inteiro erro);
+} ModeloGerenciadorErro;
+
+Externo ModeloGerenciadorErro GerenciadorErro;
+
+#FimSe

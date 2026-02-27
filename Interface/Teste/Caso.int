@@ -1,0 +1,19 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_TESTE_CASO
+#Defina CTEC_CONVENCIONAL_TESTE_CASO
+
+Pseudônimo Estrutura {
+    Lógico estado;
+    Caractere* arquivo;
+    Caractere* função;
+    Inteiro linha;
+    Caractere* mensagem;
+} Caso;
+
+Pseudônimo Estrutura {
+    Caso (*crie) (Caractere* arquivo, Caractere* função, Inteiro linha, Caractere* mensagem);
+    Caso (*instancie) (Vazio);
+    Caso (*destrua) (Caso* caso);
+} InterfaceGerenciadorCaso;
+
+Externo InterfaceGerenciadorCaso GerenciadorCaso;
+#FimSe

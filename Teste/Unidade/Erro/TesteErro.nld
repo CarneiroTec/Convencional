@@ -1,0 +1,41 @@
+#Inclua "../../Teste.nld"
+
+Caso testa_gerenciamento_erro() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    GerenciadorErro.defina_erro(ERRO_PERMISSÃO_NEGADA);
+    Erro atual = GerenciadorErro.obtenha_erro();
+    
+    Se (atual != ERRO_PERMISSÃO_NEGADA) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Erro obtido não corresponde ao erro definido";
+        Retorne caso;
+    }
+
+    GerenciadorErro.defina_erro(ERRO_NÃO_EXISTE); // Usando valor arbitrário para testar
+    Caractere *msg = GerenciadorErro.mensagem(ERRO_ARQUIVO_MUITO_GRANDE);
+    Se (msg == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Mensagem de erro retornou nulo";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Gerenciamento e conversão de erro";
+    Retorne caso;
+}
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Erro");
+    GerenciadorGrupo.adicione(&grupo, testa_gerenciamento_erro);
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+    Retorne 0;
+}

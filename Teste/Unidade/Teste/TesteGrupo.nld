@@ -1,0 +1,165 @@
+#Inclua "../../Teste.nld"
+
+Externo Inteiro printf(Imutável Caractere*, ...);
+
+Caso testa_grupo_crie() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Grupo novoGrupo = GerenciadorGrupo.crie("Grupo Teste");
+
+    Se (novoGrupo.nome[0] != 'G') {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Nome do grupo incorreto";
+        Retorne caso;
+    }
+
+    Se (novoGrupo.quantidadeCasos != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Quantidade de casos deveria ser 0";
+        Retorne caso;
+    }
+
+    Se (novoGrupo.quantidadePassou != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Quantidade passou deveria ser 0";
+        Retorne caso;
+    }
+
+    Se (novoGrupo.quantidadeFalhou != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Quantidade falhou deveria ser 0";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Criação de grupo";
+    Retorne caso;
+}
+
+Caso auxiliar_sempre_passa() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = "Passou: Auxiliar"
+    };
+    Retorne caso;
+}
+
+Caso testa_grupo_adicione() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Grupo novoGrupo = GerenciadorGrupo.crie("Grupo Adicione");
+    Lógico resultado = GerenciadorGrupo.adicione(&novoGrupo, auxiliar_sempre_passa);
+
+    Se (resultado != 1) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Adicionar deveria retornar 1";
+        Retorne caso;
+    }
+
+    Se (novoGrupo.quantidadeCasos != 1) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Quantidade de casos deveria ser 1";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Adição de caso ao grupo";
+    Retorne caso;
+}
+
+Caso testa_grupo_execute() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Grupo novoGrupo = GerenciadorGrupo.crie("Grupo Execute");
+    GerenciadorGrupo.adicione(&novoGrupo, auxiliar_sempre_passa);
+    GerenciadorGrupo.adicione(&novoGrupo, auxiliar_sempre_passa);
+
+    printf("\n  [Sub-execução do teste grupo_execute]\n");
+    GerenciadorGrupo.execute(&novoGrupo);
+
+    Se (novoGrupo.quantidadePassou != 2) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Deveria ter 2 testes passando";
+        Retorne caso;
+    }
+
+    Se (novoGrupo.quantidadeFalhou != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Nenhum teste deveria ter falhado";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Execução de grupo";
+    Retorne caso;
+}
+
+Caso testa_grupo_destrua() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Grupo novoGrupo = GerenciadorGrupo.crie("Grupo Destrua");
+    GerenciadorGrupo.adicione(&novoGrupo, auxiliar_sempre_passa);
+    GerenciadorGrupo.destrua(&novoGrupo);
+
+    Se (novoGrupo.nome != (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Nome deveria ser nulo após destruir";
+        Retorne caso;
+    }
+
+    Se (novoGrupo.quantidadeCasos != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Quantidade de casos deveria ser 0 após destruir";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Destruição de grupo";
+    Retorne caso;
+}
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Grupo");
+    GerenciadorGrupo.adicione(&grupo, testa_grupo_crie);
+    GerenciadorGrupo.adicione(&grupo, testa_grupo_adicione);
+    GerenciadorGrupo.adicione(&grupo, testa_grupo_execute);
+    GerenciadorGrupo.adicione(&grupo, testa_grupo_destrua);
+
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+
+    Retorne 0;
+}

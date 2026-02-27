@@ -1,0 +1,6 @@
+Nome = "Convencional",
+Publicador = "CTEC",
+Descrição = "Biblioteca Convencional para Linguagem NLD",
+Versão = "0.1.0",
+
+Dependências = {},

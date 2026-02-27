@@ -1,0 +1,56 @@
+#Inclua "../../Teste.nld"
+
+Vazio funcao_variadica_teste(Inteiro contagem, ...) {
+    ListaVariádicos lista;
+    GerenciadorVariádicos.inicie(&lista, (Vazio*)((Caractere*)&contagem + meça(Inteiro)));
+
+    // Simulação: se soubermos os tipos em vez de depender apenas do deslocamento
+    // Vazio* arg1 = GerenciadorVariádicos.obtenha(&lista, TIPO_INTEIRO, meça(Inteiro), ...);
+    
+    GerenciadorVariádicos.finalize(&lista);
+}
+
+Caso testa_inicializacao() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    ListaVariádicos lista;
+    Vazio *quadroFalso = (Vazio*)0x12345678;
+    
+    GerenciadorVariádicos.inicie(&lista, quadroFalso);
+    Se (lista.deslocamentoInteiro != 0 || lista.áreaRegistros != quadroFalso) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Início de lista variádica não configurou valores corretamente";
+        Retorne caso;
+    }
+    
+    ListaVariádicos copia;
+    GerenciadorVariádicos.copie(&copia, &lista);
+    Se (copia.áreaRegistros != lista.áreaRegistros || copia.deslocamentoInteiro != lista.deslocamentoInteiro) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Cópia variádica perdeu parâmetros";
+        Retorne caso;
+    }
+
+    GerenciadorVariádicos.finalize(&lista);
+    GerenciadorVariádicos.finalize(&copia);
+
+    caso.mensagem = "Passou: Inicialização e cópia variádica";
+    Retorne caso;
+}
+
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Variádicos");
+    GerenciadorGrupo.adicione(&grupo, testa_inicializacao);
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+    Retorne 0;
+}

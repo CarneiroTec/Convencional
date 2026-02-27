@@ -1,0 +1,167 @@
+#Inclua "../../Teste.nld"
+
+Externo Inteiro printf(Imutável Caractere*, ...);
+
+Caso testa_alocação_memória() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Inteiro *vetor = (Inteiro*) GerenciadorMemória.aloque(5 * meça(Inteiro));
+    Se (vetor == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Não foi possível alocar memória";
+        Retorne caso;
+    }
+
+    vetor[0] = 42;
+    Se (vetor[0] != 42) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: O valor não foi escrito corretamente";
+        GerenciadorMemória.libere(vetor);
+        Retorne caso;
+    }
+
+    GerenciadorMemória.libere(vetor);
+
+    caso.mensagem = "Passou: Memória alocada, escrita e liberada com sucesso";
+    Retorne caso;
+}
+
+Caso testa_alocação_zerada() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Inteiro *vetor = (Inteiro*) GerenciadorMemória.aloque_zerado(5, meça(Inteiro));
+    Se (vetor == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Não foi possível alocar memória zerada";
+        Retorne caso;
+    }
+
+    Para (Inteiro i = 0; i < 5; i = i + 1) {
+        Se (vetor[i] != 0) {
+            caso.estado = 0;
+            caso.linha = LINHA;
+            caso.mensagem = "Falhou: Memória não foi inicializada com zero";
+            GerenciadorMemória.libere(vetor);
+            Retorne caso;
+        }
+    }
+
+    GerenciadorMemória.libere(vetor);
+
+    caso.mensagem = "Passou: Memória alocada zerada e verificada com sucesso";
+    Retorne caso;
+}
+
+Caso testa_realocação_memória() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Inteiro *vetor = (Inteiro*) GerenciadorMemória.aloque(3 * meça(Inteiro));
+    Se (vetor == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Não foi possível alocar memória inicial";
+        Retorne caso;
+    }
+
+    vetor[0] = 10;
+    vetor[1] = 20;
+    vetor[2] = 30;
+
+    Inteiro *vetorRealocado = (Inteiro*) GerenciadorMemória.realoque(vetor, 6 * meça(Inteiro));
+    Se (vetorRealocado == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Não foi possível realocar memória";
+        GerenciadorMemória.libere(vetor);
+        Retorne caso;
+    }
+
+    Se (vetorRealocado[0] != 10 || vetorRealocado[1] != 20 || vetorRealocado[2] != 30) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Dados originais não foram preservados após realocação";
+        GerenciadorMemória.libere(vetorRealocado);
+        Retorne caso;
+    }
+
+    vetorRealocado[3] = 40;
+    vetorRealocado[4] = 50;
+    vetorRealocado[5] = 60;
+
+    Se (vetorRealocado[3] != 40 || vetorRealocado[4] != 50 || vetorRealocado[5] != 60) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Não foi possível escrever nos novos índices após realocação";
+        GerenciadorMemória.libere(vetorRealocado);
+        Retorne caso;
+    }
+
+    GerenciadorMemória.libere(vetorRealocado);
+
+    caso.mensagem = "Passou: Memória realocada, dados preservados e novos índices escritos com sucesso";
+    Retorne caso;
+}
+
+Caso testa_liberação_memória() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Inteiro *ponteiro = (Inteiro*) GerenciadorMemória.aloque(meça(Inteiro));
+    Se (ponteiro == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Não foi possível alocar memória para teste de liberação";
+        Retorne caso;
+    }
+
+    *ponteiro = 99;
+    Se (*ponteiro != 99) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: O valor não foi escrito corretamente antes da liberação";
+        GerenciadorMemória.libere(ponteiro);
+        Retorne caso;
+    }
+
+    GerenciadorMemória.libere(ponteiro);
+
+    caso.mensagem = "Passou: Memória alocada, escrita e liberada sem erros";
+    Retorne caso;
+}
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Memória");
+    GerenciadorGrupo.adicione(&grupo, testa_alocação_memória);
+    GerenciadorGrupo.adicione(&grupo, testa_alocação_zerada);
+    GerenciadorGrupo.adicione(&grupo, testa_realocação_memória);
+    GerenciadorGrupo.adicione(&grupo, testa_liberação_memória);
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+    Retorne 0;
+}

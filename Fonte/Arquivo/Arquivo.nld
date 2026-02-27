@@ -1,0 +1,78 @@
+#Inclua <Convencional.int>
+
+Externo Vazio       clearerr(Arquivo *arquivo);
+Externo Inteiro     fclose(Arquivo *arquivo);
+Externo Inteiro     feof(Arquivo *arquivo);
+Externo Inteiro     ferror(Arquivo *arquivo);
+Externo Inteiro     fflush(Arquivo *arquivo);
+Externo Inteiro     fgetc(Arquivo *arquivo);
+Externo Caractere   *fgets(Caractere *s, Inteiro n, Arquivo *arquivo);
+Externo Arquivo     *fopen(Imutável Caractere *nomeArquivo, Imutável Caractere *modo);
+Externo Inteiro     fprintf(Arquivo *arquivo, Imutável Caractere *formato, ...);
+Externo Inteiro     fputc(Inteiro c, Arquivo *arquivo);
+Externo Inteiro     fputs(Imutável Caractere *s, Arquivo *arquivo);
+Externo Inteiro     fread(Vazio *ponteiro, Inteiro tamanho, Inteiro quantidade, Arquivo *arquivo);
+Externo Inteiro     fscanf(Arquivo *arquivo, Imutável Caractere *formato, ...);
+Externo Inteiro     fseek(Arquivo *arquivo, Longo deslocamento, Inteiro origem);
+Externo Longo       ftell(Arquivo *arquivo);
+Externo Inteiro     fwrite(Imutável Vazio *ponteiro, Inteiro tamanho, Inteiro quantidade, Arquivo *arquivo);
+Externo Inteiro     remove(Imutável Caractere *nomeArquivo);
+Externo Inteiro     rename(Imutável Caractere *antigo, Imutável Caractere *novo);
+Externo Vazio       rewind(Arquivo *arquivo);
+Externo Vazio       setbuf(Arquivo *arquivo, Caractere *buf);
+Externo Inteiro     setvbuf(Arquivo *arquivo, Caractere *buf, Inteiro modo, Inteiro tamanho);
+Externo Arquivo     *tmpfile(Vazio);
+Externo Caractere   *tmpnam(Caractere *s);
+Externo Inteiro     ungetc(Inteiro c, Arquivo *arquivo);
+
+Fixo Arquivo    *ctec_convencional_arquivo_abra(Imutável Caractere *nomeArquivo, Imutável Caractere *modo) { Retorne fopen(nomeArquivo, modo); }
+Fixo Arquivo    *ctec_convencional_arquivo_temporario(Vazio) { Retorne tmpfile(); }
+Fixo Arquivo    *ctec_convencional_arquivo_crie(Imutável Caractere *nomeArquivo, Imutável Caractere *modo) { Retorne fopen(nomeArquivo, modo); }
+Fixo Caractere  *ctec_convencional_arquivo_nome_temporario(Caractere *s) { Retorne tmpnam(s); }
+Fixo Caractere  *ctec_convencional_arquivo_obtenha_linha(Caractere *s, Inteiro n, Arquivo *arquivo) { Retorne fgets(s, n, arquivo); }
+Fixo Vazio      ctec_convencional_arquivo_configure_reserva(Arquivo *arquivo, Caractere *buf) { setbuf(arquivo, buf); }
+Fixo Inteiro    ctec_convencional_arquivo_defina_reserva(Arquivo *arquivo, Caractere *buf, Inteiro modo, Inteiro tamanho) { Retorne setvbuf(arquivo, buf, modo, tamanho); }
+Fixo Inteiro    ctec_convencional_arquivo_despeje(Arquivo *arquivo) { Retorne fflush(arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_devolva_caractere(Inteiro c, Arquivo *arquivo) { Retorne ungetc(c, arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_escreva(Imutável Vazio *ponteiro, Inteiro tamanho, Inteiro quantidade, Arquivo *arquivo) { Retorne fwrite(ponteiro, tamanho, quantidade, arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_erro(Arquivo *arquivo) { Retorne ferror(arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_exiba_caractere(Inteiro c, Arquivo *arquivo) { Retorne fputc(c, arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_exiba_linha(Imutável Caractere *s, Arquivo *arquivo) { Retorne fputs(s, arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_feche(Arquivo *arquivo) { Retorne fclose(arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_fim(Arquivo *arquivo) { Retorne feof(arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_leia(Vazio *ponteiro, Inteiro tamanho, Inteiro quantidade, Arquivo *arquivo) { Retorne fread(ponteiro, tamanho, quantidade, arquivo); }
+Fixo Vazio      ctec_convencional_arquivo_limpe_erro(Arquivo *arquivo) { clearerr(arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_obtenha_caractere(Arquivo *arquivo) { Retorne fgetc(arquivo); }
+Fixo Longo      ctec_convencional_arquivo_obtenha_posicao(Arquivo *arquivo) { Retorne ftell(arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_posicione(Arquivo *arquivo, Longo deslocamento, Inteiro origem) { Retorne fseek(arquivo, deslocamento, origem); }
+Fixo Vazio      ctec_convencional_arquivo_reinicie(Arquivo *arquivo) { rewind(arquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_remova(Imutável Caractere *nomeArquivo) { Retorne remove(nomeArquivo); }
+Fixo Inteiro    ctec_convencional_arquivo_renomeie(Imutável Caractere *antigo, Imutável Caractere *novo) { Retorne rename(antigo, novo); }
+
+ModeloGerenciadorArquivo GerenciadorArquivo = {
+    .abra = ctec_convencional_arquivo_abra,
+    .temporário = ctec_convencional_arquivo_temporario,
+    .crie = ctec_convencional_arquivo_crie,
+    .configure_reserva = ctec_convencional_arquivo_configure_reserva,
+    .defina_reserva = ctec_convencional_arquivo_defina_reserva,
+    .despeje = ctec_convencional_arquivo_despeje,
+    .devolva_caractere = ctec_convencional_arquivo_devolva_caractere,
+    .erro_arquivo = ctec_convencional_arquivo_erro,
+    .escreva = ctec_convencional_arquivo_escreva,
+    .escreva_formatado = fprintf,
+    .exiba_caractere = ctec_convencional_arquivo_exiba_caractere,
+    .exiba_linha = ctec_convencional_arquivo_exiba_linha,
+    .feche = ctec_convencional_arquivo_feche,
+    .fim_arquivo = ctec_convencional_arquivo_fim,
+    .leia = ctec_convencional_arquivo_leia,
+    .leia_formatado = fscanf,
+    .limpe_erro = ctec_convencional_arquivo_limpe_erro,
+    .nome_temporário = ctec_convencional_arquivo_nome_temporario,
+    .obtenha_posição = ctec_convencional_arquivo_obtenha_posicao,
+    .obtenha_caractere = ctec_convencional_arquivo_obtenha_caractere,
+    .obtenha_linha = ctec_convencional_arquivo_obtenha_linha,
+    .posicione = ctec_convencional_arquivo_posicione,
+    .reinicie = ctec_convencional_arquivo_reinicie,
+    .remova = ctec_convencional_arquivo_remova,
+    .renomeie = ctec_convencional_arquivo_renomeie
+};

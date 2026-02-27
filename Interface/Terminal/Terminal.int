@@ -1,0 +1,15 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_TERMINAL
+#Defina CTEC_CONVENCIONAL_TERMINAL
+
+Pseudônimo Estrutura {
+  Inteiro (*exiba_caractere) (Caractere);
+  Inteiro (*exiba_formatado) (Imutável Caractere*, ...);
+  Inteiro (*exiba_texto) (Imutável Caractere*);
+  Inteiro (*leia_caractere) (Vazio);
+  Inteiro (*leia_formatado) (Imutável Caractere*, ...);
+  Inteiro (*leia_texto) (Caractere*);
+} InterfaceGerenciadorTerminal;
+
+Externo InterfaceGerenciadorTerminal GerenciadorTerminal;
+
+#FimSe

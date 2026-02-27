@@ -1,0 +1,43 @@
+#Inclua "../../Teste.nld"
+
+Caso testa_tempo_e_espera() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Longo inicio = GerenciadorTempo.obtenha_relógio();
+    GerenciadorTempo.aguarde(50); // aguarda 50ms
+    Longo fim = GerenciadorTempo.obtenha_relógio();
+
+    Se (fim <= inicio) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Relógio não avançou após aguardar";
+        Retorne caso;
+    }
+
+    Longo unixTempo;
+    Longo tempoRet = GerenciadorTempo.obtenha_tempo(&unixTempo);
+
+    Se (tempoRet <= 0 || unixTempo != tempoRet) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Tempo Unix inválido";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Obtenção de tempo e espera";
+    Retorne caso;
+}
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Tempo");
+    GerenciadorGrupo.adicione(&grupo, testa_tempo_e_espera);
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+    Retorne 0;
+}

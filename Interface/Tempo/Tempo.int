@@ -1,0 +1,12 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_TEMPO
+#Defina CTEC_CONVENCIONAL_TEMPO
+
+Pseudônimo Estrutura {
+  Longo (*obtenha_tempo) (Longo*);
+  Longo (*obtenha_relógio) (Vazio);
+  Vazio (*aguarde) (Longo);
+} InterfaceGerenciadorTempo;
+
+Externo InterfaceGerenciadorTempo GerenciadorTempo;
+
+#FimSe

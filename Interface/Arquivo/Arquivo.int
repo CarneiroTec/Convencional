@@ -1,0 +1,38 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_ARQUIVO
+#Defina CTEC_CONVENCIONAL_ARQUIVO
+
+#Inclua "../Dados/Dados.int"
+
+Pseudônimo Dados Arquivo;
+
+Pseudônimo Estrutura {
+    Arquivo *(*crie)(Imutável Caractere *nomeArquivo, Imutável Caractere *modo);
+    Arquivo *(*abra)(Imutável Caractere *nomeArquivo, Imutável Caractere *modo);
+    Inteiro (*feche)(Arquivo *arquivo);
+    Inteiro (*leia)(Vazio *ponteiro, Inteiro tamanho, Inteiro quantidade, Arquivo *arquivo);
+    Inteiro (*escreva)(Imutável Vazio *ponteiro, Inteiro tamanho, Inteiro quantidade, Arquivo *arquivo);
+    Inteiro (*despeje)(Arquivo *arquivo);
+    Inteiro (*remova)(Imutável Caractere *nomeArquivo);
+    Inteiro (*escreva_formatado)(Arquivo *arquivo, Imutável Caractere *formato, ...);
+    Inteiro (*leia_formatado)(Arquivo *arquivo, Imutável Caractere *formato, ...);
+    Inteiro (*posicione)(Arquivo *arquivo, Longo deslocamento, Inteiro origem);
+    Longo (*obtenha_posição)(Arquivo *arquivo);
+    Vazio (*reinicie)(Arquivo *arquivo);
+    Inteiro (*fim_arquivo)(Arquivo *arquivo);
+    Inteiro (*erro_arquivo)(Arquivo *arquivo);
+    Vazio (*limpe_erro)(Arquivo *arquivo);
+    Inteiro (*obtenha_caractere)(Arquivo *arquivo);
+    Inteiro (*exiba_caractere)(Inteiro c, Arquivo *arquivo);
+    Caractere *(*obtenha_linha)(Caractere *s, Inteiro n, Arquivo *arquivo);
+    Inteiro (*exiba_linha)(Imutável Caractere *s, Arquivo *arquivo);
+    Inteiro (*devolva_caractere)(Inteiro c, Arquivo *arquivo);
+    Inteiro (*defina_reserva)(Arquivo *arquivo, Caractere *buf, Inteiro modo, Inteiro tamanho);
+    Vazio (*configure_reserva)(Arquivo *arquivo, Caractere *buf);
+    Arquivo *(*temporário)(Vazio);
+    Caractere *(*nome_temporário)(Caractere *s);
+    Inteiro (*renomeie)(Imutável Caractere *antigo, Imutável Caractere *novo);
+} ModeloGerenciadorArquivo;
+
+Externo ModeloGerenciadorArquivo GerenciadorArquivo;
+
+#FimSe

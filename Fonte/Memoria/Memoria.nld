@@ -1,0 +1,30 @@
+#Inclua <Convencional.int>
+
+Externo Vazio *malloc(Natural Inteiro);
+Externo Vazio *calloc(Natural Inteiro, Natural Inteiro);
+Externo Vazio *realloc(Vazio*, Natural Inteiro);
+Externo Vazio free(Vazio*);
+
+Fixo Vazio* ctec_convencional_memoria_aloque(Natural Inteiro tamanho) {
+    Retorne malloc(tamanho);
+}
+
+Fixo Vazio* ctec_convencional_memoria_aloque_zerado(Natural Inteiro contador, Natural Inteiro tamanho) {
+    Retorne calloc(contador, tamanho);
+}
+
+Fixo Vazio* ctec_convencional_memoria_realoque(Vazio* ponteiro, Natural Inteiro tamanho) {
+    Retorne realloc(ponteiro, tamanho);
+}
+
+Fixo Vazio  ctec_convencional_memoria_libere(Vazio* ponteiro) {
+    free(ponteiro);
+    Retorne;
+}
+
+InterfaceGerenciadorMemória GerenciadorMemória = {
+    .aloque = ctec_convencional_memoria_aloque,
+    .aloque_zerado = ctec_convencional_memoria_aloque_zerado,
+    .realoque = ctec_convencional_memoria_realoque,
+    .libere = ctec_convencional_memoria_libere
+};

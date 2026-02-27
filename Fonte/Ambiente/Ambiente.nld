@@ -1,0 +1,17 @@
+#Inclua <Convencional.int>
+
+Externo Inteiro _putenv_s(Imutável Caractere*, Imutável Caractere*);
+Externo Caractere *getenv(Imutável Caractere*);
+
+Fixo Inteiro ctec_convencional_ambiente_defina_variável(Imutável Caractere* nome, Imutável Caractere* valor) {
+    Retorne _putenv_s(nome, valor);
+}
+
+Fixo Caractere *ctec_convencional_ambiente_obtenha_variável(Imutável Caractere* nome) {
+    Retorne getenv(nome);
+}
+
+InterfaceGerenciadorAmbiente GerenciadorAmbiente = {
+    .defina_variável = ctec_convencional_ambiente_defina_variável,
+    .obtenha_variável = ctec_convencional_ambiente_obtenha_variável,
+};

@@ -1,0 +1,22 @@
+#Inclua <Convencional.int>
+
+Externo Inteiro *_errno(Vazio);
+Externo Caractere *strerror(Inteiro errnum);
+
+Fixo Erro ctec_convencional_erro_obtenha_erro(Vazio) {
+    Retorne *_errno();
+}
+
+Fixo Vazio ctec_convencional_erro_defina_erro(Erro valor) {
+    *_errno() = valor;
+}
+
+Fixo Caractere *ctec_convencional_erro_mensagem(Inteiro erro) {
+    Retorne strerror(erro);
+}
+
+ModeloGerenciadorErro GerenciadorErro = {
+    .obtenha_erro = ctec_convencional_erro_obtenha_erro,
+    .defina_erro = ctec_convencional_erro_defina_erro,
+    .mensagem = ctec_convencional_erro_mensagem
+};

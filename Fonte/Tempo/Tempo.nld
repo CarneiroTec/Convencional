@@ -1,0 +1,23 @@
+#Inclua <Convencional.int>
+
+Externo Longo time(Longo*);
+Externo Longo clock(Vazio);
+Externo Vazio Sleep(Longo);
+
+Fixo Longo ctec_convencional_tempo_obtenha_tempo(Longo* tempo) {
+    Retorne time(tempo);
+}
+
+Fixo Longo ctec_convencional_tempo_obtenha_relógio(Vazio) {
+    Retorne clock();
+}
+
+Fixo Vazio ctec_convencional_tempo_aguarde(Longo milissegundos) {
+    Sleep(milissegundos);
+}
+
+InterfaceGerenciadorTempo GerenciadorTempo = {
+    .obtenha_tempo = ctec_convencional_tempo_obtenha_tempo,
+    .obtenha_relógio = ctec_convencional_tempo_obtenha_relógio,
+    .aguarde = ctec_convencional_tempo_aguarde
+};

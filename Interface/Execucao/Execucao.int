@@ -1,0 +1,13 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_EXECUÇÃO
+#Defina CTEC_CONVENCIONAL_EXECUÇÃO
+
+Pseudônimo Estrutura {
+  Vazio (*aborte) (Vazio);
+  Vazio (*finalize) (Inteiro);
+  Vazio (*finalize_imediamente) (Inteiro);
+  Inteiro (*suceda) (Vazio(*)(Vazio));
+} InterfaceGerenciadorExecução;
+
+Externo InterfaceGerenciadorExecução GerenciadorExecução;
+
+#FimSe

@@ -1,0 +1,61 @@
+#Inclua "../../Teste.nld"
+
+Caso testa_inicializacao_dados() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Dados dados;
+    
+    GerenciadorDados.inicialize(&dados);
+    
+    Se (dados.ponteiro != (Vazio*)0 || dados.tamanho != 0 || dados.arquivo != -1) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Dados não inicializados corretamente";
+        Retorne caso;
+    }
+    
+    caso.mensagem = "Passou: Inicialização de Dados";
+    Retorne caso;
+}
+
+Caso testa_limpeza_dados() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Dados dados;
+    
+    GerenciadorDados.inicialize(&dados);
+    dados.tamanho = 100;
+    dados.arquivo = 5;
+    
+    GerenciadorDados.limpe(&dados);
+    
+    Se (dados.tamanho != 0 || dados.arquivo != -1) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Dados não limpos corretamente";
+        Retorne caso;
+    }
+    
+    caso.mensagem = "Passou: Limpeza de Dados";
+    Retorne caso;
+}
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Dados");
+    GerenciadorGrupo.adicione(&grupo, testa_inicializacao_dados);
+    GerenciadorGrupo.adicione(&grupo, testa_limpeza_dados);
+    
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+    Retorne 0;
+}

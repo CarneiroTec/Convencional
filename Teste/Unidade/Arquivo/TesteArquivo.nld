@@ -1,0 +1,331 @@
+#Inclua "../../Teste.nld"
+
+Caso testa_abertura_fechamento() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *arq = GerenciadorArquivo.crie("test_io.tmp", "w");
+    Se (arq == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Não foi possível criar arquivo";
+        Retorne caso;
+    }
+    GerenciadorArquivo.feche(arq);
+    GerenciadorArquivo.remova("test_io.tmp");
+    caso.mensagem = "Passou: Abertura e fechamento";
+    Retorne caso;
+}
+
+Caso testa_escrita_leitura_caractere() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *arq = GerenciadorArquivo.crie("test_char.tmp", "w");
+    GerenciadorArquivo.exiba_caractere('A', arq);
+    GerenciadorArquivo.feche(arq);
+
+    arq = GerenciadorArquivo.abra("test_char.tmp", "r");
+    Inteiro c = GerenciadorArquivo.obtenha_caractere(arq);
+    GerenciadorArquivo.feche(arq);
+    GerenciadorArquivo.remova("test_char.tmp");
+
+    Se (c != 'A') {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Caractere lido incorreto";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: Escrita e leitura de caractere";
+    Retorne caso;
+}
+
+Caso testa_escrita_leitura_linha() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *arq = GerenciadorArquivo.crie("test_line.tmp", "w");
+    GerenciadorArquivo.exiba_linha("NLD Teste", arq);
+    GerenciadorArquivo.feche(arq);
+
+    arq = GerenciadorArquivo.abra("test_line.tmp", "r");
+    Caractere buffer[20];
+    GerenciadorArquivo.obtenha_linha(buffer, 20, arq);
+    GerenciadorArquivo.feche(arq);
+    GerenciadorArquivo.remova("test_line.tmp");
+
+    Se (buffer[0] != 'N') {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Linha lida incorreta";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: Escrita e leitura de linha";
+    Retorne caso;
+}
+
+Caso testa_posicionamento() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *arq = GerenciadorArquivo.crie("test_pos.tmp", "w+");
+    GerenciadorArquivo.exiba_linha("0123456789", arq);
+    
+    GerenciadorArquivo.posicione(arq, 5, 0);
+    Se (GerenciadorArquivo.obtenha_posição(arq) != 5) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Posição incorreta após seek";
+        GerenciadorArquivo.feche(arq);
+        Retorne caso;
+    }
+
+    GerenciadorArquivo.reinicie(arq);
+    Se (GerenciadorArquivo.obtenha_posição(arq) != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Posição incorreta após rewind";
+        GerenciadorArquivo.feche(arq);
+        Retorne caso;
+    }
+
+    GerenciadorArquivo.feche(arq);
+    GerenciadorArquivo.remova("test_pos.tmp");
+    caso.mensagem = "Passou: Posicionamento e obtenção de posição";
+    Retorne caso;
+}
+
+Caso testa_blocos() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Inteiro dados[5] = {10, 20, 30, 40, 50};
+    Inteiro leitura[5];
+    
+    Arquivo *arq = GerenciadorArquivo.crie("test_block.tmp", "w+b");
+    GerenciadorArquivo.escreva(dados, meça(Inteiro), 5, arq);
+    GerenciadorArquivo.reinicie(arq);
+    GerenciadorArquivo.leia(leitura, meça(Inteiro), 5, arq);
+    GerenciadorArquivo.feche(arq);
+    GerenciadorArquivo.remova("test_block.tmp");
+
+    Se (leitura[2] != 30) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Bloco lido incorreto";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: Escrita e leitura de blocos";
+    Retorne caso;
+}
+
+Caso testa_erro_e_fim() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *arq = GerenciadorArquivo.crie("test_eof.tmp", "w");
+    GerenciadorArquivo.feche(arq);
+
+    arq = GerenciadorArquivo.abra("test_eof.tmp", "r");
+    Enquanto (GerenciadorArquivo.obtenha_caractere(arq) != -1) {}
+
+    Se (GerenciadorArquivo.fim_arquivo(arq) == 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Fim de arquivo não detectado";
+        GerenciadorArquivo.feche(arq);
+        Retorne caso;
+    }
+
+    Se (GerenciadorArquivo.erro_arquivo(arq) != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Erro de arquivo inesperado";
+        GerenciadorArquivo.feche(arq);
+        Retorne caso;
+    }
+
+    GerenciadorArquivo.limpe_erro(arq);
+    GerenciadorArquivo.feche(arq);
+    GerenciadorArquivo.remova("test_eof.tmp");
+    caso.mensagem = "Passou: Erro e Fim de arquivo";
+    Retorne caso;
+}
+
+Caso testa_arquivos_temporarios() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *temp = GerenciadorArquivo.temporário();
+    Se (temp != (Vazio*)0) {
+        GerenciadorArquivo.feche(temp);
+    } 
+
+    Caractere nome_temp[100];
+    GerenciadorArquivo.nome_temporário(nome_temp);
+    Se (nome_temp[0] == 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Nome temporário vazio";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Arquivos e nomes temporários";
+    Retorne caso;
+}
+
+Caso testa_renomear_e_remover() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *arq = GerenciadorArquivo.crie("velho.tmp", "w");
+    GerenciadorArquivo.feche(arq);
+
+    GerenciadorArquivo.renomeie("velho.tmp", "novo.tmp");
+    GerenciadorArquivo.remova("novo.tmp");
+
+    arq = GerenciadorArquivo.abra("novo.tmp", "r");
+    Se (arq != (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Arquivo não removido corretamente";
+        GerenciadorArquivo.feche(arq);
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Renomear e remover";
+    Retorne caso;
+}
+
+Caso testa_devolve_caractere() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *arq = GerenciadorArquivo.crie("test_unget.tmp", "w+");
+    GerenciadorArquivo.exiba_caractere('X', arq);
+    GerenciadorArquivo.reinicie(arq);
+    GerenciadorArquivo.obtenha_caractere(arq);
+    GerenciadorArquivo.devolva_caractere('Y', arq);
+    Inteiro c = GerenciadorArquivo.obtenha_caractere(arq);
+    GerenciadorArquivo.feche(arq);
+    GerenciadorArquivo.remova("test_unget.tmp");
+    
+    Se (c != 'Y') {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Caractere devolvido não lido";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: Devolução de caractere";
+    Retorne caso;
+}
+
+Caso testa_formatado_e_despeje() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *arq = GerenciadorArquivo.crie("test_fmt.tmp", "w+");
+    
+    GerenciadorArquivo.escreva_formatado(arq, "Valor: %d", 123);
+    GerenciadorArquivo.despeje(arq);
+    
+    GerenciadorArquivo.reinicie(arq);
+    Inteiro val = 0;
+    GerenciadorArquivo.leia_formatado(arq, "Valor: %d", &val);
+    GerenciadorArquivo.feche(arq);
+    GerenciadorArquivo.remova("test_fmt.tmp");
+
+    Se (val != 123) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Escrita/Leitura formatada incorreta";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: Formatado e despeje";
+    Retorne caso;
+}
+
+Caso testa_bufferização() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+    Arquivo *arq = GerenciadorArquivo.crie("test_buf.tmp", "w");
+    
+    Caractere buffer[512];
+    GerenciadorArquivo.configure_reserva(arq, buffer);
+    GerenciadorArquivo.exiba_linha("Teste Buffer", arq);
+    GerenciadorArquivo.feche(arq);
+
+    arq = GerenciadorArquivo.crie("test_buf2.tmp", "w");
+    GerenciadorArquivo.defina_reserva(arq, buffer, 0, 512);
+    GerenciadorArquivo.feche(arq);
+    
+    GerenciadorArquivo.remova("test_buf.tmp");
+    GerenciadorArquivo.remova("test_buf2.tmp");
+    
+    caso.mensagem = "Passou: Configuração de reserva (buffer)";
+    Retorne caso;
+}
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Arquivo");
+    GerenciadorGrupo.adicione(&grupo, testa_abertura_fechamento);
+    GerenciadorGrupo.adicione(&grupo, testa_escrita_leitura_caractere);
+    GerenciadorGrupo.adicione(&grupo, testa_escrita_leitura_linha);
+    GerenciadorGrupo.adicione(&grupo, testa_posicionamento);
+    GerenciadorGrupo.adicione(&grupo, testa_blocos);
+    GerenciadorGrupo.adicione(&grupo, testa_erro_e_fim);
+    GerenciadorGrupo.adicione(&grupo, testa_arquivos_temporarios);
+    GerenciadorGrupo.adicione(&grupo, testa_renomear_e_remover);
+    GerenciadorGrupo.adicione(&grupo, testa_devolve_caractere);
+    GerenciadorGrupo.adicione(&grupo, testa_formatado_e_despeje);
+    GerenciadorGrupo.adicione(&grupo, testa_bufferização);
+    
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+    Retorne 0;
+}

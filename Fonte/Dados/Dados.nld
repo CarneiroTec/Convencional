@@ -1,0 +1,22 @@
+#Inclua <Convencional.int>
+
+Fixo Vazio ctec_convencional_dados_inicialize(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->ponteiro = (Vazio*)0;
+    dados->tamanho = 0;
+    dados->base = (Vazio*)0;
+    dados->tipo = 0;
+    dados->arquivo = -1;
+    dados->reservaCaractere = -1;
+    dados->tamanhoReserva = 0;
+    dados->nomeArquivo = (Vazio*)0;
+}
+
+Fixo Vazio ctec_convencional_dados_limpe(Dados *dados) {
+    ctec_convencional_dados_inicialize(dados);
+}
+
+InterfaceGerenciadorDados GerenciadorDados = {
+    .inicialize = ctec_convencional_dados_inicialize,
+    .limpe = ctec_convencional_dados_limpe
+};

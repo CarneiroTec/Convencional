@@ -1,0 +1,39 @@
+#Inclua <Convencional.int>
+
+Fixo Caso ctec_convencional_teste_caso_crie(Caractere* arquivo, Caractere* função, Inteiro linha, Caractere* mensagem) {
+    Caso caso = {
+        .estado = 0,
+        .arquivo = arquivo,
+        .função = função,
+        .linha = linha,
+        .mensagem = mensagem
+    };
+
+    Retorne caso;
+}
+
+Fixo Caso ctec_convencional_teste_caso_instancie() {
+    Caso caso = {
+        .estado = 0,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Retorne caso;
+}
+
+Fixo Caso ctec_convencional_teste_caso_destrua(Caso* caso) {
+    caso->estado = 0;
+    caso->arquivo = (Vazio*)0;
+    caso->função = (Vazio*)0;
+    caso->linha = 0;
+    caso->mensagem = (Vazio*)0;
+}
+
+InterfaceGerenciadorCaso GerenciadorCaso = {
+    .crie = ctec_convencional_teste_caso_crie,
+    .instancie = ctec_convencional_teste_caso_instancie,
+    .destrua = ctec_convencional_teste_caso_destrua
+};

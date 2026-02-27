@@ -1,0 +1,15 @@
+#SeNãoDefinido CTEC_CONVENCIONAL
+#Defina CTEC_CONVENCIONAL
+
+#Inclua "Ambiente/Ambiente.int"
+#Inclua "Arquivo/Arquivo.int"
+#Inclua "Dados/Dados.int"
+#Inclua "Erro/Erro.int"
+#Inclua "Execucao/Execucao.int"
+#Inclua "Memoria/Memoria.int"
+#Inclua "Tempo/Tempo.int"
+#Inclua "Terminal/Terminal.int"
+#Inclua "Teste/Teste.int"
+#Inclua "Variadicos/Variadicos.int"
+
+#FimSe

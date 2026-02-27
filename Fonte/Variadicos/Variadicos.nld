@@ -1,0 +1,78 @@
+#Inclua <Convencional.int>
+
+Vazio *__va_arg(
+    ListaVariádicos *lista,
+    Inteiro tipoArgumento,
+    Inteiro tamanhoArgumento,
+    Inteiro alinhamentoArgumento
+) {
+    Caractere *base = lista->áreaRegistros;
+    Natural Inteiro desloc = lista->deslocamentoInteiro;
+    Vazio *ptr = (Vazio *)(base + desloc);
+    lista->deslocamentoInteiro = desloc + tamanhoArgumento;
+    Retorne ptr;
+}
+
+Vazio __va_copy(
+    ListaVariádicos *destino,
+    ListaVariádicos *origem
+) {
+    destino->deslocamentoInteiro = origem->deslocamentoInteiro;
+    destino->deslocamentoReal = origem->deslocamentoReal;
+    destino->deslocamentoEstouro = origem->deslocamentoEstouro;
+    destino->áreaEstouro = origem->áreaEstouro;
+    destino->áreaRegistros = origem->áreaRegistros;
+}
+
+Vazio __va_end(
+    ListaVariádicos *lista
+) {
+    /* não há recursos a liberar neste gerenciador */
+}
+
+Vazio __va_start(
+    ListaVariádicos *lista,
+    Vazio *quadroChamada
+) {
+    lista->deslocamentoInteiro = 0;
+    lista->deslocamentoReal = 0;
+    lista->deslocamentoEstouro = 0;
+    lista->áreaEstouro = 0;
+    lista->áreaRegistros = (Caractere *)quadroChamada;
+}
+
+Fixo Vazio ctec_convencional_variadicos_copie(
+    ListaVariádicos *destino,
+    ListaVariádicos *origem
+) {
+    __va_copy(destino, origem);
+}
+
+Fixo Vazio ctec_convencional_variadicos_finalize(
+    ListaVariádicos *lista
+) {
+    __va_end(lista);
+}
+
+Fixo Vazio ctec_convencional_variadicos_inicie(
+    ListaVariádicos *lista,
+    Vazio *quadroChamada
+) {
+    __va_start(lista, quadroChamada);
+}
+
+Fixo Vazio *ctec_convencional_variadicos_obtenha(
+    ListaVariádicos *lista,
+    Inteiro tipoArgumento,
+    Inteiro tamanhoArgumento,
+    Inteiro alinhamentoArgumento
+) {
+    Retorne __va_arg(lista, tipoArgumento, tamanhoArgumento, alinhamentoArgumento);
+}
+
+ModeloGerenciadorVariádicos GerenciadorVariádicos = {
+    .inicie = ctec_convencional_variadicos_inicie,
+    .obtenha = ctec_convencional_variadicos_obtenha,
+    .copie = ctec_convencional_variadicos_copie,
+    .finalize = ctec_convencional_variadicos_finalize
+};

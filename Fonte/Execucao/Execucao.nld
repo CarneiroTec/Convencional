@@ -1,0 +1,29 @@
+#Inclua <Convencional.int>
+
+Externo Vazio abort(Vazio);
+Externo Vazio exit(Inteiro);
+Externo Vazio _exit(Inteiro);
+Externo Inteiro atexit(Vazio(*)(Vazio));
+
+Fixo Vazio ctec_convencional_execução_aborte(Vazio) {
+    abort();
+}
+
+Fixo Vazio ctec_convencional_execução_finalize(Inteiro código) {
+    exit(código);
+}
+
+Fixo Vazio ctec_convencional_execução_finalize_imediamente(Inteiro código) {
+    _exit(código);
+}
+
+Fixo Inteiro ctec_convencional_execução_suceda(Vazio(*função)(Vazio)) {
+    Retorne atexit(função);
+}
+
+InterfaceGerenciadorExecução GerenciadorExecução = {
+    .aborte = ctec_convencional_execução_aborte,
+    .finalize = ctec_convencional_execução_finalize,
+    .finalize_imediamente = ctec_convencional_execução_finalize_imediamente,
+    .suceda = ctec_convencional_execução_suceda
+};

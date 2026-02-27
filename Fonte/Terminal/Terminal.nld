@@ -1,0 +1,33 @@
+#Inclua <Convencional.int>
+
+Externo Inteiro getchar(Vazio);
+Externo Inteiro gets(Caractere*);
+Externo Inteiro printf(Imutável Caractere*, ...);
+Externo Inteiro puts(Imutável Caractere*);
+Externo Inteiro putchar(Caractere);
+Externo Inteiro scanf(Imutável Caractere*, ...);
+
+Fixo Inteiro ctec_convencional_terminal_exiba_caractere(Caractere c) {
+    Retorne putchar(c);
+}
+
+Fixo Inteiro ctec_convencional_terminal_exiba_texto(Imutável Caractere* texto) {
+    Retorne puts(texto);
+}
+
+Fixo Inteiro ctec_convencional_terminal_leia_caractere(Vazio) {
+    Retorne getchar();
+}
+
+Fixo Inteiro ctec_convencional_terminal_leia_texto(Caractere* texto) {
+    Retorne gets(texto);
+}
+
+InterfaceGerenciadorTerminal GerenciadorTerminal = {
+    .exiba_caractere = ctec_convencional_terminal_exiba_caractere,
+    .exiba_formatado = printf,
+    .exiba_texto = ctec_convencional_terminal_exiba_texto,
+    .leia_caractere = ctec_convencional_terminal_leia_caractere,
+    .leia_formatado = scanf,
+    .leia_texto = ctec_convencional_terminal_leia_texto
+};

@@ -1,0 +1,11 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_AMBIENTE
+#Defina CTEC_CONVENCIONAL_AMBIENTE
+
+Pseudônimo Estrutura {
+  Inteiro (*defina_variável) (Imutável Caractere*, Imutável Caractere*);
+  Caractere *(*obtenha_variável) (Imutável Caractere*);
+} InterfaceGerenciadorAmbiente;
+
+Externo InterfaceGerenciadorAmbiente GerenciadorAmbiente;
+
+#FimSe

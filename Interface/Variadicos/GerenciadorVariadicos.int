@@ -1,0 +1,13 @@
+#SeNãoDefinido Convencional_Variádicos_GerenciadorVariádicos
+#Defina Convencional_Variádicos_GerenciadorVariádicos
+
+Pseudônimo Estrutura {
+    Vazio (*inicie)(ListaVariádicos *lista, Vazio *quadroChamada);
+    Vazio *(*obtenha)(ListaVariádicos *lista, Inteiro tipoArgumento, Inteiro tamanhoArgumento, Inteiro alinhamentoArgumento);
+    Vazio (*copie)(ListaVariádicos *destino, ListaVariádicos *origem);
+    Vazio (*finalize)(ListaVariádicos *lista);
+} ModeloGerenciadorVariádicos;
+
+Externo ModeloGerenciadorVariádicos GerenciadorVariádicos;
+
+#FimSe

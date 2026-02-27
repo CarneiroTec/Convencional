@@ -1,0 +1,6 @@
+#Inclua "Dependencias/Autocarregamento.ctec"
+
+Inteiro Início(){
+  Convencional.terminal->exiba_texto("Deus seja louvado!");
+  Retorne 0;
+}

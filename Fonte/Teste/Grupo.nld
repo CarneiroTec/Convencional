@@ -1,0 +1,72 @@
+#Inclua <Convencional.int>
+
+Externo Inteiro printf(Imutável Caractere*, ...);
+
+Fixo Grupo ctec_convencional_teste_grupo_crie(Caractere* nome) {
+    Grupo grupo;
+    grupo.nome = nome;
+    grupo.quantidadeCasos = 0;
+    grupo.quantidadePassou = 0;
+    grupo.quantidadeFalhou = 0;
+
+    Retorne grupo;
+}
+
+Fixo Lógico ctec_convencional_teste_grupo_adicione(Grupo* grupo, FunçãoTeste função) {
+    Se (grupo->quantidadeCasos < 256) {
+        grupo->listaCasos[grupo->quantidadeCasos] = função;
+        grupo->quantidadeCasos++;
+        Retorne 1;
+    }
+    Retorne 0;
+}
+
+Fixo Lógico ctec_convencional_teste_grupo_execute(Grupo* grupo) {
+    Inteiro i;
+    grupo->quantidadePassou = 0;
+    grupo->quantidadeFalhou = 0;
+
+    Para(i = 0; i < grupo->quantidadeCasos; i++) {
+        Caso resultado = grupo->listaCasos[i]();
+        printf("%s\n", resultado.mensagem);
+        Se (resultado.estado == 0) {
+            printf("  |- Arquivo: %s\n", resultado.arquivo);
+            printf("  |- Função: %s\n", resultado.função);
+            printf("  |- Linha: %d\n", resultado.linha);
+            grupo->quantidadeFalhou++;
+        }
+        Se (resultado.estado != 0) {
+            grupo->quantidadePassou++;
+        }
+    }
+
+    Real percentual = 0.0;
+    Se (grupo->quantidadeCasos > 0) {
+        percentual = ((Real)grupo->quantidadePassou / (Real)grupo->quantidadeCasos) * 100.0;
+    }
+
+    printf("\n=== Resumo do Grupo: %s ===\n", grupo->nome);
+    printf("Total de testes: %d\n", grupo->quantidadeCasos);
+    printf("Passaram: %d\n", grupo->quantidadePassou);
+    printf("Falharam: %d\n", grupo->quantidadeFalhou);
+    printf("Taxa de sucesso: %.2f%%\n", percentual);
+
+    Retorne 1;
+
+}
+
+Fixo Lógico ctec_convencional_teste_grupo_destrua(Grupo* grupo) {
+    grupo->nome = (Vazio*)0;
+    grupo->quantidadeCasos = 0;
+    grupo->quantidadePassou = 0;
+    grupo->quantidadeFalhou = 0;
+
+    Retorne 1;
+}
+
+InterfaceGerenciadorGrupo GerenciadorGrupo = {
+    .crie = ctec_convencional_teste_grupo_crie,
+    .adicione = ctec_convencional_teste_grupo_adicione,
+    .execute = ctec_convencional_teste_grupo_execute,
+    .destrua = ctec_convencional_teste_grupo_destrua
+};

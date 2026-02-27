@@ -1,0 +1,23 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_TESTE_GRUPO
+#Defina CTEC_CONVENCIONAL_TESTE_GRUPO
+
+Pseudônimo Caso (*FunçãoTeste)(Vazio);
+
+Pseudônimo Estrutura {
+    Caractere *nome;
+    FunçãoTeste listaCasos[256];
+    Inteiro quantidadeCasos;
+    Inteiro quantidadePassou;
+    Inteiro quantidadeFalhou;
+} Grupo;
+
+Pseudônimo Estrutura {
+    Grupo (*crie)(Caractere* nome);
+    Lógico (*adicione)(Grupo* grupo, FunçãoTeste função);
+    Lógico (*execute)(Grupo* grupo);
+    Lógico (*destrua)(Grupo* grupo);
+} InterfaceGerenciadorGrupo;
+
+Externo InterfaceGerenciadorGrupo GerenciadorGrupo;
+
+#FimSe

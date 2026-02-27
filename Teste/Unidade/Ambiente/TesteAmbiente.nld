@@ -1,0 +1,45 @@
+#Inclua "../../Teste.nld"
+
+Caso testa_ambiente_variavel() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Inteiro res = GerenciadorAmbiente.defina_variável("TESTE_NLD_VAR", "VALOR_TESTE");
+    Se (res != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Não foi possível definir a variável de ambiente";
+        Retorne caso;
+    }
+
+    Caractere *valor = GerenciadorAmbiente.obtenha_variável("TESTE_NLD_VAR");
+    Se (valor == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Variável de ambiente não encontrada";
+        Retorne caso;
+    }
+
+    Se (valor[0] != 'V' || valor[1] != 'A' || valor[10] != 'E') {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Valor retornado da variável de ambiente incorreto";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Manipulação de variável de ambiente";
+    Retorne caso;
+}
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Ambiente");
+    GerenciadorGrupo.adicione(&grupo, testa_ambiente_variavel);
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+    Retorne 0;
+}

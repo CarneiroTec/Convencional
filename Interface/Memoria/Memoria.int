@@ -1,0 +1,13 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_MEMÓRIA
+#Defina CTEC_CONVENCIONAL_MEMÓRIA
+
+Pseudônimo Estrutura {
+  Vazio *(*aloque) (Natural Inteiro);
+  Vazio *(*aloque_zerado) (Natural Inteiro, Natural Inteiro);
+  Vazio *(*realoque) (Vazio*, Natural Inteiro);
+  Vazio (*libere) (Vazio*);
+} InterfaceGerenciadorMemória;
+
+Externo InterfaceGerenciadorMemória GerenciadorMemória;
+
+#FimSe

@@ -1,0 +1,129 @@
+#Inclua "../../Teste.nld"
+
+Caso testa_caso_crie() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Caso novoCaso = GerenciadorCaso.crie("arquivo.nld", "funcao_teste", 42, "mensagem teste");
+
+    Se (novoCaso.estado != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Estado deveria ser 0 ao criar caso";
+        Retorne caso;
+    }
+
+    Se (novoCaso.linha != 42) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Linha deveria ser 42";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Criação de caso com parâmetros";
+    Retorne caso;
+}
+
+Caso testa_caso_instancie() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Caso novoCaso = GerenciadorCaso.instancie();
+
+    Se (novoCaso.estado != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Estado deveria ser 0 ao instanciar caso";
+        Retorne caso;
+    }
+
+    Se (novoCaso.arquivo == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Arquivo não deveria ser nulo ao instanciar";
+        Retorne caso;
+    }
+
+    Se (novoCaso.função == (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Função não deveria ser nula ao instanciar";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Instanciação de caso com macros";
+    Retorne caso;
+}
+
+Caso testa_caso_destrua() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Caso novoCaso = GerenciadorCaso.crie("arq.nld", "func", 10, "msg");
+    GerenciadorCaso.destrua(&novoCaso);
+
+    Se (novoCaso.estado != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Estado deveria ser 0 após destruir";
+        Retorne caso;
+    }
+
+    Se (novoCaso.arquivo != (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Arquivo deveria ser nulo após destruir";
+        Retorne caso;
+    }
+
+    Se (novoCaso.função != (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Função deveria ser nula após destruir";
+        Retorne caso;
+    }
+
+    Se (novoCaso.mensagem != (Vazio*)0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Mensagem deveria ser nula após destruir";
+        Retorne caso;
+    }
+
+    Se (novoCaso.linha != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Linha deveria ser 0 após destruir";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: Destruição de caso";
+    Retorne caso;
+}
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Caso");
+    GerenciadorGrupo.adicione(&grupo, testa_caso_crie);
+    GerenciadorGrupo.adicione(&grupo, testa_caso_instancie);
+    GerenciadorGrupo.adicione(&grupo, testa_caso_destrua);
+
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+
+    Retorne 0;
+}

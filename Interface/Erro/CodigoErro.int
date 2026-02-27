@@ -1,0 +1,39 @@
+#SeNãoDefinido Convencional_Erro_CódigoErro
+#Defina Convencional_Erro_CódigoErro
+
+Enumeração {
+    ERRO_PERMISSÃO                        = 1,
+    ERRO_NÃO_EXISTE                        = 2,
+    ERRO_PROCESSO_NÃO_ENCONTRADO         = 3,
+    ERRO_INTERROMPIDO                     = 4,
+    ERRO_ENTRADA_SAÍDA                    = 5,
+    ERRO_DISPOSITIVO_NÃO_EXISTE           = 6,
+    ERRO_LISTA_ARGUMENTOS_GRANDE          = 7,
+    ERRO_FORMATO_EXECUTÁVEL               = 8,
+    ERRO_DESCRITOR_ARQUIVO_INVÁLIDO       = 9,
+    ERRO_SEM_PROCESSOS_FILHOS             = 10,
+    ERRO_TENTE_NOVAMENTE                  = 11,
+    ERRO_MEMÓRIA_INSUFICIENTE             = 12,
+    ERRO_PERMISSÃO_NEGADA                 = 13,
+    ERRO_ENDEREÇO_INVÁLIDO                = 14,
+    ERRO_RECURSO_OCUPADO                  = 16,
+    ERRO_JÁ_EXISTE                        = 17,
+    ERRO_LINK_CRUZADO                     = 18,
+    ERRO_NÃO_É_DIRETÓRIO                  = 20,
+    ERRO_É_DIRETÓRIO                      = 21,
+    ERRO_ARGUMENTO_INVÁLIDO               = 22,
+    ERRO_MUITOS_ARQUIVOS_SISTEMA          = 23,
+    ERRO_MUITOS_ARQUIVOS_PROCESSO         = 24,
+    ERRO_NÃO_É_TERMINAL                   = 25,
+    ERRO_ARQUIVO_TEXTO_OCUPADO            = 26,
+    ERRO_ARQUIVO_MUITO_GRANDE             = 27,
+    ERRO_SEM_ESPAÇO                       = 28,
+    ERRO_BUSCA_INVÁLIDA                   = 29,
+    ERRO_SISTEMA_ARQUIVOS_SOMENTE_LEITURA = 30,
+    ERRO_MUITOS_LINKS                     = 31,
+    ERRO_PIPE_QUEBRADO                    = 32,
+    ERRO_DOMÍNIO_MATEMÁTICO               = 33,
+    ERRO_FORA_INTERVALO                   = 34
+};
+
+#FimSe

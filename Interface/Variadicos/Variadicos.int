@@ -1,0 +1,19 @@
+#SeNãoDefinido Convencional_Variádicos
+#Defina Convencional_Variádicos
+
+Pseudônimo Estrutura {
+    Natural Inteiro deslocamentoInteiro;
+    Natural Inteiro deslocamentoReal;
+
+    União {
+        Natural Inteiro deslocamentoEstouro;
+        Caractere *áreaEstouro;
+    };
+
+    Caractere *áreaRegistros;
+} ListaVariádicos;
+
+Pseudônimo ListaVariádicos lista_variádicos[1];
+
+#Inclua "GerenciadorVariadicos.int"
+#FimSe

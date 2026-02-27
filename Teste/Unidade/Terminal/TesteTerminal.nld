@@ -1,0 +1,54 @@
+#Inclua "../../Teste.nld"
+
+Caso testa_terminal_io() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    // Obs: Testes de I/O em terminal são difíceis de automatizar sem stdin/stdout redirecionados.
+    // Vamos apenas verificar se as funções estão acessíveis e retornam valores adequados quando possível
+    // ou evitar blocá-los lendo entrada real.
+    
+    // Teste de exibição (formatado e caractere)
+    Inteiro ret = GerenciadorTerminal.exiba_formatado("  [Sub-execução do teste de terminal]: OK\n");
+    Se (ret <= 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: exiba_formatado não retornou número de caracteres escritos";
+        Retorne caso;
+    }
+
+    ret = GerenciadorTerminal.exiba_caractere('.');
+    GerenciadorTerminal.exiba_caractere('\n');
+    Se (ret == -1) { // EOF
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: exiba_caractere falhou";
+        Retorne caso;
+    }
+
+    ret = GerenciadorTerminal.exiba_texto("  [Sub-execução do teste de terminal]: Linha exibida");
+    Se (ret < 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: exiba_texto falhou";
+        Retorne caso;
+    }
+
+    // Não chamamos `leia_caractere` ou `leia_texto` para não bloquear a execução automatizada.
+
+    caso.mensagem = "Passou: I/O de Terminal (Saída)";
+    Retorne caso;
+}
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Terminal");
+    GerenciadorGrupo.adicione(&grupo, testa_terminal_io);
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+    Retorne 0;
+}
