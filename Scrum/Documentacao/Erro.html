@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Erro — CTEC Convencional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header data-modulo="Erro" data-sprint="Sprint 2" data-versao="v0.1.0"></header>
+
+    <main>
+
+        <!-- VISÃO GERAL -->
+        <section>
+            <h2>Visão Geral</h2>
+            <p>
+                O módulo <strong>Erro</strong> encapsula o acesso ao sistema de erros da linguagem C
+                (<code>errno</code> / <code>strerror</code>) em uma interface NLD padronizada.
+                Define os códigos de erro padrão POSIX traduzidos para português e fornece um
+                gerenciador para ler, definir e converter códigos de erro em mensagens textuais.
+            </p>
+            <p>
+                <strong>Interface:</strong> <code>Interface/Erro/Erro.int</code><br>
+                <strong>Implementação:</strong> <code>Fonte/Erro/Erro.nld</code><br>
+                <strong>Testes:</strong> <code>Teste/Unidade/Erro/TesteErro.nld</code><br>
+                <strong>Exemplo:</strong> <code>Exemplo/Erro/ExemploErro.nld</code>
+            </p>
+        </section>
+
+        <!-- TIPO BASE -->
+        <section>
+            <h2>Tipo Base — <code>Erro</code></h2>
+            <p>Pseudônimo para <code>Inteiro</code>. Todos os códigos de erro do sistema utilizam este tipo.</p>
+            <div class="fn-signature">Pseudônimo Inteiro Erro;</div>
+        </section>
+
+        <!-- ENUM MÓDULO -->
+        <section>
+            <h2>Enumeração de Erro do Módulo — <code>CtecErroErro</code></h2>
+            <p>Erros internos do próprio módulo Erro.</p>
+            <div class="enum-block"><span class="kw">Pseudônimo</span> <span class="kw">Enumeração</span> {
+                <span class="val">CTEC_ERRO_ERRO_SUCESSO</span> = <span class="val">0</span>, <span class="cmt">//
+                    Operação concluída</span>
+                <span class="val">CTEC_ERRO_ERRO_FALHA</span> = <span class="val">-1</span> <span class="cmt">// Falha
+                    interna</span>
+                } <span class="type">CtecErroErro</span>;
+            </div>
+        </section>
+
+        <!-- CÓDIGOS DE ERRO POSIX -->
+        <section>
+            <h2>Códigos de Erro (POSIX traduzido)</h2>
+            <p>Constantes enumeradas correspondentes aos códigos <code>errno</code> padrão.</p>
+            <table class="field-table">
+                <thead>
+                    <tr>
+                        <th>Constante</th>
+                        <th>Valor</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>ERRO_PERMISSÃO</code></td>
+                        <td>1</td>
+                        <td>Operação não permitida</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_NÃO_EXISTE</code></td>
+                        <td>2</td>
+                        <td>Arquivo ou diretório não existe</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_PROCESSO_NÃO_ENCONTRADO</code></td>
+                        <td>3</td>
+                        <td>Processo não encontrado</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_INTERROMPIDO</code></td>
+                        <td>4</td>
+                        <td>Chamada de sistema interrompida</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_ENTRADA_SAÍDA</code></td>
+                        <td>5</td>
+                        <td>Erro de entrada/saída</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_DISPOSITIVO_NÃO_EXISTE</code></td>
+                        <td>6</td>
+                        <td>Dispositivo não existe</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_LISTA_ARGUMENTOS_GRANDE</code></td>
+                        <td>7</td>
+                        <td>Lista de argumentos excede o limite</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_FORMATO_EXECUTÁVEL</code></td>
+                        <td>8</td>
+                        <td>Formato de executável inválido</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_DESCRITOR_ARQUIVO_INVÁLIDO</code></td>
+                        <td>9</td>
+                        <td>Descritor de arquivo inválido</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_SEM_PROCESSOS_FILHOS</code></td>
+                        <td>10</td>
+                        <td>Sem processos filhos</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_TENTE_NOVAMENTE</code></td>
+                        <td>11</td>
+                        <td>Recurso temporariamente indisponível</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_MEMÓRIA_INSUFICIENTE</code></td>
+                        <td>12</td>
+                        <td>Memória insuficiente</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_PERMISSÃO_NEGADA</code></td>
+                        <td>13</td>
+                        <td>Permissão negada</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_ENDEREÇO_INVÁLIDO</code></td>
+                        <td>14</td>
+                        <td>Endereço inválido</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_RECURSO_OCUPADO</code></td>
+                        <td>16</td>
+                        <td>Recurso ocupado</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_JÁ_EXISTE</code></td>
+                        <td>17</td>
+                        <td>Arquivo já existe</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_LINK_CRUZADO</code></td>
+                        <td>18</td>
+                        <td>Link cruzado entre dispositivos</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_NÃO_É_DIRETÓRIO</code></td>
+                        <td>20</td>
+                        <td>Não é um diretório</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_É_DIRETÓRIO</code></td>
+                        <td>21</td>
+                        <td>É um diretório</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_ARGUMENTO_INVÁLIDO</code></td>
+                        <td>22</td>
+                        <td>Argumento inválido</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_MUITOS_ARQUIVOS_SISTEMA</code></td>
+                        <td>23</td>
+                        <td>Tabela de arquivos do sistema cheia</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_MUITOS_ARQUIVOS_PROCESSO</code></td>
+                        <td>24</td>
+                        <td>Muitos arquivos abertos no processo</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_NÃO_É_TERMINAL</code></td>
+                        <td>25</td>
+                        <td>Não é um terminal (tty)</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_ARQUIVO_TEXTO_OCUPADO</code></td>
+                        <td>26</td>
+                        <td>Arquivo de texto ocupado</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_ARQUIVO_MUITO_GRANDE</code></td>
+                        <td>27</td>
+                        <td>Arquivo muito grande</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_SEM_ESPAÇO</code></td>
+                        <td>28</td>
+                        <td>Sem espaço no dispositivo</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_BUSCA_INVÁLIDA</code></td>
+                        <td>29</td>
+                        <td>Busca (seek) inválida</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_SISTEMA_ARQUIVOS_SOMENTE_LEITURA</code></td>
+                        <td>30</td>
+                        <td>Sistema de arquivos somente leitura</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_MUITOS_LINKS</code></td>
+                        <td>31</td>
+                        <td>Muitos links</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_PIPE_QUEBRADO</code></td>
+                        <td>32</td>
+                        <td>Pipe quebrado</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_DOMÍNIO_MATEMÁTICO</code></td>
+                        <td>33</td>
+                        <td>Argumento fora do domínio matemático</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERRO_FORA_INTERVALO</code></td>
+                        <td>34</td>
+                        <td>Resultado fora do intervalo representável</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- GERENCIADOR -->
+        <section>
+            <h2>Interface do Gerenciador — <code>InterfaceGerenciadorErro</code></h2>
+            <p>
+                Acesse sempre pela <strong>instância global</strong> cujo nome é o
+                <strong>nome do tipo em minúsculo</strong>: <code>erro</code>.
+            </p>
+            <div class="fn-note">📌 Convenção: <code>Erro</code> → instância <code>erro</code></div>
+
+            <div class="fn-card">
+                <h3>obtenha_erro</h3>
+                <p>Retorna o código de erro atual do sistema (<code>errno</code>).</p>
+                <div class="fn-signature">Erro atual = erro.obtenha_erro();</div>
+                <div class="fn-return"><strong>Retorno:</strong> <code>Erro</code> — código de erro atual (0 = sem erro)
+                </div>
+            </div>
+
+            <div class="fn-card">
+                <h3>defina_erro</h3>
+                <p>Define o código de erro atual do sistema.</p>
+                <div class="fn-signature">erro.defina_erro(ERRO_PERMISSÃO_NEGADA);</div>
+                <ul class="fn-params">
+                    <li><code>valor</code> — Código de erro a ser definido (use constantes <code>ERRO_*</code>)</li>
+                </ul>
+                <div class="fn-return"><strong>Retorno:</strong> <code>Vazio</code></div>
+            </div>
+
+            <div class="fn-card">
+                <h3>mensagem</h3>
+                <p>Converte um código de erro numérico em sua mensagem textual equivalente.</p>
+                <div class="fn-signature">Caractere *msg = erro.mensagem(ERRO_ARQUIVO_MUITO_GRANDE);</div>
+                <ul class="fn-params">
+                    <li><code>erro</code> — Código de erro inteiro</li>
+                </ul>
+                <div class="fn-return"><strong>Retorno:</strong> <code>Caractere*</code> — mensagem descritiva do erro
+                </div>
+            </div>
+        </section>
+
+        <!-- EXEMPLO -->
+        <section>
+            <h2>Exemplo de Uso</h2>
+            <div class="example-block"><span class="kw">#Inclua</span> <span class="val">&lt;Convencional.int&gt;</span>
+
+                <span class="type">Inteiro</span> <span class="type">Início</span>() {
+                <span class="cmt">// Definir um erro</span>
+                erro.defina_erro(<span class="val">ERRO_PERMISSÃO_NEGADA</span>);
+
+                <span class="cmt">// Obter o erro atual</span>
+                <span class="type">Erro</span> atual = erro.obtenha_erro();
+
+                <span class="cmt">// Converter para mensagem legível</span>
+                <span class="type">Caractere</span> *msg = erro.mensagem(atual);
+
+                <span class="cmt">// Resetar o erro</span>
+                erro.defina_erro(<span class="val">0</span>);
+
+                <span class="kw">Retorne</span> <span class="val">0</span>;
+                }
+            </div>
+        </section>
+
+    </main>
+
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+#Inclua <Convencional.int>
+
+Externo Inteiro printf(Imutável Caractere*, ...);
+
+Inteiro Início() {
+    // Definir um erro
+    erro.defina_erro(ERRO_PERMISSÃO_NEGADA);
+
+    // Obter o erro atual
+    Erro atual = erro.obtenha_erro();
+
+    // Exibir a mensagem
+    Caractere *msg = erro.mensagem(atual);
+    printf("Código: %d\n", atual);
+    printf("Mensagem: %s\n", msg);
+
+    // Resetar
+    erro.defina_erro(0);
+
+    Retorne 0;
+}
