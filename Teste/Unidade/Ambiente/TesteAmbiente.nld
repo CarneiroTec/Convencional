@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 Caso testa_ambiente_variavel() {
     Caso caso = {
@@ -37,9 +37,9 @@ Caso testa_ambiente_variavel() {
 }
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Ambiente");
-    GerenciadorGrupo.adicione(&grupo, testa_ambiente_variavel);
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    Grupo grupo = grupo.crie("Testando Módulo Ambiente");
+    grupo.adicione(&grupo, testa_ambiente_variavel);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
     Retorne 0;
 }

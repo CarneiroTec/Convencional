@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 // ============================================================
 // Teste: dados.crie
@@ -264,26 +264,26 @@ Caso testa_acessor_nome_arquivo() {
 // ============================================================
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Dados");
+    Grupo grupo = grupo.crie("Testando Módulo Dados");
 
-    GerenciadorGrupo.adicione(&grupo, testa_crie);
-    GerenciadorGrupo.adicione(&grupo, testa_destrua);
-    GerenciadorGrupo.adicione(&grupo, testa_destrua_nulo);
-    GerenciadorGrupo.adicione(&grupo, testa_copie);
-    GerenciadorGrupo.adicione(&grupo, testa_clone);
-    GerenciadorGrupo.adicione(&grupo, testa_inicialize);
-    GerenciadorGrupo.adicione(&grupo, testa_inicialize_nulo);
-    GerenciadorGrupo.adicione(&grupo, testa_limpe);
-    GerenciadorGrupo.adicione(&grupo, testa_acessor_ponteiro);
-    GerenciadorGrupo.adicione(&grupo, testa_acessor_tamanho);
-    GerenciadorGrupo.adicione(&grupo, testa_acessor_base);
-    GerenciadorGrupo.adicione(&grupo, testa_acessor_tipo);
-    GerenciadorGrupo.adicione(&grupo, testa_acessor_arquivo);
-    GerenciadorGrupo.adicione(&grupo, testa_acessor_reserva_caractere);
-    GerenciadorGrupo.adicione(&grupo, testa_acessor_tamanho_reserva);
-    GerenciadorGrupo.adicione(&grupo, testa_acessor_nome_arquivo);
+    grupo.adicione(&grupo, testa_crie);
+    grupo.adicione(&grupo, testa_destrua);
+    grupo.adicione(&grupo, testa_destrua_nulo);
+    grupo.adicione(&grupo, testa_copie);
+    grupo.adicione(&grupo, testa_clone);
+    grupo.adicione(&grupo, testa_inicialize);
+    grupo.adicione(&grupo, testa_inicialize_nulo);
+    grupo.adicione(&grupo, testa_limpe);
+    grupo.adicione(&grupo, testa_acessor_ponteiro);
+    grupo.adicione(&grupo, testa_acessor_tamanho);
+    grupo.adicione(&grupo, testa_acessor_base);
+    grupo.adicione(&grupo, testa_acessor_tipo);
+    grupo.adicione(&grupo, testa_acessor_arquivo);
+    grupo.adicione(&grupo, testa_acessor_reserva_caractere);
+    grupo.adicione(&grupo, testa_acessor_tamanho_reserva);
+    grupo.adicione(&grupo, testa_acessor_nome_arquivo);
 
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
     Retorne 0;
 }

@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 Caso testa_terminal_io() {
     Caso caso = {
@@ -39,9 +39,9 @@ Caso testa_terminal_io() {
 }
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Terminal");
-    GerenciadorGrupo.adicione(&grupo, testa_terminal_io);
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    Grupo grupo = grupo.crie("Testando Módulo Terminal");
+    grupo.adicione(&grupo, testa_terminal_io);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
     Retorne 0;
 }

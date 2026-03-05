@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 Inteiro flag_sucesso = 0;
 
@@ -28,9 +28,9 @@ Caso testa_registro_saida() {
 }
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Execução");
-    GerenciadorGrupo.adicione(&grupo, testa_registro_saida);
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    Grupo grupo = grupo.crie("Testando Módulo Execução");
+    grupo.adicione(&grupo, testa_registro_saida);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
     Retorne 0;
 }

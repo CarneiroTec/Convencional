@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 // ============================================================
 // Terminal
@@ -188,30 +188,30 @@ Caso testa_memória_realoque() {
 // ============================================================
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Sistema");
+    Grupo grupo = grupo.crie("Testando Módulo Sistema");
 
     // Terminal
-    GerenciadorGrupo.adicione(&grupo, testa_terminal_exiba_caractere);
-    GerenciadorGrupo.adicione(&grupo, testa_terminal_exiba_formatado);
-    GerenciadorGrupo.adicione(&grupo, testa_terminal_exiba_texto);
+    grupo.adicione(&grupo, testa_terminal_exiba_caractere);
+    grupo.adicione(&grupo, testa_terminal_exiba_formatado);
+    grupo.adicione(&grupo, testa_terminal_exiba_texto);
 
     // Ambiente
-    GerenciadorGrupo.adicione(&grupo, testa_ambiente_defina_obtenha);
-    GerenciadorGrupo.adicione(&grupo, testa_ambiente_inexistente);
+    grupo.adicione(&grupo, testa_ambiente_defina_obtenha);
+    grupo.adicione(&grupo, testa_ambiente_inexistente);
 
     // Execução
-    GerenciadorGrupo.adicione(&grupo, testa_execução_suceda);
+    grupo.adicione(&grupo, testa_execução_suceda);
 
     // Tempo
-    GerenciadorGrupo.adicione(&grupo, testa_tempo_obtenha_tempo);
-    GerenciadorGrupo.adicione(&grupo, testa_tempo_obtenha_relógio);
+    grupo.adicione(&grupo, testa_tempo_obtenha_tempo);
+    grupo.adicione(&grupo, testa_tempo_obtenha_relógio);
 
     // Memória
-    GerenciadorGrupo.adicione(&grupo, testa_memória_aloque_libere);
-    GerenciadorGrupo.adicione(&grupo, testa_memória_aloque_zerado);
-    GerenciadorGrupo.adicione(&grupo, testa_memória_realoque);
+    grupo.adicione(&grupo, testa_memória_aloque_libere);
+    grupo.adicione(&grupo, testa_memória_aloque_zerado);
+    grupo.adicione(&grupo, testa_memória_realoque);
 
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
     Retorne 0;
 }
