@@ -1,177 +1,226 @@
-===============================================================================
-CTEC CONVENCIONAL — EXEMPLO DE IMPLEMENTAÇÃO
-===============================================================================
+# CTEC Convencional — Referência Rápida
+
+Biblioteca padrão da linguagem NLD.
+
+```
+#Inclua <Convencional.int>
+```
+
+## Compilação
+
+```powershell
+# Estática (tudo embutido no executável)
+nld programa.nld -I Interface Construcao\libconvencional.a -o programa.exe
+
+# Dinâmica (requer convencional.dll junto ao executável)
+nld programa.nld -I Interface -L Construcao -lconvencional -o programa.exe
+```
+
+---
+
+## 1. Sistema — `sistema`
+
+Instância global `Imutável` com 5 sub-áreas acessadas via structs aninhadas.
+
+### sistema.terminal
+
+| Função | Uso |
+|---|---|
+| `exiba_caractere` | `sistema.terminal.exiba_caractere('A')` |
+| `exiba_formatado` | `sistema.terminal.exiba_formatado("%d", x)` |
+| `exiba_texto` | `sistema.terminal.exiba_texto("Olá")` |
+| `leia_caractere` | `sistema.terminal.leia_caractere()` |
+| `leia_formatado` | `sistema.terminal.leia_formatado("%d", &x)` |
+| `leia_texto` | `sistema.terminal.leia_texto(buf)` |
+
+### sistema.ambiente
+
+| Função | Uso |
+|---|---|
+| `defina_variável` | `sistema.ambiente.defina_variável("NOME", "valor")` |
+| `obtenha_variável` | `sistema.ambiente.obtenha_variável("NOME")` |
+
+### sistema.execução
+
+| Função | Uso |
+|---|---|
+| `aborte` | `sistema.execução.aborte()` |
+| `finalize` | `sistema.execução.finalize(0)` |
+| `finalize_imediamente` | `sistema.execução.finalize_imediamente(1)` |
+| `suceda` | `sistema.execução.suceda(func)` |
+
+### sistema.tempo
+
+| Função | Uso |
+|---|---|
+| `obtenha_tempo` | `sistema.tempo.obtenha_tempo(&t)` |
+| `obtenha_relógio` | `sistema.tempo.obtenha_relógio()` |
+| `aguarde` | `sistema.tempo.aguarde(1000)` |
+
+### sistema.memória
+
+| Função | Uso |
+|---|---|
+| `aloque` | `sistema.memória.aloque(1024)` |
+| `aloque_zerado` | `sistema.memória.aloque_zerado(10, 4)` |
+| `realoque` | `sistema.memória.realoque(ptr, 2048)` |
+| `libere` | `sistema.memória.libere(ptr)` |
+
+---
+
+## 2. Arquivo — `arquivo`
+
+Encapsula I/O de arquivo (fopen, fread, fprintf, etc.). `Arquivo` é pseudônimo de `Dados`.
+
+| Função | Uso |
+|---|---|
+| `crie` | `arquivo.crie("nome.txt", "w")` |
+| `abra` | `arquivo.abra("nome.txt", "r")` |
+| `feche` | `arquivo.feche(arq)` |
+| `leia` | `arquivo.leia(buf, tam, qtd, arq)` |
+| `escreva` | `arquivo.escreva(buf, tam, qtd, arq)` |
+| `despeje` | `arquivo.despeje(arq)` |
+| `escreva_formatado` | `arquivo.escreva_formatado(arq, "%d", x)` |
+| `leia_formatado` | `arquivo.leia_formatado(arq, "%d", &x)` |
+| `posicione` | `arquivo.posicione(arq, 0, 0)` |
+| `obtenha_posição` | `arquivo.obtenha_posição(arq)` |
+| `reinicie` | `arquivo.reinicie(arq)` |
+| `fim_arquivo` | `arquivo.fim_arquivo(arq)` |
+| `erro_arquivo` | `arquivo.erro_arquivo(arq)` |
+| `limpe_erro` | `arquivo.limpe_erro(arq)` |
+| `obtenha_caractere` | `arquivo.obtenha_caractere(arq)` |
+| `exiba_caractere` | `arquivo.exiba_caractere('A', arq)` |
+| `obtenha_linha` | `arquivo.obtenha_linha(buf, n, arq)` |
+| `exiba_linha` | `arquivo.exiba_linha("texto", arq)` |
+| `devolva_caractere` | `arquivo.devolva_caractere('X', arq)` |
+| `defina_reserva` | `arquivo.defina_reserva(arq, buf, modo, tam)` |
+| `configure_reserva` | `arquivo.configure_reserva(arq, buf)` |
+| `temporário` | `arquivo.temporário()` |
+| `nome_temporário` | `arquivo.nome_temporário(buf)` |
+| `remova` | `arquivo.remova("nome.txt")` |
+| `renomeie` | `arquivo.renomeie("a.txt", "b.txt")` |
 
-1) DETECÇÃO DE PLATAFORMA
+---
 
-Arquivo: CtecPlataforma.nld
+## 3. Dados — `dados`
 
-#SeDefinido(_WIN32) OuSeDefinido(_WIN64) #Defina CTEC_SISTEMA_WINDOWS 1
-#SenãoSeDefinido(linux) #Defina CTEC_SISTEMA_LINUX 1 #Senão #Erro
-Plataforma não suportada #FimSe
+Estrutura genérica de dados com 8 campos e gerenciamento de ciclo de vida.
 
-2) MÓDULO SISTEMA (Terminal)
+| Função | Uso |
+|---|---|
+| `crie` | `Dados d = dados.crie()` |
+| `destrua` | `dados.destrua(&d)` |
+| `copie` | `dados.copie(&dest, &orig)` — cópia rasa |
+| `clone` | `dados.clone(&dest, &orig)` — cópia profunda |
+| `inicialize` | `dados.inicialize(&d)` |
+| `limpe` | `dados.limpe(&d)` |
+| `defina_ponteiro` / `obtenha_ponteiro` | Caractere* |
+| `defina_tamanho` / `obtenha_tamanho` | Inteiro |
+| `defina_base` / `obtenha_base` | Caractere* |
+| `defina_tipo` / `obtenha_tipo` | Inteiro |
+| `defina_arquivo` / `obtenha_arquivo` | Inteiro |
+| `defina_reserva_caractere` / `obtenha_reserva_caractere` | Inteiro |
+| `defina_tamanho_reserva` / `obtenha_tamanho_reserva` | Inteiro |
+| `defina_nome_arquivo` / `obtenha_nome_arquivo` | Caractere* |
 
-Arquivo: Sistema.nld
+---
 
-Pseudônimo Estrutura CtecSistema CtecSistema;
+## 4. Erro — `erro`
 
-Pseudônimo Enumeração { CTEC_SISTEMA_ERRO_SUCESSO = 0,
-CTEC_SISTEMA_ERRO_FALHA = -1 } CtecSistemaErro;
+Tratamento de erros com 34 códigos pré-definidos (ERRO_PERMISSÃO, ERRO_NÃO_EXISTE, etc.).
 
-Pseudônimo Estrutura { CtecSistemaErro (*exiba)(Texto mensagem); }
-TabelaTerminal;
+| Função | Uso |
+|---|---|
+| `obtenha_erro` | `Erro e = erro.obtenha_erro()` |
+| `defina_erro` | `erro.defina_erro(ERRO_PERMISSÃO)` |
+| `mensagem` | `erro.mensagem(ERRO_PERMISSÃO)` → `"Permissão negada"` |
 
-Pseudônimo Estrutura { TabelaTerminal terminal; } TabelaSistema;
+---
 
-Externo Imutável TabelaSistema sistema;
+## 5. Teste — `caso` + `grupo`
 
-Arquivo: Sistema.int
+Framework de testes unitários.
 
-#Inclua “CtecPlataforma.nld”
+### caso
 
-Estrutura CtecSistema { Inteiro reservado; };
+| Função | Uso |
+|---|---|
+| `crie` | `caso.crie(arq, func, lin, msg)` |
+| `instancie` | `caso.instancie()` — usa macros ARQUIVO, FUNÇÃO, LINHA |
+| `destrua` | `caso.destrua(&c)` |
 
-#SeDefinido(CTEC_SISTEMA_WINDOWS) #Inclua <windows.h> #FimSe
+### grupo
 
-#SeDefinido(CTEC_SISTEMA_LINUX) #Inclua <stdio.h> #FimSe
+| Função | Uso |
+|---|---|
+| `crie` | `Grupo g = grupo.crie("Nome")` |
+| `adicione` | `grupo.adicione(&g, meu_teste)` |
+| `execute` | `grupo.execute(&g)` |
+| `destrua` | `grupo.destrua(&g)` |
 
-Fixo CtecSistemaErro ctec_sistema_terminal_exiba(Texto mensagem) {
+---
 
-#SeDefinido(CTEC_SISTEMA_WINDOWS)
+## 6. Variádicos — `variádicos`
 
-    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    Se (console == INVALID_HANDLE_VALUE)
-        Retorne CTEC_SISTEMA_ERRO_FALHA;
+Suporte a argumentos variádicos (va_start, va_arg, va_copy, va_end).
 
-    DWORD escrito = 0;
-    WriteConsoleA(console, mensagem, lstrlenA(mensagem), &escrito, NULO);
-    Retorne CTEC_SISTEMA_ERRO_SUCESSO;
+| Função | Uso |
+|---|---|
+| `inicie` | `variádicos.inicie(&lista, quadro)` |
+| `obtenha` | `variádicos.obtenha(&lista, tipo, tam, alin)` |
+| `copie` | `variádicos.copie(&dest, &orig)` |
+| `finalize` | `variádicos.finalize(&lista)` |
 
-#SenãoSeDefinido(CTEC_SISTEMA_LINUX)
+---
 
-    Se (printf("%s", mensagem) < 0)
-        Retorne CTEC_SISTEMA_ERRO_FALHA;
+## Exemplo Completo
 
-    Retorne CTEC_SISTEMA_ERRO_SUCESSO;
+```nld
+#Inclua <Convencional.int>
 
-#FimSe }
+Inteiro Início() {
+    // Terminal
+    sistema.terminal.exiba_texto("Olá, Mundo!");
+    sistema.terminal.exiba_formatado("2 + 3 = %d\n", 5);
 
-Imutável TabelaSistema sistema = { .terminal = { .exiba =
-ctec_sistema_terminal_exiba } };
+    // Memória
+    Inteiro *p = (Inteiro*)sistema.memória.aloque(meça(Inteiro) * 10);
+    *p = 42;
+    sistema.terminal.exiba_formatado("Valor: %d\n", *p);
+    sistema.memória.libere(p);
 
-3) MÓDULO ARQUIVO
+    // Arquivo
+    Arquivo *arq = arquivo.crie("saida.txt", "w");
+    arquivo.escreva_formatado(arq, "Gerado pela Convencional!\n");
+    arquivo.feche(arq);
+    arquivo.remova("saida.txt");
 
-Arquivo: Arquivo.nld
-
-Pseudônimo Estrutura CtecArquivo CtecArquivo;
-
-Pseudônimo Enumeração { CTEC_ARQUIVO_ERRO_SUCESSO = 0,
-CTEC_ARQUIVO_ERRO_NÃO_ENCONTRADO = -2, CTEC_ARQUIVO_ERRO_PERMISSÃO = -1
-} CtecArquivoErro;
-
-Pseudônimo Estrutura { CtecArquivoErro (*crie)(CtecArquivo** próprio,
-Texto caminho); Vazio (*feche)(CtecArquivo** próprio); } TabelaArquivo;
-
-Externo Imutável TabelaArquivo arquivo;
-
-Arquivo: Arquivo.int
-
-#Inclua “CtecPlataforma.nld”
-
-#SeDefinido(CTEC_SISTEMA_WINDOWS) #Inclua <windows.h> #FimSe
-
-#SeDefinido(CTEC_SISTEMA_LINUX) #Inclua <stdio.h> #FimSe
-
-Estrutura CtecArquivo {
-
-#SeDefinido(CTEC_SISTEMA_WINDOWS) HANDLE identificador;
-#SenãoSeDefinido(CTEC_SISTEMA_LINUX) FILE* identificador; #FimSe
-
-};
-
-Fixo CtecArquivoErro ctec_arquivo_crie(CtecArquivo** próprio, Texto
-caminho) {
-
-    Se (!próprio) Retorne CTEC_ARQUIVO_ERRO_PERMISSÃO;
-
-    *próprio = alocar_memória(tamanho_de(CtecArquivo));
-    Se (!*próprio) Retorne CTEC_ARQUIVO_ERRO_PERMISSÃO;
-
-#SeDefinido(CTEC_SISTEMA_WINDOWS)
-
-    HANDLE h = CreateFileA(
-        caminho,
-        GENERIC_READ | GENERIC_WRITE,
-        0,
-        NULO,
-        CREATE_ALWAYS,
-        FILE_ATTRIBUTE_NORMAL,
-        NULO
-    );
-
-    Se (h == INVALID_HANDLE_VALUE) {
-        liberar_memória(*próprio);
-        *próprio = NULO;
-        Retorne CTEC_ARQUIVO_ERRO_PERMISSÃO;
-    }
-
-    (*próprio)->identificador = h;
-
-#SenãoSeDefinido(CTEC_SISTEMA_LINUX)
-
-    FILE* f = fopen(caminho, "w+");
-    Se (!f) {
-        liberar_memória(*próprio);
-        *próprio = NULO;
-        Retorne CTEC_ARQUIVO_ERRO_PERMISSÃO;
-    }
-
-    (*próprio)->identificador = f;
-
-#FimSe
-
-    Retorne CTEC_ARQUIVO_ERRO_SUCESSO;
-
-}
-
-Fixo Vazio ctec_arquivo_feche(CtecArquivo** próprio) {
-
-    Se (!próprio || !*próprio) Retorne;
-
-#SeDefinido(CTEC_SISTEMA_WINDOWS) CloseHandle((próprio)->identificador);
-#SenãoSeDefinido(CTEC_SISTEMA_LINUX) fclose((próprio)->identificador);
-#FimSe
-
-    liberar_memória(*próprio);
-    *próprio = NULO;
-
-}
-
-Imutável TabelaArquivo arquivo = { .crie = ctec_arquivo_crie, .feche =
-ctec_arquivo_feche };
-
-4) USO NO APLICATIVO
-
-Arquivo: Aplicativo.nld
-
-#Inclua “Arquivo.nld” #Inclua “Sistema.nld”
-
-Inteiro principal(Vazio) {
-
-    CtecArquivo* manifesto;
-
-    CtecArquivoErro erro = arquivo.crie(&manifesto, "Projeto.nds");
-
-    Se (erro != CTEC_ARQUIVO_ERRO_SUCESSO) {
-        sistema.terminal.exiba("Erro ao criar arquivo\n");
-        Retorne -1;
-    }
-
-    sistema.terminal.exiba("Olá Mundo!\n");
-
-    arquivo.feche(&manifesto);
+    // Tempo
+    Longo agora = sistema.tempo.obtenha_tempo((Vazio*)0);
+    sistema.terminal.exiba_formatado("Timestamp: %ld\n", agora);
 
     Retorne 0;
-
 }
+```
+
+---
+
+## Estrutura do Projeto
+
+```
+Convencional/
+├── Interface/           ← cabeçalhos (.int)
+│   ├── Convencional.int ← inclui todos os módulos
+│   ├── Arquivo/
+│   ├── Dados/
+│   ├── Erro/
+│   ├── Sistema/
+│   ├── Teste/
+│   └── Variadicos/
+├── Fonte/               ← implementações (.nld)
+├── Teste/Unidade/       ← testes unitários
+├── Exemplo/             ← exemplos de uso
+└── Construcao/          ← bibliotecas geradas
+    ├── libconvencional.a
+    └── convencional.dll
+```

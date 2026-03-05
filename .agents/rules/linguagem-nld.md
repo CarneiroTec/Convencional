@@ -2,23 +2,25 @@
 trigger: always_on
 ---
 
-# NLD - Nildo Compilador
+# NLD — Nildo Compilador
 
-## Descrição
+---
 
-Linguagem de Programação PT-BR Acentuado s/ Anglicismos. Ela é um fork de tiny c compiler.
+## IDENTIDADE
 
-- Compilador: nld
-- Ponto de Entrada: Início()
-- Tipagem: Fraca e Estática
+**Nome:** NLD — Nildo Compilador
+**Tipo:** Linguagem de Programação em Português Brasileiro acentuado, sem anglicismos
+**Compilador:** `nld`
+**Ponto de Entrada:** `Início()`
+**Tipagem:** Fraca e Estática
 
-## Exemplo de Código
-### Olá Mundo
+---
 
-````
-// Usando biblioteca padrão do C
+## EXEMPLO — Olá Mundo
+
+```nld
+// Usando biblioteca padrão
 Externo Inteiro printf(Imutável Caractere*, ...);
-
 #Defina exiba_formatado printf
 
 Inteiro Início() {
@@ -26,101 +28,185 @@ Inteiro Início() {
     exiba_formatado("%s %s!\n", mensagem, "Mundo");
     Retorne 0;
 }
+```
 
-````
-
-Comando no Powershell
-````
+**PowerShell:**
+```powershell
 nld.exe ola_mundo.nld
 ./ola_mundo
-````
+```
 
-Comando no CMD
-````
+**CMD:**
+```cmd
 nld.exe ola_mundo.nld
 ola_mundo
-````
+```
 
-## Referência Rápida
+---
 
-### Pré-Processadores
-- #Aviso
-- #Erro
-- #Diretiva
-- #Inclua
-- #Defina
-- #SeDefinido
-- #SeNãoDefinido
-- #Esqueça
-- #FimSe
+## PRÉ-PROCESSADORES
 
-### Especificadores de Âncoragem
-- Fixo
-- Externo
+- `#Aviso`
+- `#Erro`
+- `#Diretiva`
+- `#Inclua`
+- `#Defina`
+- `#SeDefinido`
+- `#SeNãoDefinido`
+- `#Esqueça`
+- `#FimSe`
 
-### Tipos de Dados
-- Vazio
-- Lógico
-- Inteiro
-- Real
-- Duplo
-- Caractere
+---
 
-### Modificadores de Tipos
-- Curto
-- Longo
-- Natural
-- Bilateral
+## ESPECIFICADORES DE ÂNCORAGEM
 
-### Qualificadores de Variável
-- Imutável
-- Instável
-- Integrado
-- Exclusivo
+- `Fixo`
+- `Externo`
+
+---
+
+## TIPOS DE DADOS
+
+- `Vazio`
+- `Lógico`
+- `Inteiro`
+- `Real`
+- `Duplo`
+- `Caractere`
+
+---
+
+## MODIFICADORES DE TIPOS
+
+- `Curto`
+- `Longo`
+- `Natural`
+- `Bilateral`
+
+---
+
+## QUALIFICADORES DE VARIÁVEL
+
+- `Imutável`
+- `Instável`
+- `Integrado`
+- `Exclusivo`
+
+---
+
+## ESTRUTURAS DE DADOS
+
+- `Enumeração`
+- `Estrutura`
+- `Pseudônimo`
+- `União`
+
+---
+
+## PONTEIROS
+
+- Sinal de Ponteiro: `*`
+- Operador de Referência: `&`
+
+---
+
+## CONTROLE DE FLUXO
+
+- `Se`
+- `Para`
+- `Retorne`
+- `Execute`
+
+> ⚠️ Não existem nativamente: `Senão`, `SenãoSe`, `Enquanto`, `Faça...Enquanto`, `Troque...Caso`
+
+---
+
+## OPERADORES
+
+| Categoria   | Operadores                           |
+|-------------|--------------------------------------|
+| Aritméticos | `+`, `-`, `*`, `/`, `%`, `++`, `--`  |
+| Atribuição  | `=`, `+=`, `-=`, `*=`, `/=`, `%=`    |
+| Bit a Bit   | `&`, `\|`, `^`, `~`, `<<`, `>>`      |
+| Comparação  | `==`, `!=`, `>`, `<`, `>=`, `<=`     |
+
+---
+
+## FUNÇÕES DE COMPILADOR
+
+- `afirme_constante`
+- `atribua`
+- `compare_tipo_compatível`
+- `deduza`
+- `escolha_expressão`
+- `identifique`
+- `Início`
+- `Genérico`
+- `meça`
+- `Montador`
+- `obtenha_alinhamento`
+- `obtenha_endereço_pilha`
+- `obtenha_endereço_retorno`
+
+---
+
+## MACROs DE COMPILADOR
+
+- `ARQUIVO`
+- `ARGUMENTOS_VARIÁVEIS`
+- `DATA`
+- `CONTADOR`
+- `FUNÇÃO`
+- `HORA`
+- `LINHA`
+
+---
+
+## CONVENÇÕES DE NOMENCLATURA
+
+| Elemento                  | Padrão                        | Exemplo                              |
+|---------------------------|-------------------------------|--------------------------------------|
+| Variáveis e Instâncias    | `primeiraMinúsculaSemEspaços` | `totalUsuários`                      |
+| Funções                   | `minúsculasComSublinhado`     | `calcular_total`                     |
+| Estruturas e Uniões       | `TodasIniciaisMaiúsculas`     | `CtecSistema`                        |
+| Tabelas de Funções        | `Tabela` + iniciaisMaiúsculas | `TabelaSistema`                      |
+| Tipos Enumerados          | `TodasIniciaisMaiúsculas`     | `CtecSistemaErro`                    |
+| Valores Enumerados        | `MAIÚSCULAS_COM_SUBLINHADO`   | `CTEC_SISTEMA_ERRO_TEMPO_ESGOTADO`   |
+| Símbolos                  | `[publicador]_[módulo]_[nome]`| `ctec_sistema_janela_crie`           |
+
+---
+
+## ARQUITETURA DE MÓDULOS
 
 ### Estrutura de Dados
-- Enumeração
-- Estrutura
-- Pseudônimo
-- União
+Cada módulo deve conter uma `Estrutura` que armazena seus dados internos.
 
-### Ponteiro
-- Sinal de Ponteiro - *
-- Operador de Referência - &
+### Interface Gerenciador
+Cada módulo deve ter uma interface `gerenciador` contendo:
+- Funções `defina_[campo]` e `obtenha_[campo]` para cada campo da estrutura.
+- Funções auxiliares do módulo.
 
-### Controle de Fluxo
-- Se
-- Para
-- Retorne
-- Execute
--  Obs.: Não existe Senão, SenãoSe, Enquanto, Faça...Enquanto, Troque...Caso nativos.
+### Instância Global
+- Cada módulo deve ter uma instância global nomeada com o próprio nome do módulo.
+- Toda instância global deve ser `Imutável`.
 
-### Operadores
-- Aritméticos: +, -, *, /, %, ++, --
-- Atribuição: =, +=, -=, *=, /=, %=
-- Bit a Bit: &, |, ^, ~, <<, >>
-- Comparação: ==, !=, >, <, >=, <=
+### Enumerações de Erro
+Cada módulo deve declarar `Enumeração` cobrindo os possíveis erros do módulo.
 
-### Funções de Compilador
-- afirme_constante
-- atribua
-- compare_tipo_compatível
-- deduza
-- escolha_expressão
-- identifique
-- Início
-- Genérico
-- meça
-- Montador
-- obtenha_alinhamento
-- obtenha_endereço_pilha
-- obtenha_endereço_retorno
+### Implementações
+Todas as funções de implementação de um módulo devem usar `Fixo`.
 
-### MACRO de Compilador
-- ARQUIVO
-- ARGUMENTOS_VARIÁVEIS
-- DATA
-- CONTADOR
-- FUNÇÃO
-- HORA
-- LINHA
+---
+
+## FLUXO DE CONTRIBUIÇÃO
+
+```
+1. Crie uma branch com o nome da task
+2. Crie a documentação do que será alterado
+3. Crie o teste do que será alterado
+4. Crie a implementação da alteração
+5. Crie exemplo de uso
+6. Faça merge na branch "release-ia"
+```
+
+> 📄 Documentação deve ser escrita em **HTML**.
