@@ -69,7 +69,7 @@ Fixo Vazio *ctec_convencional_variadicos_obtenha(
     Retorne __va_arg(lista, tipoArgumento, tamanhoArgumento, alinhamentoArgumento);
 }
 
-ModeloGerenciadorVariádicos GerenciadorVariádicos = {
+Imutável InterfaceGerenciadorVariádicos variádicos = {
     .inicie = ctec_convencional_variadicos_inicie,
     .obtenha = ctec_convencional_variadicos_obtenha,
     .copie = ctec_convencional_variadicos_copie,

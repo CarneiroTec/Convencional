@@ -5,10 +5,7 @@
 #Inclua "Arquivo/Arquivo.int"
 #Inclua "Dados/Dados.int"
 #Inclua "Erro/Erro.int"
-#Inclua "Execucao/Execucao.int"
-#Inclua "Memoria/Memoria.int"
-#Inclua "Tempo/Tempo.int"
-#Inclua "Terminal/Terminal.int"
+#Inclua "Sistema/Sistema.int"
 #Inclua "Teste/Teste.int"
 #Inclua "Variadicos/Variadicos.int"
 

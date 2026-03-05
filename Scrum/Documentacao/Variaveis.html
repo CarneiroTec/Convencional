@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Variáveis — CTEC Convencional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header data-modulo="Variáveis" data-sprint="Sprint 6" data-versao="v0.1.0"></header>
+
+    <main>
+
+        <section>
+            <h2>Visão Geral</h2>
+            <p>
+                O módulo <strong>Variáveis</strong> encapsula o suporte a argumentos variádicos
+                (<code>va_start</code>, <code>va_arg</code>, <code>va_copy</code>, <code>va_end</code>)
+                em uma interface NLD de alto nível.
+            </p>
+        </section>
+
+        <section>
+            <h2>Enumeração de Erro — <code>CtecErroVariádicos</code></h2>
+            <div class="enum-block"><span class="kw">Pseudônimo</span> <span class="kw">Enumeração</span> {
+                <span class="val">CTEC_ERRO_VARIÁDICOS_SUCESSO</span> = <span class="val">0</span>,
+                <span class="val">CTEC_ERRO_VARIÁDICOS_FALHA</span> = <span class="val">-1</span>
+                } <span class="type">CtecErroVariádicos</span>;
+            </div>
+        </section>
+
+        <section>
+            <h2>Estrutura — <code>ListaVariádicos</code></h2>
+            <table class="field-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>deslocamentoInteiro</code></td>
+                        <td><code>Natural Inteiro</code></td>
+                        <td>Offset atual para inteiros</td>
+                    </tr>
+                    <tr>
+                        <td><code>deslocamentoReal</code></td>
+                        <td><code>Natural Inteiro</code></td>
+                        <td>Offset para ponto-flutuante</td>
+                    </tr>
+                    <tr>
+                        <td><code>deslocamentoEstouro</code></td>
+                        <td><code>Natural Inteiro</code></td>
+                        <td>Offset de estouro (união)</td>
+                    </tr>
+                    <tr>
+                        <td><code>áreaEstouro</code></td>
+                        <td><code>Caractere*</code></td>
+                        <td>Área de estouro (união)</td>
+                    </tr>
+                    <tr>
+                        <td><code>áreaRegistros</code></td>
+                        <td><code>Caractere*</code></td>
+                        <td>Base do quadro de chamada</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Gerenciador — <code>variádicos</code></h2>
+            <div class="fn-note">📌 Convenção: <code>Variáveis</code> → instância <code>Imutável variádicos</code></div>
+            <table class="field-table">
+                <thead>
+                    <tr>
+                        <th>Função</th>
+                        <th>Assinatura</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>inicie</code></td>
+                        <td><code>variádicos.inicie(&amp;lista, quadro)</code></td>
+                        <td>Inicia a lista variádica (va_start)</td>
+                    </tr>
+                    <tr>
+                        <td><code>obtenha</code></td>
+                        <td><code>variádicos.obtenha(&amp;lista, tipo, tam, alin)</code></td>
+                        <td>Obtém próximo argumento (va_arg)</td>
+                    </tr>
+                    <tr>
+                        <td><code>copie</code></td>
+                        <td><code>variádicos.copie(&amp;dest, &amp;orig)</code></td>
+                        <td>Copia estado (va_copy)</td>
+                    </tr>
+                    <tr>
+                        <td><code>finalize</code></td>
+                        <td><code>variádicos.finalize(&amp;lista)</code></td>
+                        <td>Finaliza a lista (va_end)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Exemplo de Uso</h2>
+            <div class="example-block"><span class="kw">Vazio</span> soma(<span class="type">Inteiro</span> n, ...) {
+                <span class="type">ListaVariádicos</span> lista;
+                variádicos.inicie(&amp;lista, (<span class="type">Vazio</span>*)((<span
+                    class="type">Caractere</span>*)&amp;n + meça(<span class="type">Inteiro</span>)));
+
+                <span class="cmt">// Processar argumentos...</span>
+
+                variádicos.finalize(&amp;lista);
+                }
+            </div>
+        </section>
+
+    </main>
+
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
