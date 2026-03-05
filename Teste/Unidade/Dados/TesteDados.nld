@@ -49,10 +49,10 @@ Caso testa_destrua_nulo() {
 }
 
 // ============================================================
-// Teste: dados.extenda
+// Teste: dados.clone
 // ============================================================
 
-Caso testa_extenda() {
+Caso testa_clone() {
     Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
 
     Dados origem = dados.crie();
@@ -61,15 +61,15 @@ Caso testa_extenda() {
     origem.arquivo = 7;
 
     Dados destino = dados.crie();
-    dados.extenda(&destino, &origem);
+    dados.clone(&destino, &origem);
 
     Se (destino.tamanho != 100 || destino.tipo != 5 || destino.arquivo != 7) {
         caso.estado = 0; caso.linha = LINHA;
-        caso.mensagem = "Falhou: extenda não copiou os campos";
+        caso.mensagem = "Falhou: clone não copiou os campos";
         Retorne caso;
     }
 
-    caso.mensagem = "Passou: dados.extenda";
+    caso.mensagem = "Passou: dados.clone";
     Retorne caso;
 }
 
@@ -237,7 +237,7 @@ Inteiro Início() {
     GerenciadorGrupo.adicione(&grupo, testa_crie);
     GerenciadorGrupo.adicione(&grupo, testa_destrua);
     GerenciadorGrupo.adicione(&grupo, testa_destrua_nulo);
-    GerenciadorGrupo.adicione(&grupo, testa_extenda);
+    GerenciadorGrupo.adicione(&grupo, testa_clone);
     GerenciadorGrupo.adicione(&grupo, testa_inicialize);
     GerenciadorGrupo.adicione(&grupo, testa_inicialize_nulo);
     GerenciadorGrupo.adicione(&grupo, testa_limpe);

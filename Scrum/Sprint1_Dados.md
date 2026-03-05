@@ -11,7 +11,7 @@ Estrutura Dados (8 campos):
 Funções Padrão do Gerenciador:
   - dados.crie()                     → construtor
   - dados.destrua(Dados*)            → destrutor
-  - dados.extenda(Dados*, Dados*)    → estende uma instância com outra
+  - dados.clone(Dados*, Dados*)    → estende uma instância com outra
 
 Acessores (defina/obtenha por campo):
   - dados.defina_ponteiro / dados.obtenha_ponteiro
@@ -35,7 +35,7 @@ Fase 1 — Documentação
   [ ] Documentar Dados.int (Dados, CtecErroDados, InterfaceGerenciadorDados)
   [ ] Documentar dados.crie — aloca e retorna instância inicializada
   [ ] Documentar dados.destrua — libera instância alocada
-  [ ] Documentar dados.extenda — copia campos de origem para destino
+  [ ] Documentar dados.clone — copia campos de origem para destino
   [ ] Documentar dados.inicialize — inicializa campos com valores padrão
   [ ] Documentar dados.limpe — reinicia campos para valores padrão
   [ ] Documentar dados.defina_ponteiro / dados.obtenha_ponteiro
@@ -53,7 +53,7 @@ Fase 2 — Testes
   [ ] Teste: dados.crie retorna ponteiro não-nulo
   [ ] Teste: dados.destrua libera sem falha
   [ ] Teste: dados.destrua com ponteiro nulo não causa falha
-  [ ] Teste: dados.extenda copia todos os campos corretamente
+  [ ] Teste: dados.clone copia todos os campos corretamente
   [ ] Teste: dados.inicialize zera todos os campos
   [ ] Teste: dados.inicialize com ponteiro nulo não causa falha
   [ ] Teste: dados.limpe reinicia os campos após modificação
@@ -72,7 +72,7 @@ Fase 3 — Implementação
 -------------------------------------------------------------------------------
   [ ] Implementar ctec_convencional_dados_crie
   [ ] Implementar ctec_convencional_dados_destrua
-  [ ] Implementar ctec_convencional_dados_extenda
+  [ ] Implementar ctec_convencional_dados_clone
   [ ] Implementar ctec_convencional_dados_inicialize
   [ ] Implementar ctec_convencional_dados_limpe
   [ ] Implementar ctec_convencional_dados_defina_ponteiro

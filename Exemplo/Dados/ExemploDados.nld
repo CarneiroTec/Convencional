@@ -20,7 +20,7 @@ Inteiro Início() {
 
     // Estender de uma instância para outra
     Dados cópia = dados.crie();
-    dados.extenda(&cópia, &bloco);
+    dados.clone(&cópia, &bloco);
     printf("Cópia Tamanho: %d\n", dados.obtenha_tamanho(&cópia));
 
     // Destruir ambas

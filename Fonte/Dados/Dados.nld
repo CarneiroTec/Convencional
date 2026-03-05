@@ -29,7 +29,7 @@ Fixo Vazio ctec_convencional_dados_destrua(Dados *dados) {
     dados->nomeArquivo = (Vazio*)0;
 }
 
-Fixo Vazio ctec_convencional_dados_extenda(Dados *destino, Dados *origem) {
+Fixo Vazio ctec_convencional_dados_clone(Dados *destino, Dados *origem) {
     Se (destino == (Vazio*)0 || origem == (Vazio*)0) { Retorne; }
     destino->ponteiro = origem->ponteiro;
     destino->tamanho = origem->tamanho;
@@ -180,7 +180,7 @@ Fixo Caractere *ctec_convencional_dados_obtenha_nome_arquivo(Dados *dados) {
 Imutável InterfaceGerenciadorDados dados = {
     .crie = ctec_convencional_dados_crie,
     .destrua = ctec_convencional_dados_destrua,
-    .extenda = ctec_convencional_dados_extenda,
+    .clone = ctec_convencional_dados_clone,
     .inicialize = ctec_convencional_dados_inicialize,
     .limpe = ctec_convencional_dados_limpe,
     .defina_ponteiro = ctec_convencional_dados_defina_ponteiro,

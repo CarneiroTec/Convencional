@@ -134,11 +134,11 @@
                 <div class="fn-return"><strong>Retorno:</strong> <code>Vazio</code></div>
             </div>
 
-            <!-- extenda -->
+            <!-- clone -->
             <div class="fn-card">
-                <h3>extenda</h3>
+                <h3>clone</h3>
                 <p>Copia todos os campos de <code>origem</code> para <code>destino</code>.</p>
-                <div class="fn-signature">dados.extenda(&amp;destino, &amp;origem);</div>
+                <div class="fn-signature">dados.clone(&amp;destino, &amp;origem);</div>
                 <ul class="fn-params">
                     <li><code>destino</code> — Ponteiro da instância que receberá os valores</li>
                     <li><code>origem</code> — Ponteiro da instância fonte</li>
@@ -229,7 +229,7 @@
 
                 <span class="cmt">// Estender para outra instância</span>
                 <span class="type">Dados</span> cópia = dados.crie();
-                dados.extenda(&amp;cópia, &amp;bloco);
+                dados.clone(&amp;cópia, &amp;bloco);
 
                 <span class="cmt">// Destruir ambas</span>
                 dados.destrua(&amp;bloco);
