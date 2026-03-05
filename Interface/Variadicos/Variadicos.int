@@ -1,5 +1,10 @@
-#SeNãoDefinido Convencional_Variádicos
-#Defina Convencional_Variádicos
+#SeNãoDefinido CTEC_CONVENCIONAL_VARIÁDICOS
+#Defina CTEC_CONVENCIONAL_VARIÁDICOS
+
+Pseudônimo Enumeração {
+    CTEC_ERRO_VARIÁDICOS_SUCESSO = 0,
+    CTEC_ERRO_VARIÁDICOS_FALHA   = -1
+} CtecErroVariádicos;
 
 Pseudônimo Estrutura {
     Natural Inteiro deslocamentoInteiro;
@@ -15,5 +20,13 @@ Pseudônimo Estrutura {
 
 Pseudônimo ListaVariádicos lista_variádicos[1];
 
-#Inclua "GerenciadorVariadicos.int"
+Pseudônimo Estrutura {
+    Vazio  (*inicie)(ListaVariádicos *lista, Vazio *quadroChamada);
+    Vazio *(*obtenha)(ListaVariádicos *lista, Inteiro tipoArgumento, Inteiro tamanhoArgumento, Inteiro alinhamentoArgumento);
+    Vazio  (*copie)(ListaVariádicos *destino, ListaVariádicos *origem);
+    Vazio  (*finalize)(ListaVariádicos *lista);
+} InterfaceGerenciadorVariádicos;
+
+Externo Imutável InterfaceGerenciadorVariádicos variádicos;
+
 #FimSe
