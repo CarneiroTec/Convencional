@@ -1,0 +1,21 @@
+#Inclua <Convencional.int>
+
+Inteiro Início() {
+    // Criar e escrever
+    Arquivo *arq = arquivo.crie("exemplo_saida.txt", "w");
+    arquivo.escreva_formatado(arq, "Olá, %s!\n", "Mundo");
+    arquivo.exiba_linha("Segunda linha", arq);
+    arquivo.feche(arq);
+
+    // Ler de volta
+    arq = arquivo.abra("exemplo_saida.txt", "r");
+    Caractere buffer[100];
+    arquivo.obtenha_linha(buffer, 100, arq);
+    sistema.terminal.exiba_formatado("Lido: %s", buffer);
+    arquivo.feche(arq);
+
+    // Limpar
+    arquivo.remova("exemplo_saida.txt");
+
+    Retorne 0;
+}
