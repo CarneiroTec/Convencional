@@ -2,7 +2,7 @@
 SPRINT 4 — MÓDULO ARQUIVO
 ===============================================================================
 Prioridade: MÉDIA (depende de Dados)
-Instância global: arquivo
+Instância global: Imutável arquivo
 
 Tipo: Pseudônimo Dados Arquivo (alias de Dados — campos herdados)
 

@@ -21,6 +21,7 @@ Fluxo de desenvolvimento por módulo:
 
 Convenções:
   - Instância global = nome do tipo em minúsculo (dados, arquivo, etc.)
+  - Toda instância global deve ser "Imutável" (somente leitura)
   - Gerenciadores de struct possuem: .crie, .destrua, .extenda
   - Cada campo da struct possui: .defina_[campo] e .obtenha_[campo]
 

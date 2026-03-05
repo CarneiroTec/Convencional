@@ -2,7 +2,7 @@
 SPRINT 2 — MÓDULO ERRO
 ===============================================================================
 Prioridade: ALTA (dependência de todos os módulos para tratamento de erros)
-Instância global: erro
+Instância global: Imutável erro
 
 Tipo: Pseudônimo Inteiro Erro (sem campos de estrutura — sem acessores)
 

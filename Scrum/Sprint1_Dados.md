@@ -2,7 +2,7 @@
 SPRINT 1 — MÓDULO DADOS
 ===============================================================================
 Prioridade: ALTA (dependência de Arquivo e outros módulos)
-Instância global: dados
+Instância global: Imutável dados
 
 Estrutura Dados (8 campos):
   ponteiro, tamanho, base, tipo, arquivo,

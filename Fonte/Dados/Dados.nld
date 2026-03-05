@@ -177,7 +177,7 @@ Fixo Caractere *ctec_convencional_dados_obtenha_nome_arquivo(Dados *dados) {
 // Instância Global
 // ============================================================
 
-InterfaceGerenciadorDados dados = {
+Imutável InterfaceGerenciadorDados dados = {
     .crie = ctec_convencional_dados_crie,
     .destrua = ctec_convencional_dados_destrua,
     .extenda = ctec_convencional_dados_extenda,

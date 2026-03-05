@@ -2,7 +2,7 @@
 SPRINT 5 — MÓDULO TESTE
 ===============================================================================
 Prioridade: MÉDIA (framework de testes utilizado por todos os outros módulos)
-Instâncias globais: caso, grupo
+Instâncias globais: Imutável caso, Imutável grupo
 
 ===============================================================================
 GERENCIADOR CASO (caso.*)

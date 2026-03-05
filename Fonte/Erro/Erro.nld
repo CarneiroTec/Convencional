@@ -15,7 +15,7 @@ Fixo Caractere *ctec_convencional_erro_mensagem(Inteiro erro) {
     Retorne strerror(erro);
 }
 
-InterfaceGerenciadorErro erro = {
+Imutável InterfaceGerenciadorErro erro = {
     .obtenha_erro = ctec_convencional_erro_obtenha_erro,
     .defina_erro = ctec_convencional_erro_defina_erro,
     .mensagem = ctec_convencional_erro_mensagem

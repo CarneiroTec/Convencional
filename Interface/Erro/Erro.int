@@ -49,6 +49,6 @@ Pseudônimo Estrutura {
     Caractere *(*mensagem)(Inteiro erro);
 } InterfaceGerenciadorErro;
 
-Externo InterfaceGerenciadorErro erro;
+Externo Imutável InterfaceGerenciadorErro erro;
 
 #FimSe

@@ -61,6 +61,6 @@ Pseudônimo Estrutura {
     Caractere *(*obtenha_nome_arquivo)(Dados *dados);
 } InterfaceGerenciadorDados;
 
-Externo InterfaceGerenciadorDados dados;
+Externo Imutável InterfaceGerenciadorDados dados;
 
 #FimSe

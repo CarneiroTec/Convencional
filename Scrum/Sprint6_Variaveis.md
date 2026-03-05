@@ -2,7 +2,7 @@
 SPRINT 6 — MÓDULO VARIÁVEIS
 ===============================================================================
 Prioridade: BAIXA (argumento variádico, uso avançado)
-Instância global: variáveis
+Instância global: Imutável variáveis
 
 Estrutura ListaVariádicos (5 campos):
   deslocamentoInteiro, deslocamentoReal,

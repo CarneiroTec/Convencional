@@ -15,6 +15,7 @@ trigger: always_on
 - Cada módulo deve ter uma instância global com o nome do módulo
 - Cada módulo deve ter enumerações para possíveis erros.
 - Cada módulo deve ter implementações cujo suas funções possuem o "Fixo"
+- Toda instância global deve ser "Imutável"
 
 - NOMENCLATURA
 -------------------------------------------------------------------------------

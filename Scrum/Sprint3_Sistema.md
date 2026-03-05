@@ -2,7 +2,7 @@
 SPRINT 3 — MÓDULO SISTEMA
 ===============================================================================
 Prioridade: ALTA (funções fundamentais de I/O, memória, tempo, ambiente, execução)
-Instância global: sistema
+Instância global: Imutável sistema
 
 Estrutura: InterfaceGerenciadorSistema com structs aninhadas
   (sem campos de dados próprios — sem acessores defina/obtenha)
