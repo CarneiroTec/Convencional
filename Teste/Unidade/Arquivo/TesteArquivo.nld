@@ -1,4 +1,4 @@
-﻿#Inclua "../../Teste.nld"
+#Inclua "../../Teste.nld"
 
 Caso testa_abertura_fechamento() {
     Caso caso = {
@@ -312,20 +312,20 @@ Caso testa_bufferização() {
 }
 
 Inteiro Início() {
-    Grupo grupo = grupo.crie("Testando Módulo Arquivo");
-    grupo.adicione(&grupo, testa_abertura_fechamento);
-    grupo.adicione(&grupo, testa_escrita_leitura_caractere);
-    grupo.adicione(&grupo, testa_escrita_leitura_linha);
-    grupo.adicione(&grupo, testa_posicionamento);
-    grupo.adicione(&grupo, testa_blocos);
-    grupo.adicione(&grupo, testa_erro_e_fim);
-    grupo.adicione(&grupo, testa_arquivos_temporarios);
-    grupo.adicione(&grupo, testa_renomear_e_remover);
-    grupo.adicione(&grupo, testa_devolve_caractere);
-    grupo.adicione(&grupo, testa_formatado_e_despeje);
-    grupo.adicione(&grupo, testa_bufferização);
+    Grupo g = grupo.crie("Testando Módulo Arquivo");
+    grupo.adicione(&g, testa_abertura_fechamento);
+    grupo.adicione(&g, testa_escrita_leitura_caractere);
+    grupo.adicione(&g, testa_escrita_leitura_linha);
+    grupo.adicione(&g, testa_posicionamento);
+    grupo.adicione(&g, testa_blocos);
+    grupo.adicione(&g, testa_erro_e_fim);
+    grupo.adicione(&g, testa_arquivos_temporarios);
+    grupo.adicione(&g, testa_renomear_e_remover);
+    grupo.adicione(&g, testa_devolve_caractere);
+    grupo.adicione(&g, testa_formatado_e_despeje);
+    grupo.adicione(&g, testa_bufferização);
     
-    grupo.execute(&grupo);
-    grupo.destrua(&grupo);
+    grupo.execute(&g);
+    grupo.destrua(&g);
     Retorne 0;
 }

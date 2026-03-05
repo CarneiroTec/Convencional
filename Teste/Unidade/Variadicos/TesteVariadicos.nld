@@ -1,4 +1,4 @@
-﻿#Inclua "../../Teste.nld"
+#Inclua "../../Teste.nld"
 
 Vazio funcao_variadica_teste(Inteiro contagem, ...) {
     ListaVariádicos lista;
@@ -45,9 +45,9 @@ Caso testa_inicializacao() {
 
 
 Inteiro Início() {
-    Grupo grupo = grupo.crie("Testando Módulo Variádicos");
-    grupo.adicione(&grupo, testa_inicializacao);
-    grupo.execute(&grupo);
-    grupo.destrua(&grupo);
+    Grupo g = grupo.crie("Testando Módulo Variádicos");
+    grupo.adicione(&g, testa_inicializacao);
+    grupo.execute(&g);
+    grupo.destrua(&g);
     Retorne 0;
 }

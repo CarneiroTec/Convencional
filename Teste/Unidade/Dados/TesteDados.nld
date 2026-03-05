@@ -1,4 +1,4 @@
-﻿#Inclua "../../Teste.nld"
+#Inclua "../../Teste.nld"
 
 // ============================================================
 // Teste: dados.crie
@@ -264,26 +264,26 @@ Caso testa_acessor_nome_arquivo() {
 // ============================================================
 
 Inteiro Início() {
-    Grupo grupo = grupo.crie("Testando Módulo Dados");
+    Grupo g = grupo.crie("Testando Módulo Dados");
 
-    grupo.adicione(&grupo, testa_crie);
-    grupo.adicione(&grupo, testa_destrua);
-    grupo.adicione(&grupo, testa_destrua_nulo);
-    grupo.adicione(&grupo, testa_copie);
-    grupo.adicione(&grupo, testa_clone);
-    grupo.adicione(&grupo, testa_inicialize);
-    grupo.adicione(&grupo, testa_inicialize_nulo);
-    grupo.adicione(&grupo, testa_limpe);
-    grupo.adicione(&grupo, testa_acessor_ponteiro);
-    grupo.adicione(&grupo, testa_acessor_tamanho);
-    grupo.adicione(&grupo, testa_acessor_base);
-    grupo.adicione(&grupo, testa_acessor_tipo);
-    grupo.adicione(&grupo, testa_acessor_arquivo);
-    grupo.adicione(&grupo, testa_acessor_reserva_caractere);
-    grupo.adicione(&grupo, testa_acessor_tamanho_reserva);
-    grupo.adicione(&grupo, testa_acessor_nome_arquivo);
+    grupo.adicione(&g, testa_crie);
+    grupo.adicione(&g, testa_destrua);
+    grupo.adicione(&g, testa_destrua_nulo);
+    grupo.adicione(&g, testa_copie);
+    grupo.adicione(&g, testa_clone);
+    grupo.adicione(&g, testa_inicialize);
+    grupo.adicione(&g, testa_inicialize_nulo);
+    grupo.adicione(&g, testa_limpe);
+    grupo.adicione(&g, testa_acessor_ponteiro);
+    grupo.adicione(&g, testa_acessor_tamanho);
+    grupo.adicione(&g, testa_acessor_base);
+    grupo.adicione(&g, testa_acessor_tipo);
+    grupo.adicione(&g, testa_acessor_arquivo);
+    grupo.adicione(&g, testa_acessor_reserva_caractere);
+    grupo.adicione(&g, testa_acessor_tamanho_reserva);
+    grupo.adicione(&g, testa_acessor_nome_arquivo);
 
-    grupo.execute(&grupo);
-    grupo.destrua(&grupo);
+    grupo.execute(&g);
+    grupo.destrua(&g);
     Retorne 0;
 }

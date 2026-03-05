@@ -1,7 +1,6 @@
 #SeNãoDefinido CTEC_CONVENCIONAL
 #Defina CTEC_CONVENCIONAL
 
-#Inclua "Ambiente/Ambiente.int"
 #Inclua "Arquivo/Arquivo.int"
 #Inclua "Dados/Dados.int"
 #Inclua "Erro/Erro.int"

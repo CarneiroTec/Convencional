@@ -1,4 +1,4 @@
-﻿#Inclua "../../Teste.nld"
+#Inclua "../../Teste.nld"
 
 Externo Inteiro printf(Imutável Caractere*, ...);
 
@@ -152,14 +152,14 @@ Caso testa_grupo_destrua() {
 }
 
 Inteiro Início() {
-    Grupo grupo = grupo.crie("Testando Módulo Grupo");
-    grupo.adicione(&grupo, testa_grupo_crie);
-    grupo.adicione(&grupo, testa_grupo_adicione);
-    grupo.adicione(&grupo, testa_grupo_execute);
-    grupo.adicione(&grupo, testa_grupo_destrua);
+    Grupo g = grupo.crie("Testando Módulo Grupo");
+    grupo.adicione(&g, testa_grupo_crie);
+    grupo.adicione(&g, testa_grupo_adicione);
+    grupo.adicione(&g, testa_grupo_execute);
+    grupo.adicione(&g, testa_grupo_destrua);
 
-    grupo.execute(&grupo);
-    grupo.destrua(&grupo);
+    grupo.execute(&g);
+    grupo.destrua(&g);
 
     Retorne 0;
 }
