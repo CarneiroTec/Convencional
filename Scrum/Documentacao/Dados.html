@@ -20,8 +20,8 @@
             <p>
                 O módulo <strong>Dados</strong> define a estrutura base genérica utilizada internamente
                 por outros módulos da biblioteca Convencional, especialmente pelo módulo
-                <code>Arquivo</code>. Fornece funções para inicializar e limpar instâncias desta
-                estrutura com segurança.
+                <code>Arquivo</code>. Fornece 21 funções organizadas em: construtora, destrutora,
+                extensora, auxiliares e acessores (defina/obtenha) para todos os campos.
             </p>
             <p>
                 <strong>Interface:</strong> <code>Interface/Dados/Dados.int</code><br>
@@ -33,8 +33,7 @@
 
         <!-- ESTRUTURA -->
         <section>
-            <h2>Estrutura Principal — <code>Dados</code></h2>
-            <p>Representa um bloco de dados com metadados de posição, tamanho e identificação de arquivo.</p>
+            <h2>Estrutura — <code>Dados</code></h2>
             <table class="field-table">
                 <thead>
                     <tr>
@@ -49,37 +48,37 @@
                         <td><code>ponteiro</code></td>
                         <td><code>Caractere*</code></td>
                         <td><code>NULO</code></td>
-                        <td>Ponteiro para o início dos dados no buffer</td>
+                        <td>Ponteiro para início dos dados</td>
                     </tr>
                     <tr>
                         <td><code>tamanho</code></td>
                         <td><code>Inteiro</code></td>
                         <td><code>0</code></td>
-                        <td>Tamanho atual dos dados válidos</td>
+                        <td>Tamanho dos dados válidos</td>
                     </tr>
                     <tr>
                         <td><code>base</code></td>
                         <td><code>Caractere*</code></td>
                         <td><code>NULO</code></td>
-                        <td>Ponteiro para a base do buffer alocado</td>
+                        <td>Base do buffer alocado</td>
                     </tr>
                     <tr>
                         <td><code>tipo</code></td>
                         <td><code>Inteiro</code></td>
                         <td><code>0</code></td>
-                        <td>Tipo do fluxo (leitura, escrita, etc.)</td>
+                        <td>Tipo do fluxo</td>
                     </tr>
                     <tr>
                         <td><code>arquivo</code></td>
                         <td><code>Inteiro</code></td>
                         <td><code>-1</code></td>
-                        <td>Descritor do arquivo associado (−1 = nenhum)</td>
+                        <td>Descritor de arquivo (−1 = nenhum)</td>
                     </tr>
                     <tr>
                         <td><code>reservaCaractere</code></td>
                         <td><code>Inteiro</code></td>
                         <td><code>-1</code></td>
-                        <td>Caractere reservado para devolução (ungetc)</td>
+                        <td>Caractere para devolução</td>
                     </tr>
                     <tr>
                         <td><code>tamanhoReserva</code></td>
@@ -91,7 +90,7 @@
                         <td><code>nomeArquivo</code></td>
                         <td><code>Caractere*</code></td>
                         <td><code>NULO</code></td>
-                        <td>Nome do arquivo associado à instância</td>
+                        <td>Nome do arquivo associado</td>
                     </tr>
                 </tbody>
             </table>
@@ -100,55 +99,117 @@
         <!-- ENUM DE ERRO -->
         <section>
             <h2>Enumeração de Erro — <code>CtecErroDados</code></h2>
-            <p>Todos os retornos de erro do módulo são tipados via este enumerador.</p>
             <div class="enum-block"><span class="kw">Pseudônimo</span> <span class="kw">Enumeração</span> {
-                <span class="val">CTEC_ERRO_DADOS_SUCESSO</span> = <span class="val">0</span>, <span class="cmt">//
-                    Operação concluída com sucesso</span>
-                <span class="val">CTEC_ERRO_DADOS_NULO</span> = <span class="val">-1</span>, <span class="cmt">//
-                    Ponteiro nulo fornecido</span>
-                <span class="val">CTEC_ERRO_DADOS_INVÁLIDO</span> = <span class="val">-2</span> <span class="cmt">//
-                    Estado inválido detectado</span>
+                <span class="val">CTEC_ERRO_DADOS_SUCESSO</span> = <span class="val">0</span>,
+                <span class="val">CTEC_ERRO_DADOS_NULO</span> = <span class="val">-1</span>,
+                <span class="val">CTEC_ERRO_DADOS_INVÁLIDO</span> = <span class="val">-2</span>
                 } <span class="type">CtecErroDados</span>;
             </div>
         </section>
 
         <!-- GERENCIADOR -->
         <section>
-            <h2>Interface do Gerenciador — <code>InterfaceGerenciadorDados</code></h2>
+            <h2>Gerenciador — <code>dados</code></h2>
             <p>
-                Acesse sempre pela <strong>instância global</strong> cujo nome é o<br>
-                <strong>nome da estrutura em minúsculo</strong>: <code>dados</code>.
+                Instância global: <code>dados</code> (nome do tipo em minúsculo).
             </p>
-            <div class="fn-note">📌 Convenção: instância global = nome do tipo em minúsculo.<br>
-                <code>Dados</code> → instância <code>dados</code> &nbsp;|&nbsp;
-                <code>Arquivo</code> → instância <code>arquivo</code> &nbsp;|&nbsp;
-                <code>Sistema</code> → instância <code>sistema</code>
+            <div class="fn-note">📌 Convenção: <code>Dados</code> → instância <code>dados</code></div>
+
+            <!-- crie -->
+            <div class="fn-card">
+                <h3>crie</h3>
+                <p>Construtor — retorna uma instância <code>Dados</code> com todos os campos inicializados.</p>
+                <div class="fn-signature">Dados d = dados.crie();</div>
+                <div class="fn-return"><strong>Retorno:</strong> <code>Dados</code> — instância inicializada</div>
             </div>
 
+            <!-- destrua -->
             <div class="fn-card">
-                <h3>inicialize</h3>
-                <p>Inicializa todos os campos de uma instância <code>Dados</code> com seus valores padrão.
-                    Deve ser chamado antes de qualquer uso da estrutura.</p>
-                <div class="fn-signature">dados.inicialize(Dados *dados);</div>
+                <h3>destrua</h3>
+                <p>Destrutor — zera todos os campos da instância. Aceita ponteiro nulo sem falha.</p>
+                <div class="fn-signature">dados.destrua(&amp;d);</div>
                 <ul class="fn-params">
-                    <li><code>dados</code> — Ponteiro para a instância a ser inicializada. Se <code>NULO</code>, retorna
-                        sem efeito.</li>
+                    <li><code>dados</code> — Ponteiro para instância a destruir</li>
                 </ul>
                 <div class="fn-return"><strong>Retorno:</strong> <code>Vazio</code></div>
-                <div class="fn-note">⚠️ Ponteiro nulo é aceito silenciosamente — sem falha.</div>
             </div>
 
+            <!-- extenda -->
             <div class="fn-card">
-                <h3>limpe</h3>
-                <p>Reinicia todos os campos de uma instância <code>Dados</code> para seus valores padrão.
-                    Indicado para uso após finalização do uso da estrutura.</p>
-                <div class="fn-signature">dados.limpe(Dados *dados);</div>
+                <h3>extenda</h3>
+                <p>Copia todos os campos de <code>origem</code> para <code>destino</code>.</p>
+                <div class="fn-signature">dados.extenda(&amp;destino, &amp;origem);</div>
                 <ul class="fn-params">
-                    <li><code>dados</code> — Ponteiro para a instância a ser limpa. Se <code>NULO</code>, retorna sem
-                        efeito.</li>
+                    <li><code>destino</code> — Ponteiro da instância que receberá os valores</li>
+                    <li><code>origem</code> — Ponteiro da instância fonte</li>
                 </ul>
-                <div class="fn-return"><strong>Retorno:</strong> <code>Vazio</code></div>
-                <div class="fn-note">⚠️ Ponteiro nulo é aceito silenciosamente — sem falha.</div>
+            </div>
+
+            <!-- inicialize / limpe -->
+            <div class="fn-card">
+                <h3>inicialize / limpe</h3>
+                <p>Inicializa ou reinicia todos os campos para valores padrão. Ambas aceitam ponteiro nulo.</p>
+                <div class="fn-signature">dados.inicialize(&amp;d);
+                    dados.limpe(&amp;d);</div>
+            </div>
+
+            <!-- Acessores -->
+            <div class="fn-card">
+                <h3>Acessores — defina_* / obtenha_*</h3>
+                <p>Para cada campo da estrutura, existem funções <code>defina_[campo]</code> e
+                    <code>obtenha_[campo]</code>.
+                    Todos são null-safe: se o ponteiro for nulo, retornam o valor padrão do campo.</p>
+                <table class="field-table">
+                    <thead>
+                        <tr>
+                            <th>defina</th>
+                            <th>obtenha</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>dados.defina_ponteiro(&amp;d, val)</code></td>
+                            <td><code>dados.obtenha_ponteiro(&amp;d)</code></td>
+                            <td><code>Caractere*</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>dados.defina_tamanho(&amp;d, val)</code></td>
+                            <td><code>dados.obtenha_tamanho(&amp;d)</code></td>
+                            <td><code>Inteiro</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>dados.defina_base(&amp;d, val)</code></td>
+                            <td><code>dados.obtenha_base(&amp;d)</code></td>
+                            <td><code>Caractere*</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>dados.defina_tipo(&amp;d, val)</code></td>
+                            <td><code>dados.obtenha_tipo(&amp;d)</code></td>
+                            <td><code>Inteiro</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>dados.defina_arquivo(&amp;d, val)</code></td>
+                            <td><code>dados.obtenha_arquivo(&amp;d)</code></td>
+                            <td><code>Inteiro</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>dados.defina_reserva_caractere(&amp;d, val)</code></td>
+                            <td><code>dados.obtenha_reserva_caractere(&amp;d)</code></td>
+                            <td><code>Inteiro</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>dados.defina_tamanho_reserva(&amp;d, val)</code></td>
+                            <td><code>dados.obtenha_tamanho_reserva(&amp;d)</code></td>
+                            <td><code>Inteiro</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>dados.defina_nome_arquivo(&amp;d, val)</code></td>
+                            <td><code>dados.obtenha_nome_arquivo(&amp;d)</code></td>
+                            <td><code>Caractere*</code></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
@@ -158,17 +219,21 @@
             <div class="example-block"><span class="kw">#Inclua</span> <span class="val">&lt;Convencional.int&gt;</span>
 
                 <span class="type">Inteiro</span> <span class="type">Início</span>() {
-                <span class="type">Dados</span> bloco;
+                <span class="cmt">// Criar via construtor</span>
+                <span class="type">Dados</span> bloco = dados.crie();
 
-                <span class="cmt">// Inicializar antes do uso</span>
-                dados.inicialize(&amp;bloco);
+                <span class="cmt">// Definir campos via acessores</span>
+                dados.defina_tipo(&amp;bloco, <span class="val">1</span>);
+                dados.defina_arquivo(&amp;bloco, <span class="val">3</span>);
+                dados.defina_nome_arquivo(&amp;bloco, <span class="val">"exemplo.txt"</span>);
 
-                <span class="cmt">// ... usar bloco com arquivo, sistema, etc. ...</span>
-                bloco.tipo = <span class="val">1</span>;
-                bloco.arquivo = <span class="val">3</span>;
+                <span class="cmt">// Estender para outra instância</span>
+                <span class="type">Dados</span> cópia = dados.crie();
+                dados.extenda(&amp;cópia, &amp;bloco);
 
-                <span class="cmt">// Limpar após o uso</span>
-                dados.limpe(&amp;bloco);
+                <span class="cmt">// Destruir ambas</span>
+                dados.destrua(&amp;bloco);
+                dados.destrua(&amp;cópia);
 
                 <span class="kw">Retorne</span> <span class="val">0</span>;
                 }

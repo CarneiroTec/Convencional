@@ -15,3 +15,15 @@ trigger: always_on
 - Cada módulo deve ter uma instância global com o nome do módulo
 - Cada módulo deve ter enumerações para possíveis erros.
 - Cada módulo deve ter implementações cujo suas funções possuem o "Fixo"
+
+- NOMENCLATURA
+-------------------------------------------------------------------------------
+Elemento                 | Padrão                       | Exemplo
+-------------------------|-----------------------------|----------------------
+Variáveis e Instâncias   | primeiraMinúsculaSemEspaços | totalUsuários
+Funções                  | minúsculasComSublinhado     | calcular_total
+Estruturas e Uniões      | todasIniciaisMaiúsculas     | CtecSistema
+Tabelas de Funções       | Tabela + iniciaisMaiúsculas | TabelaSistema
+Tipos Enumerados         | todasIniciaisMaiúsculas     | CtecSistemaErro
+Valores Enumerados       | MAIÚSCULAS_COM_SUBLINHADO   | CTEC_SISTEMA_ERRO_TEMPO_ESGOTADO
+Símbolos                 | [publicador]_[módulo]_[nome] | ctec_sistema_janela_crie

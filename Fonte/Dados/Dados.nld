@@ -1,5 +1,50 @@
 #Inclua <Convencional.int>
 
+// ============================================================
+// Construtora, Destrutora e Extensora
+// ============================================================
+
+Fixo Dados ctec_convencional_dados_crie(Vazio) {
+    Dados d;
+    d.ponteiro = (Vazio*)0;
+    d.tamanho = 0;
+    d.base = (Vazio*)0;
+    d.tipo = 0;
+    d.arquivo = -1;
+    d.reservaCaractere = -1;
+    d.tamanhoReserva = 0;
+    d.nomeArquivo = (Vazio*)0;
+    Retorne d;
+}
+
+Fixo Vazio ctec_convencional_dados_destrua(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->ponteiro = (Vazio*)0;
+    dados->tamanho = 0;
+    dados->base = (Vazio*)0;
+    dados->tipo = 0;
+    dados->arquivo = -1;
+    dados->reservaCaractere = -1;
+    dados->tamanhoReserva = 0;
+    dados->nomeArquivo = (Vazio*)0;
+}
+
+Fixo Vazio ctec_convencional_dados_extenda(Dados *destino, Dados *origem) {
+    Se (destino == (Vazio*)0 || origem == (Vazio*)0) { Retorne; }
+    destino->ponteiro = origem->ponteiro;
+    destino->tamanho = origem->tamanho;
+    destino->base = origem->base;
+    destino->tipo = origem->tipo;
+    destino->arquivo = origem->arquivo;
+    destino->reservaCaractere = origem->reservaCaractere;
+    destino->tamanhoReserva = origem->tamanhoReserva;
+    destino->nomeArquivo = origem->nomeArquivo;
+}
+
+// ============================================================
+// Auxiliares
+// ============================================================
+
 Fixo Vazio ctec_convencional_dados_inicialize(Dados *dados) {
     Se (dados == (Vazio*)0) { Retorne; }
     dados->ponteiro = (Vazio*)0;
@@ -16,7 +61,142 @@ Fixo Vazio ctec_convencional_dados_limpe(Dados *dados) {
     ctec_convencional_dados_inicialize(dados);
 }
 
+// ============================================================
+// Acessores — ponteiro
+// ============================================================
+
+Fixo Vazio ctec_convencional_dados_defina_ponteiro(Dados *dados, Caractere *valor) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->ponteiro = valor;
+}
+
+Fixo Caractere *ctec_convencional_dados_obtenha_ponteiro(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne (Vazio*)0; }
+    Retorne dados->ponteiro;
+}
+
+// ============================================================
+// Acessores — tamanho
+// ============================================================
+
+Fixo Vazio ctec_convencional_dados_defina_tamanho(Dados *dados, Inteiro valor) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->tamanho = valor;
+}
+
+Fixo Inteiro ctec_convencional_dados_obtenha_tamanho(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne 0; }
+    Retorne dados->tamanho;
+}
+
+// ============================================================
+// Acessores — base
+// ============================================================
+
+Fixo Vazio ctec_convencional_dados_defina_base(Dados *dados, Caractere *valor) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->base = valor;
+}
+
+Fixo Caractere *ctec_convencional_dados_obtenha_base(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne (Vazio*)0; }
+    Retorne dados->base;
+}
+
+// ============================================================
+// Acessores — tipo
+// ============================================================
+
+Fixo Vazio ctec_convencional_dados_defina_tipo(Dados *dados, Inteiro valor) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->tipo = valor;
+}
+
+Fixo Inteiro ctec_convencional_dados_obtenha_tipo(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne 0; }
+    Retorne dados->tipo;
+}
+
+// ============================================================
+// Acessores — arquivo
+// ============================================================
+
+Fixo Vazio ctec_convencional_dados_defina_arquivo(Dados *dados, Inteiro valor) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->arquivo = valor;
+}
+
+Fixo Inteiro ctec_convencional_dados_obtenha_arquivo(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne -1; }
+    Retorne dados->arquivo;
+}
+
+// ============================================================
+// Acessores — reservaCaractere
+// ============================================================
+
+Fixo Vazio ctec_convencional_dados_defina_reserva_caractere(Dados *dados, Inteiro valor) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->reservaCaractere = valor;
+}
+
+Fixo Inteiro ctec_convencional_dados_obtenha_reserva_caractere(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne -1; }
+    Retorne dados->reservaCaractere;
+}
+
+// ============================================================
+// Acessores — tamanhoReserva
+// ============================================================
+
+Fixo Vazio ctec_convencional_dados_defina_tamanho_reserva(Dados *dados, Inteiro valor) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->tamanhoReserva = valor;
+}
+
+Fixo Inteiro ctec_convencional_dados_obtenha_tamanho_reserva(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne 0; }
+    Retorne dados->tamanhoReserva;
+}
+
+// ============================================================
+// Acessores — nomeArquivo
+// ============================================================
+
+Fixo Vazio ctec_convencional_dados_defina_nome_arquivo(Dados *dados, Caractere *valor) {
+    Se (dados == (Vazio*)0) { Retorne; }
+    dados->nomeArquivo = valor;
+}
+
+Fixo Caractere *ctec_convencional_dados_obtenha_nome_arquivo(Dados *dados) {
+    Se (dados == (Vazio*)0) { Retorne (Vazio*)0; }
+    Retorne dados->nomeArquivo;
+}
+
+// ============================================================
+// Instância Global
+// ============================================================
+
 InterfaceGerenciadorDados dados = {
+    .crie = ctec_convencional_dados_crie,
+    .destrua = ctec_convencional_dados_destrua,
+    .extenda = ctec_convencional_dados_extenda,
     .inicialize = ctec_convencional_dados_inicialize,
-    .limpe = ctec_convencional_dados_limpe
+    .limpe = ctec_convencional_dados_limpe,
+    .defina_ponteiro = ctec_convencional_dados_defina_ponteiro,
+    .obtenha_ponteiro = ctec_convencional_dados_obtenha_ponteiro,
+    .defina_tamanho = ctec_convencional_dados_defina_tamanho,
+    .obtenha_tamanho = ctec_convencional_dados_obtenha_tamanho,
+    .defina_base = ctec_convencional_dados_defina_base,
+    .obtenha_base = ctec_convencional_dados_obtenha_base,
+    .defina_tipo = ctec_convencional_dados_defina_tipo,
+    .obtenha_tipo = ctec_convencional_dados_obtenha_tipo,
+    .defina_arquivo = ctec_convencional_dados_defina_arquivo,
+    .obtenha_arquivo = ctec_convencional_dados_obtenha_arquivo,
+    .defina_reserva_caractere = ctec_convencional_dados_defina_reserva_caractere,
+    .obtenha_reserva_caractere = ctec_convencional_dados_obtenha_reserva_caractere,
+    .defina_tamanho_reserva = ctec_convencional_dados_defina_tamanho_reserva,
+    .obtenha_tamanho_reserva = ctec_convencional_dados_obtenha_tamanho_reserva,
+    .defina_nome_arquivo = ctec_convencional_dados_defina_nome_arquivo,
+    .obtenha_nome_arquivo = ctec_convencional_dados_obtenha_nome_arquivo
 };

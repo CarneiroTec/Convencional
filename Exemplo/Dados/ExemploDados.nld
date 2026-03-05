@@ -1,14 +1,31 @@
 #Inclua <Convencional.int>
 
+Externo Inteiro printf(Imutável Caractere*, ...);
+
 Inteiro Início() {
-    Dados bloco;
+    // Criar instância via construtor
+    Dados bloco = dados.crie();
 
-    dados.inicialize(&bloco);
+    // Usar acessores para definir campos
+    dados.defina_tipo(&bloco, 1);
+    dados.defina_arquivo(&bloco, 3);
+    dados.defina_nome_arquivo(&bloco, "exemplo.txt");
+    dados.defina_tamanho(&bloco, 512);
 
-    bloco.tipo = 1;
-    bloco.arquivo = 3;
+    // Ler campos via acessores
+    printf("Tipo: %d\n", dados.obtenha_tipo(&bloco));
+    printf("Arquivo: %d\n", dados.obtenha_arquivo(&bloco));
+    printf("Nome: %s\n", dados.obtenha_nome_arquivo(&bloco));
+    printf("Tamanho: %d\n", dados.obtenha_tamanho(&bloco));
 
-    dados.limpe(&bloco);
+    // Estender de uma instância para outra
+    Dados cópia = dados.crie();
+    dados.extenda(&cópia, &bloco);
+    printf("Cópia Tamanho: %d\n", dados.obtenha_tamanho(&cópia));
+
+    // Destruir ambas
+    dados.destrua(&bloco);
+    dados.destrua(&cópia);
 
     Retorne 0;
 }

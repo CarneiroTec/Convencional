@@ -1,142 +1,254 @@
 #Inclua "../../Teste.nld"
 
-Caso testa_inicializacao_dados() {
-    Caso caso = {
-        .estado = 1,
-        .arquivo = ARQUIVO,
-        .função = FUNÇÃO,
-        .linha = LINHA,
-        .mensagem = ""
-    };
-    Dados d;
+// ============================================================
+// Teste: dados.crie
+// ============================================================
 
-    dados.inicialize(&d);
+Caso testa_crie() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+
+    Dados d = dados.crie();
 
     Se (d.ponteiro != (Vazio*)0 || d.tamanho != 0 || d.arquivo != -1) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: Dados não inicializados corretamente";
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: crie não inicializou corretamente";
         Retorne caso;
     }
 
-    caso.mensagem = "Passou: Inicialização de Dados";
+    caso.mensagem = "Passou: dados.crie";
     Retorne caso;
 }
 
-Caso testa_inicializacao_todos_campos() {
-    Caso caso = {
-        .estado = 1,
-        .arquivo = ARQUIVO,
-        .função = FUNÇÃO,
-        .linha = LINHA,
-        .mensagem = ""
-    };
-    Dados d;
+// ============================================================
+// Teste: dados.destrua
+// ============================================================
 
+Caso testa_destrua() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+
+    Dados d = dados.crie();
+    d.tamanho = 42;
+    d.tipo = 3;
+    dados.destrua(&d);
+
+    Se (d.tamanho != 0 || d.tipo != 0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: destrua não zerou os campos";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: dados.destrua";
+    Retorne caso;
+}
+
+Caso testa_destrua_nulo() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    dados.destrua((Vazio*)0);
+    caso.mensagem = "Passou: dados.destrua com nulo não causa falha";
+    Retorne caso;
+}
+
+// ============================================================
+// Teste: dados.extenda
+// ============================================================
+
+Caso testa_extenda() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+
+    Dados origem = dados.crie();
+    origem.tamanho = 100;
+    origem.tipo = 5;
+    origem.arquivo = 7;
+
+    Dados destino = dados.crie();
+    dados.extenda(&destino, &origem);
+
+    Se (destino.tamanho != 100 || destino.tipo != 5 || destino.arquivo != 7) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: extenda não copiou os campos";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: dados.extenda";
+    Retorne caso;
+}
+
+// ============================================================
+// Teste: dados.inicialize
+// ============================================================
+
+Caso testa_inicialize() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+
+    Dados d;
     dados.inicialize(&d);
 
-    Se (d.ponteiro != (Vazio*)0) {
+    Se (d.ponteiro != (Vazio*)0 || d.tamanho != 0 || d.base != (Vazio*)0 ||
+        d.tipo != 0 || d.arquivo != -1 || d.reservaCaractere != -1 ||
+        d.tamanhoReserva != 0 || d.nomeArquivo != (Vazio*)0) {
         caso.estado = 0; caso.linha = LINHA;
-        caso.mensagem = "Falhou: ponteiro não é NULO"; Retorne caso;
-    }
-    Se (d.tamanho != 0) {
-        caso.estado = 0; caso.linha = LINHA;
-        caso.mensagem = "Falhou: tamanho não é 0"; Retorne caso;
-    }
-    Se (d.base != (Vazio*)0) {
-        caso.estado = 0; caso.linha = LINHA;
-        caso.mensagem = "Falhou: base não é NULO"; Retorne caso;
-    }
-    Se (d.tipo != 0) {
-        caso.estado = 0; caso.linha = LINHA;
-        caso.mensagem = "Falhou: tipo não é 0"; Retorne caso;
-    }
-    Se (d.arquivo != -1) {
-        caso.estado = 0; caso.linha = LINHA;
-        caso.mensagem = "Falhou: arquivo não é -1"; Retorne caso;
-    }
-    Se (d.reservaCaractere != -1) {
-        caso.estado = 0; caso.linha = LINHA;
-        caso.mensagem = "Falhou: reservaCaractere não é -1"; Retorne caso;
-    }
-    Se (d.tamanhoReserva != 0) {
-        caso.estado = 0; caso.linha = LINHA;
-        caso.mensagem = "Falhou: tamanhoReserva não é 0"; Retorne caso;
-    }
-    Se (d.nomeArquivo != (Vazio*)0) {
-        caso.estado = 0; caso.linha = LINHA;
-        caso.mensagem = "Falhou: nomeArquivo não é NULO"; Retorne caso;
+        caso.mensagem = "Falhou: inicialize não zerou todos os campos";
+        Retorne caso;
     }
 
-    caso.mensagem = "Passou: Todos os campos inicializados corretamente";
+    caso.mensagem = "Passou: dados.inicialize";
     Retorne caso;
 }
 
-Caso testa_inicializacao_nulo() {
-    Caso caso = {
-        .estado = 1,
-        .arquivo = ARQUIVO,
-        .função = FUNÇÃO,
-        .linha = LINHA,
-        .mensagem = ""
-    };
-
+Caso testa_inicialize_nulo() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
     dados.inicialize((Vazio*)0);
-
-    caso.mensagem = "Passou: inicialize com ponteiro nulo não causa falha";
+    caso.mensagem = "Passou: dados.inicialize com nulo não causa falha";
     Retorne caso;
 }
 
-Caso testa_limpeza_dados() {
-    Caso caso = {
-        .estado = 1,
-        .arquivo = ARQUIVO,
-        .função = FUNÇÃO,
-        .linha = LINHA,
-        .mensagem = ""
-    };
-    Dados d;
+// ============================================================
+// Teste: dados.limpe
+// ============================================================
 
-    dados.inicialize(&d);
+Caso testa_limpe() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+
+    Dados d = dados.crie();
     d.tamanho = 100;
     d.arquivo = 5;
-    d.tipo = 3;
-
     dados.limpe(&d);
 
     Se (d.tamanho != 0 || d.arquivo != -1) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: Dados não limpos corretamente";
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: limpe não reiniciou os campos";
         Retorne caso;
     }
 
-    caso.mensagem = "Passou: Limpeza de Dados";
+    caso.mensagem = "Passou: dados.limpe";
     Retorne caso;
 }
 
-Caso testa_limpeza_nulo() {
-    Caso caso = {
-        .estado = 1,
-        .arquivo = ARQUIVO,
-        .função = FUNÇÃO,
-        .linha = LINHA,
-        .mensagem = ""
-    };
+// ============================================================
+// Teste: acessores defina/obtenha
+// ============================================================
 
-    dados.limpe((Vazio*)0);
-
-    caso.mensagem = "Passou: limpe com ponteiro nulo não causa falha";
+Caso testa_acessor_ponteiro() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Dados d = dados.crie();
+    Caractere *val = "teste";
+    dados.defina_ponteiro(&d, val);
+    Se (dados.obtenha_ponteiro(&d) != val) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: defina/obtenha_ponteiro"; Retorne caso;
+    }
+    caso.mensagem = "Passou: dados.defina/obtenha_ponteiro";
     Retorne caso;
 }
+
+Caso testa_acessor_tamanho() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Dados d = dados.crie();
+    dados.defina_tamanho(&d, 256);
+    Se (dados.obtenha_tamanho(&d) != 256) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: defina/obtenha_tamanho"; Retorne caso;
+    }
+    caso.mensagem = "Passou: dados.defina/obtenha_tamanho";
+    Retorne caso;
+}
+
+Caso testa_acessor_base() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Dados d = dados.crie();
+    Caractere *val = "base";
+    dados.defina_base(&d, val);
+    Se (dados.obtenha_base(&d) != val) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: defina/obtenha_base"; Retorne caso;
+    }
+    caso.mensagem = "Passou: dados.defina/obtenha_base";
+    Retorne caso;
+}
+
+Caso testa_acessor_tipo() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Dados d = dados.crie();
+    dados.defina_tipo(&d, 3);
+    Se (dados.obtenha_tipo(&d) != 3) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: defina/obtenha_tipo"; Retorne caso;
+    }
+    caso.mensagem = "Passou: dados.defina/obtenha_tipo";
+    Retorne caso;
+}
+
+Caso testa_acessor_arquivo() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Dados d = dados.crie();
+    dados.defina_arquivo(&d, 42);
+    Se (dados.obtenha_arquivo(&d) != 42) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: defina/obtenha_arquivo"; Retorne caso;
+    }
+    caso.mensagem = "Passou: dados.defina/obtenha_arquivo";
+    Retorne caso;
+}
+
+Caso testa_acessor_reserva_caractere() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Dados d = dados.crie();
+    dados.defina_reserva_caractere(&d, 65);
+    Se (dados.obtenha_reserva_caractere(&d) != 65) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: defina/obtenha_reserva_caractere"; Retorne caso;
+    }
+    caso.mensagem = "Passou: dados.defina/obtenha_reserva_caractere";
+    Retorne caso;
+}
+
+Caso testa_acessor_tamanho_reserva() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Dados d = dados.crie();
+    dados.defina_tamanho_reserva(&d, 1024);
+    Se (dados.obtenha_tamanho_reserva(&d) != 1024) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: defina/obtenha_tamanho_reserva"; Retorne caso;
+    }
+    caso.mensagem = "Passou: dados.defina/obtenha_tamanho_reserva";
+    Retorne caso;
+}
+
+Caso testa_acessor_nome_arquivo() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Dados d = dados.crie();
+    Caractere *val = "arquivo.txt";
+    dados.defina_nome_arquivo(&d, val);
+    Se (dados.obtenha_nome_arquivo(&d) != val) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: defina/obtenha_nome_arquivo"; Retorne caso;
+    }
+    caso.mensagem = "Passou: dados.defina/obtenha_nome_arquivo";
+    Retorne caso;
+}
+
+// ============================================================
+// Ponto de Entrada
+// ============================================================
 
 Inteiro Início() {
     Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Dados");
-    GerenciadorGrupo.adicione(&grupo, testa_inicializacao_dados);
-    GerenciadorGrupo.adicione(&grupo, testa_inicializacao_todos_campos);
-    GerenciadorGrupo.adicione(&grupo, testa_inicializacao_nulo);
-    GerenciadorGrupo.adicione(&grupo, testa_limpeza_dados);
-    GerenciadorGrupo.adicione(&grupo, testa_limpeza_nulo);
+
+    GerenciadorGrupo.adicione(&grupo, testa_crie);
+    GerenciadorGrupo.adicione(&grupo, testa_destrua);
+    GerenciadorGrupo.adicione(&grupo, testa_destrua_nulo);
+    GerenciadorGrupo.adicione(&grupo, testa_extenda);
+    GerenciadorGrupo.adicione(&grupo, testa_inicialize);
+    GerenciadorGrupo.adicione(&grupo, testa_inicialize_nulo);
+    GerenciadorGrupo.adicione(&grupo, testa_limpe);
+    GerenciadorGrupo.adicione(&grupo, testa_acessor_ponteiro);
+    GerenciadorGrupo.adicione(&grupo, testa_acessor_tamanho);
+    GerenciadorGrupo.adicione(&grupo, testa_acessor_base);
+    GerenciadorGrupo.adicione(&grupo, testa_acessor_tipo);
+    GerenciadorGrupo.adicione(&grupo, testa_acessor_arquivo);
+    GerenciadorGrupo.adicione(&grupo, testa_acessor_reserva_caractere);
+    GerenciadorGrupo.adicione(&grupo, testa_acessor_tamanho_reserva);
+    GerenciadorGrupo.adicione(&grupo, testa_acessor_nome_arquivo);
 
     GerenciadorGrupo.execute(&grupo);
     GerenciadorGrupo.destrua(&grupo);

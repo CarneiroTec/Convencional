@@ -19,8 +19,46 @@ Pseudônimo Enumeração {
 } CtecErroDados;
 
 Pseudônimo Estrutura {
-    Vazio (*inicialize)(Dados *dados);
-    Vazio (*limpe)(Dados *dados);
+    // Construtora, Destrutora e Extensora
+    Dados  (*crie)(Vazio);
+    Vazio  (*destrua)(Dados *dados);
+    Vazio  (*extenda)(Dados *destino, Dados *origem);
+
+    // Auxiliares
+    Vazio  (*inicialize)(Dados *dados);
+    Vazio  (*limpe)(Dados *dados);
+
+    // Acessores — ponteiro
+    Vazio      (*defina_ponteiro)(Dados *dados, Caractere *valor);
+    Caractere *(*obtenha_ponteiro)(Dados *dados);
+
+    // Acessores — tamanho
+    Vazio    (*defina_tamanho)(Dados *dados, Inteiro valor);
+    Inteiro  (*obtenha_tamanho)(Dados *dados);
+
+    // Acessores — base
+    Vazio      (*defina_base)(Dados *dados, Caractere *valor);
+    Caractere *(*obtenha_base)(Dados *dados);
+
+    // Acessores — tipo
+    Vazio    (*defina_tipo)(Dados *dados, Inteiro valor);
+    Inteiro  (*obtenha_tipo)(Dados *dados);
+
+    // Acessores — arquivo
+    Vazio    (*defina_arquivo)(Dados *dados, Inteiro valor);
+    Inteiro  (*obtenha_arquivo)(Dados *dados);
+
+    // Acessores — reservaCaractere
+    Vazio    (*defina_reserva_caractere)(Dados *dados, Inteiro valor);
+    Inteiro  (*obtenha_reserva_caractere)(Dados *dados);
+
+    // Acessores — tamanhoReserva
+    Vazio    (*defina_tamanho_reserva)(Dados *dados, Inteiro valor);
+    Inteiro  (*obtenha_tamanho_reserva)(Dados *dados);
+
+    // Acessores — nomeArquivo
+    Vazio      (*defina_nome_arquivo)(Dados *dados, Caractere *valor);
+    Caractere *(*obtenha_nome_arquivo)(Dados *dados);
 } InterfaceGerenciadorDados;
 
 Externo InterfaceGerenciadorDados dados;
