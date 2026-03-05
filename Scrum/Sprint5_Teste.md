@@ -2,53 +2,118 @@
 SPRINT 5 — MÓDULO TESTE
 ===============================================================================
 Prioridade: MÉDIA (framework de testes utilizado por todos os outros módulos)
+Instâncias globais: caso, grupo
 
-Funções (Caso):
-  - crie(Caractere*, Caractere*, Inteiro, Caractere*)
-  - instancie()
-  - destrua(Caso*)
+===============================================================================
+GERENCIADOR CASO (caso.*)
+===============================================================================
 
-Funções (Grupo):
-  - crie(Caractere*)
-  - adicione(Grupo*, FunçãoTeste)
-  - execute(Grupo*)
-  - destrua(Grupo*)
+Estrutura Caso (5 campos):
+  estado, arquivo, função, linha, mensagem
 
--------------------------------------------------------------------------------
-Fase 1 — Documentação
--------------------------------------------------------------------------------
-  [ ] Documentar Teste.int (Caso, Grupo, FunçãoTeste, CtecErroTeste)
-  [ ] Documentar Caso.crie — cria caso de teste com metadados explícitos
-  [ ] Documentar Caso.instancie — cria caso com metadados automáticos (ARQUIVO, FUNÇÃO, LINHA)
-  [ ] Documentar Caso.destrua — limpa os campos do caso
-  [ ] Documentar Grupo.crie — cria grupo de testes com nome
-  [ ] Documentar Grupo.adicione — adiciona função de teste ao grupo
-  [ ] Documentar Grupo.execute — executa todos os testes e exibe resumo
-  [ ] Documentar Grupo.destrua — limpa os campos do grupo
+Funções Padrão:
+  - caso.crie(Caractere*, Caractere*, Inteiro, Caractere*) → construtor
+  - caso.destrua(Caso*)                                     → destrutor
+  - caso.extenda(Caso*, Caso*)                               → estende instância
+  - caso.instancie()                                         → construtor com macros auto
 
--------------------------------------------------------------------------------
-Fase 2 — Testes
--------------------------------------------------------------------------------
-  [ ] Teste: Caso.instancie preenche arquivo, função e linha automaticamente
-  [ ] Teste: Caso.crie preenche todos os campos corretamente
-  [ ] Teste: Caso.destrua zera todos os campos
-  [ ] Teste: Grupo.crie inicializa com 0 casos
-  [ ] Teste: Grupo.adicione incrementa contador
-  [ ] Teste: Grupo.adicione retorna falso quando grupo está cheio (256)
-  [ ] Teste: Grupo.execute conta passes e falhas corretamente
-  [ ] Teste: Grupo.destrua limpa todos os campos
+Acessores:
+  - caso.defina_estado / caso.obtenha_estado
+  - caso.defina_arquivo / caso.obtenha_arquivo
+  - caso.defina_função / caso.obtenha_função
+  - caso.defina_linha / caso.obtenha_linha
+  - caso.defina_mensagem / caso.obtenha_mensagem
 
--------------------------------------------------------------------------------
-Fase 3 — Implementação
--------------------------------------------------------------------------------
+Total Caso: 14 funções
+
+Fase 1 — Documentação:
+  [ ] Documentar caso.crie — cria caso de teste com metadados explícitos
+  [ ] Documentar caso.instancie — cria caso com macros ARQUIVO, FUNÇÃO, LINHA
+  [ ] Documentar caso.destrua — limpa os campos do caso
+  [ ] Documentar caso.extenda — copia campos de origem para destino
+  [ ] Documentar caso.defina_estado / caso.obtenha_estado
+  [ ] Documentar caso.defina_arquivo / caso.obtenha_arquivo
+  [ ] Documentar caso.defina_função / caso.obtenha_função
+  [ ] Documentar caso.defina_linha / caso.obtenha_linha
+  [ ] Documentar caso.defina_mensagem / caso.obtenha_mensagem
+
+Fase 2 — Testes:
+  [ ] Teste: caso.instancie preenche arquivo, função e linha automaticamente
+  [ ] Teste: caso.crie preenche todos os campos corretamente
+  [ ] Teste: caso.destrua zera todos os campos
+  [ ] Teste: caso.extenda copia todos os campos
+  [ ] Teste: caso.defina_estado / caso.obtenha_estado retorna valor definido
+  [ ] Teste: caso.defina_arquivo / caso.obtenha_arquivo retorna valor definido
+  [ ] Teste: caso.defina_função / caso.obtenha_função retorna valor definido
+  [ ] Teste: caso.defina_linha / caso.obtenha_linha retorna valor definido
+  [ ] Teste: caso.defina_mensagem / caso.obtenha_mensagem retorna valor definido
+
+Fase 3 — Implementação:
   [ ] Implementar ctec_convencional_teste_caso_crie
   [ ] Implementar ctec_convencional_teste_caso_instancie
   [ ] Implementar ctec_convencional_teste_caso_destrua
+  [ ] Implementar ctec_convencional_teste_caso_extenda
+  [ ] Implementar 10 acessores (defina/obtenha × 5 campos)
+  [ ] Montar instância caso
+
+===============================================================================
+GERENCIADOR GRUPO (grupo.*)
+===============================================================================
+
+Estrutura Grupo (5 campos):
+  nome, listaCasos, quantidadeCasos, quantidadePassou, quantidadeFalhou
+
+Funções Padrão:
+  - grupo.crie(Caractere*)         → construtor
+  - grupo.destrua(Grupo*)          → destrutor
+  - grupo.extenda(Grupo*, Grupo*)  → estende instância
+
+Acessores:
+  - grupo.defina_nome / grupo.obtenha_nome
+  - grupo.obtenha_quantidade_casos
+  - grupo.obtenha_quantidade_passou
+  - grupo.obtenha_quantidade_falhou
+
+Funções Específicas:
+  - grupo.adicione(Grupo*, FunçãoTeste)
+  - grupo.execute(Grupo*)
+
+Total Grupo: 12 funções
+
+Fase 1 — Documentação:
+  [ ] Documentar grupo.crie — cria grupo de testes com nome
+  [ ] Documentar grupo.destrua — limpa os campos do grupo
+  [ ] Documentar grupo.extenda — estende um grupo com outro
+  [ ] Documentar grupo.adicione — adiciona função de teste ao grupo
+  [ ] Documentar grupo.execute — executa todos os testes e exibe resumo
+  [ ] Documentar grupo.defina_nome / grupo.obtenha_nome
+  [ ] Documentar grupo.obtenha_quantidade_casos
+  [ ] Documentar grupo.obtenha_quantidade_passou
+  [ ] Documentar grupo.obtenha_quantidade_falhou
+
+Fase 2 — Testes:
+  [ ] Teste: grupo.crie inicializa com 0 casos
+  [ ] Teste: grupo.destrua limpa todos os campos
+  [ ] Teste: grupo.extenda copia testes de um grupo para outro
+  [ ] Teste: grupo.adicione incrementa contador
+  [ ] Teste: grupo.adicione retorna falso quando grupo está cheio (256)
+  [ ] Teste: grupo.execute conta passes e falhas corretamente
+  [ ] Teste: grupo.defina_nome / grupo.obtenha_nome retorna valor definido
+  [ ] Teste: grupo.obtenha_quantidade_casos reflete total de adições
+  [ ] Teste: grupo.obtenha_quantidade_passou / grupo.obtenha_quantidade_falhou
+
+Fase 3 — Implementação:
   [ ] Implementar ctec_convencional_teste_grupo_crie
+  [ ] Implementar ctec_convencional_teste_grupo_destrua
+  [ ] Implementar ctec_convencional_teste_grupo_extenda
   [ ] Implementar ctec_convencional_teste_grupo_adicione
   [ ] Implementar ctec_convencional_teste_grupo_execute
-  [ ] Implementar ctec_convencional_teste_grupo_destrua
-  [ ] Montar instâncias GerenciadorCaso e GerenciadorGrupo
+  [ ] Implementar acessores (defina_nome, obtenha_nome, obtenha_quantidade_*)
+  [ ] Montar instância grupo
+
+===============================================================================
+TOTAL MÓDULO TESTE: 26 funções (14 Caso + 12 Grupo)
+===============================================================================
 
 -------------------------------------------------------------------------------
 Fase 4 — Biblioteca

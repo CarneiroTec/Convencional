@@ -2,27 +2,31 @@
 SPRINT 3 — MÓDULO SISTEMA
 ===============================================================================
 Prioridade: ALTA (funções fundamentais de I/O, memória, tempo, ambiente, execução)
+Instância global: sistema
 
-Estrutura:
-  InterfaceGerenciadorSistema com structs aninhadas:
-    .terminal   (6 funções)
-    .ambiente   (2 funções)
-    .execução   (4 funções)
-    .tempo      (3 funções)
-    .memória    (4 funções)
-  Uso: GerenciadorSistema.terminal.exiba_formatado(...)
+Estrutura: InterfaceGerenciadorSistema com structs aninhadas
+  (sem campos de dados próprios — sem acessores defina/obtenha)
+
+  sistema.terminal.*    (6 funções)
+  sistema.ambiente.*    (2 funções)
+  sistema.execução.*    (4 funções)
+  sistema.tempo.*       (3 funções)
+  sistema.memória.*     (4 funções)
+
+Uso: sistema.terminal.exiba_formatado("Olá %s", "Mundo")
+Total de Funções: 21 (agrupadas, sem acessores)
 
 ===============================================================================
-TERMINAL (GerenciadorSistema.terminal.*)
+TERMINAL (sistema.terminal.*)
 ===============================================================================
 
 Funções:
-  - exiba_caractere(Caractere)
-  - exiba_formatado(Imutável Caractere*, ...)
-  - exiba_texto(Imutável Caractere*)
-  - leia_caractere()
-  - leia_formatado(Imutável Caractere*, ...)
-  - leia_texto(Caractere*)
+  - sistema.terminal.exiba_caractere(Caractere)
+  - sistema.terminal.exiba_formatado(Imutável Caractere*, ...)
+  - sistema.terminal.exiba_texto(Imutável Caractere*)
+  - sistema.terminal.leia_caractere()
+  - sistema.terminal.leia_formatado(Imutável Caractere*, ...)
+  - sistema.terminal.leia_texto(Caractere*)
 
 Fase 1 — Documentação:
   [ ] Documentar exiba_caractere — exibe um caractere no terminal
@@ -49,12 +53,12 @@ Fase 3 — Implementação:
   [ ] Mapear leia_formatado → scanf
 
 ===============================================================================
-AMBIENTE (GerenciadorSistema.ambiente.*)
+AMBIENTE (sistema.ambiente.*)
 ===============================================================================
 
 Funções:
-  - defina_variável(Imutável Caractere*, Imutável Caractere*)
-  - obtenha_variável(Imutável Caractere*)
+  - sistema.ambiente.defina_variável(Imutável Caractere*, Imutável Caractere*)
+  - sistema.ambiente.obtenha_variável(Imutável Caractere*)
 
 Fase 1 — Documentação:
   [ ] Documentar defina_variável — define uma variável de ambiente
@@ -69,14 +73,14 @@ Fase 3 — Implementação:
   [ ] Implementar ctec_convencional_sistema_obtenha_variável
 
 ===============================================================================
-EXECUÇÃO (GerenciadorSistema.execução.*)
+EXECUÇÃO (sistema.execução.*)
 ===============================================================================
 
 Funções:
-  - aborte()
-  - finalize(Inteiro)
-  - finalize_imediamente(Inteiro)
-  - suceda(Vazio(*)(Vazio))
+  - sistema.execução.aborte()
+  - sistema.execução.finalize(Inteiro)
+  - sistema.execução.finalize_imediamente(Inteiro)
+  - sistema.execução.suceda(Vazio(*)(Vazio))
 
 Fase 1 — Documentação:
   [ ] Documentar aborte — encerra o programa abruptamente
@@ -95,13 +99,13 @@ Fase 3 — Implementação:
   [ ] Implementar ctec_convencional_sistema_suceda
 
 ===============================================================================
-TEMPO (GerenciadorSistema.tempo.*)
+TEMPO (sistema.tempo.*)
 ===============================================================================
 
 Funções:
-  - obtenha_tempo(Longo*)
-  - obtenha_relógio()
-  - aguarde(Longo)
+  - sistema.tempo.obtenha_tempo(Longo*)
+  - sistema.tempo.obtenha_relógio()
+  - sistema.tempo.aguarde(Longo)
 
 Fase 1 — Documentação:
   [ ] Documentar obtenha_tempo — retorna o tempo atual em segundos desde 1970
@@ -119,14 +123,14 @@ Fase 3 — Implementação:
   [ ] Implementar ctec_convencional_sistema_aguarde
 
 ===============================================================================
-MEMÓRIA (GerenciadorSistema.memória.*)
+MEMÓRIA (sistema.memória.*)
 ===============================================================================
 
 Funções:
-  - aloque(Natural Inteiro)
-  - aloque_zerado(Natural Inteiro, Natural Inteiro)
-  - realoque(Vazio*, Natural Inteiro)
-  - libere(Vazio*)
+  - sistema.memória.aloque(Natural Inteiro)
+  - sistema.memória.aloque_zerado(Natural Inteiro, Natural Inteiro)
+  - sistema.memória.realoque(Vazio*, Natural Inteiro)
+  - sistema.memória.libere(Vazio*)
 
 Fase 1 — Documentação:
   [ ] Documentar aloque — aloca bloco de memória não-inicializado
@@ -150,7 +154,7 @@ Fase 3 — Implementação:
 MONTAGEM FINAL
 ===============================================================================
 
-  [ ] Montar instância GerenciadorSistema com structs aninhadas
+  [ ] Montar instância sistema com structs aninhadas
   [ ] Documentar Sistema.int completo (CtecErroSistema, InterfaceGerenciadorSistema)
 
 -------------------------------------------------------------------------------
@@ -163,6 +167,6 @@ Fase 4 — Biblioteca
 -------------------------------------------------------------------------------
 Fase 5 — Exemplo
 -------------------------------------------------------------------------------
-  [ ] Criar exemplo: exibir texto, alocar memória, ler variável de ambiente
+  [ ] Criar exemplo: sistema.terminal.exiba_texto, sistema.memória.aloque/libere
 
 ===============================================================================

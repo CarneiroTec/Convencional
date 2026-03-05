@@ -16,11 +16,12 @@ Fase 4 — Geração da Biblioteca
 Fase 5 — Exemplo Completo
 -------------------------------------------------------------------------------
   [ ] Criar Aplicativo.nld de exemplo demonstrando todos os módulos:
-      - GerenciadorSistema.terminal.exiba_formatado (Sistema)
-      - GerenciadorSistema.memória.aloque/libere (Sistema)
-      - GerenciadorSistema.tempo.obtenha_tempo (Sistema)
-      - GerenciadorArquivo.crie/escreva/feche (Arquivo)
-      - GerenciadorErro.obtenha_erro (Erro)
+      - sistema.terminal.exiba_formatado (Sistema)
+      - sistema.memória.aloque/libere (Sistema)
+      - sistema.tempo.obtenha_tempo (Sistema)
+      - arquivo.crie/escreva/feche (Arquivo)
+      - erro.obtenha_erro (Erro)
+      - dados.crie/dados.destrua (Dados)
   [ ] Compilar e executar o exemplo
   [ ] Atualizar Leiame.md com exemplo de uso atualizado
 

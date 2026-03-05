@@ -19,20 +19,25 @@ Fluxo de desenvolvimento por módulo:
   4. Biblioteca    — Gerar biblioteca estática e dinâmica
   5. Exemplo       — Criar exemplo de uso
 
+Convenções:
+  - Instância global = nome do tipo em minúsculo (dados, arquivo, etc.)
+  - Gerenciadores de struct possuem: .crie, .destrua, .extenda
+  - Cada campo da struct possui: .defina_[campo] e .obtenha_[campo]
+
 ===============================================================================
 SPRINTS
 ===============================================================================
 
-Sprint  | Módulo      | Funções | Arquivo               | Status
---------|-------------|---------|------------------------|--------
-  1     | Dados       |    2    | Sprint1_Dados.md       | [ ]
-  2     | Erro        |    3    | Sprint2_Erro.md        | [ ]
-  3     | Sistema     |   21    | Sprint3_Sistema.md     | [ ]
-  4     | Arquivo     |   25    | Sprint4_Arquivo.md     | [ ]
-  5     | Teste       |    7    | Sprint5_Teste.md       | [ ]
-  6     | Variáveis   |    4    | Sprint6_Variaveis.md   | [ ]
-  7     | Integração  |    —    | Sprint7_Integracao.md  | [ ]
---------|-------------|---------|------------------------|--------
-Total   |    6 + Int. |   62    |                        |
+Sprint  | Módulo      | Instância   | Funções | Arquivo               | Status
+--------|-------------|-------------|---------|------------------------|--------
+  1     | Dados       | dados       |   21    | Sprint1_Dados.md       | [ ]
+  2     | Erro        | erro        |    3    | Sprint2_Erro.md        | [ ]
+  3     | Sistema     | sistema     |   21    | Sprint3_Sistema.md     | [ ]
+  4     | Arquivo     | arquivo     |   27    | Sprint4_Arquivo.md     | [ ]
+  5     | Teste       | caso, grupo |   26    | Sprint5_Teste.md       | [ ]
+  6     | Variáveis   | variáveis   |   15    | Sprint6_Variaveis.md   | [ ]
+  7     | Integração  | —           |    —    | Sprint7_Integracao.md  | [ ]
+--------|-------------|-------------|---------|------------------------|--------
+Total   |    6 + Int. |             |  113    |                        |
 
 ===============================================================================
