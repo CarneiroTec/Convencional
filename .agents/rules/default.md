@@ -10,3 +10,8 @@ trigger: always_on
 6. De um merge na branch "release-ia"
 
 - Documentação escrita com HTML
+- Cada módulo deve conter uma estrutura que armazena dados
+- Cada módulo deve ter uma interface "gerenciador" que possue as funções defina e obtenha dos campos da estrutura e as funções auxiliares
+- Cada módulo deve ter uma instância global com o nome do módulo
+- Cada módulo deve ter enumerações para possíveis erros.
+- Cada módulo deve ter implementações cujo suas funções possuem o "Fixo"

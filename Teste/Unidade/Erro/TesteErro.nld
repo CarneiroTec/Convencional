@@ -1,6 +1,6 @@
 #Inclua "../../Teste.nld"
 
-Caso testa_gerenciamento_erro() {
+Caso testa_defina_obtenha_erro() {
     Caso caso = {
         .estado = 1,
         .arquivo = ARQUIVO,
@@ -9,31 +9,90 @@ Caso testa_gerenciamento_erro() {
         .mensagem = ""
     };
 
-    GerenciadorErro.defina_erro(ERRO_PERMISSÃO_NEGADA);
-    Erro atual = GerenciadorErro.obtenha_erro();
+    erro.defina_erro(ERRO_PERMISSÃO_NEGADA);
+    Erro atual = erro.obtenha_erro();
     Se (atual != ERRO_PERMISSÃO_NEGADA) {
         caso.estado = 0;
         caso.linha = LINHA;
-        caso.mensagem = "Falhou: Erro obtido não corresponde ao erro definido";
+        caso.mensagem = "Falhou: Erro obtido não corresponde ao definido";
         Retorne caso;
     }
 
-    GerenciadorErro.defina_erro(ERRO_NÃO_EXISTE);
-    Caractere *msg = GerenciadorErro.mensagem(ERRO_ARQUIVO_MUITO_GRANDE);
+    caso.mensagem = "Passou: defina_erro seguido de obtenha_erro";
+    Retorne caso;
+}
+
+Caso testa_defina_obtenha_outro_valor() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    erro.defina_erro(ERRO_NÃO_EXISTE);
+    Erro atual = erro.obtenha_erro();
+    Se (atual != ERRO_NÃO_EXISTE) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: Segundo valor de erro não corresponde";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: defina_erro com ERRO_NÃO_EXISTE";
+    Retorne caso;
+}
+
+Caso testa_mensagem_erro() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    Caractere *msg = erro.mensagem(ERRO_ARQUIVO_MUITO_GRANDE);
     Se (msg == (Vazio*)0) {
         caso.estado = 0;
         caso.linha = LINHA;
-        caso.mensagem = "Falhou: Mensagem de erro retornou nulo";
+        caso.mensagem = "Falhou: mensagem retornou nulo para código válido";
         Retorne caso;
     }
 
-    caso.mensagem = "Passou: Gerenciamento e conversão de erro";
+    caso.mensagem = "Passou: mensagem retorna string para código válido";
+    Retorne caso;
+}
+
+Caso testa_obtenha_erro_inicial() {
+    Caso caso = {
+        .estado = 1,
+        .arquivo = ARQUIVO,
+        .função = FUNÇÃO,
+        .linha = LINHA,
+        .mensagem = ""
+    };
+
+    erro.defina_erro(0);
+    Erro atual = erro.obtenha_erro();
+    Se (atual != 0) {
+        caso.estado = 0;
+        caso.linha = LINHA;
+        caso.mensagem = "Falhou: obtenha_erro após reset não retorna 0";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: obtenha_erro retorna 0 após reset";
     Retorne caso;
 }
 
 Inteiro Início() {
     Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Erro");
-    GerenciadorGrupo.adicione(&grupo, testa_gerenciamento_erro);
+    GerenciadorGrupo.adicione(&grupo, testa_defina_obtenha_erro);
+    GerenciadorGrupo.adicione(&grupo, testa_defina_obtenha_outro_valor);
+    GerenciadorGrupo.adicione(&grupo, testa_mensagem_erro);
+    GerenciadorGrupo.adicione(&grupo, testa_obtenha_erro_inicial);
     GerenciadorGrupo.execute(&grupo);
     GerenciadorGrupo.destrua(&grupo);
     Retorne 0;
