@@ -18,10 +18,15 @@ Inteiro Início() {
     printf("Nome: %s\n", dados.obtenha_nome_arquivo(&bloco));
     printf("Tamanho: %d\n", dados.obtenha_tamanho(&bloco));
 
-    // Estender de uma instância para outra
+    // Cópia rasa (shallow) — ponteiros compartilhados
+    Dados rasa = dados.crie();
+    dados.copie(&rasa, &bloco);
+    printf("Rasa Tamanho: %d\n", dados.obtenha_tamanho(&rasa));
+
+    // Cópia profunda (deep) — ponteiros independentes
     Dados cópia = dados.crie();
     dados.clone(&cópia, &bloco);
-    printf("Cópia Tamanho: %d\n", dados.obtenha_tamanho(&cópia));
+    printf("Clone Tamanho: %d\n", dados.obtenha_tamanho(&cópia));
 
     // Destruir ambas
     dados.destrua(&bloco);

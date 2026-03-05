@@ -1,7 +1,11 @@
 #Inclua <Convencional.int>
 
+Externo Vazio *malloc(Natural Inteiro tamanho);
+Externo Vazio *memcpy(Vazio *destino, Imutável Vazio *origem, Natural Inteiro tamanho);
+Externo Natural Inteiro strlen(Imutável Caractere *texto);
+
 // ============================================================
-// Construtora, Destrutora e Extensora
+// Construtora, Destrutora e Copiadoras
 // ============================================================
 
 Fixo Dados ctec_convencional_dados_crie(Vazio) {
@@ -29,7 +33,7 @@ Fixo Vazio ctec_convencional_dados_destrua(Dados *dados) {
     dados->nomeArquivo = (Vazio*)0;
 }
 
-Fixo Vazio ctec_convencional_dados_clone(Dados *destino, Dados *origem) {
+Fixo Vazio ctec_convencional_dados_copie(Dados *destino, Dados *origem) {
     Se (destino == (Vazio*)0 || origem == (Vazio*)0) { Retorne; }
     destino->ponteiro = origem->ponteiro;
     destino->tamanho = origem->tamanho;
@@ -39,6 +43,35 @@ Fixo Vazio ctec_convencional_dados_clone(Dados *destino, Dados *origem) {
     destino->reservaCaractere = origem->reservaCaractere;
     destino->tamanhoReserva = origem->tamanhoReserva;
     destino->nomeArquivo = origem->nomeArquivo;
+}
+
+Fixo Vazio ctec_convencional_dados_clone(Dados *destino, Dados *origem) {
+    Se (destino == (Vazio*)0 || origem == (Vazio*)0) { Retorne; }
+    destino->tamanho = origem->tamanho;
+    destino->tipo = origem->tipo;
+    destino->arquivo = origem->arquivo;
+    destino->reservaCaractere = origem->reservaCaractere;
+    destino->tamanhoReserva = origem->tamanhoReserva;
+
+    // Cópia profunda dos ponteiros
+    Se (origem->ponteiro != (Vazio*)0 && origem->tamanho > 0) {
+        destino->ponteiro = (Caractere*)malloc(origem->tamanho);
+        memcpy(destino->ponteiro, origem->ponteiro, origem->tamanho);
+    }
+    Se (origem->ponteiro == (Vazio*)0) { destino->ponteiro = (Vazio*)0; }
+
+    Se (origem->base != (Vazio*)0 && origem->tamanhoReserva > 0) {
+        destino->base = (Caractere*)malloc(origem->tamanhoReserva);
+        memcpy(destino->base, origem->base, origem->tamanhoReserva);
+    }
+    Se (origem->base == (Vazio*)0) { destino->base = (Vazio*)0; }
+
+    Se (origem->nomeArquivo != (Vazio*)0) {
+        Natural Inteiro tam = strlen(origem->nomeArquivo) + 1;
+        destino->nomeArquivo = (Caractere*)malloc(tam);
+        memcpy(destino->nomeArquivo, origem->nomeArquivo, tam);
+    }
+    Se (origem->nomeArquivo == (Vazio*)0) { destino->nomeArquivo = (Vazio*)0; }
 }
 
 // ============================================================
@@ -180,6 +213,7 @@ Fixo Caractere *ctec_convencional_dados_obtenha_nome_arquivo(Dados *dados) {
 Imutável InterfaceGerenciadorDados dados = {
     .crie = ctec_convencional_dados_crie,
     .destrua = ctec_convencional_dados_destrua,
+    .copie = ctec_convencional_dados_copie,
     .clone = ctec_convencional_dados_clone,
     .inicialize = ctec_convencional_dados_inicialize,
     .limpe = ctec_convencional_dados_limpe,

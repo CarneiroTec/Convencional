@@ -49,7 +49,39 @@ Caso testa_destrua_nulo() {
 }
 
 // ============================================================
-// Teste: dados.clone
+// Teste: dados.copie (cópia rasa)
+// ============================================================
+
+Caso testa_copie() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+
+    Dados origem = dados.crie();
+    origem.tamanho = 100;
+    origem.tipo = 5;
+    origem.arquivo = 7;
+
+    Dados destino = dados.crie();
+    dados.copie(&destino, &origem);
+
+    Se (destino.tamanho != 100 || destino.tipo != 5 || destino.arquivo != 7) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: copie não copiou os campos";
+        Retorne caso;
+    }
+
+    // Shallow: ponteiros devem ser os mesmos
+    Se (destino.ponteiro != origem.ponteiro) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: copie deve compartilhar ponteiros";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: dados.copie (cópia rasa)";
+    Retorne caso;
+}
+
+// ============================================================
+// Teste: dados.clone (cópia profunda)
 // ============================================================
 
 Caso testa_clone() {
@@ -69,7 +101,7 @@ Caso testa_clone() {
         Retorne caso;
     }
 
-    caso.mensagem = "Passou: dados.clone";
+    caso.mensagem = "Passou: dados.clone (cópia profunda)";
     Retorne caso;
 }
 
@@ -237,6 +269,7 @@ Inteiro Início() {
     GerenciadorGrupo.adicione(&grupo, testa_crie);
     GerenciadorGrupo.adicione(&grupo, testa_destrua);
     GerenciadorGrupo.adicione(&grupo, testa_destrua_nulo);
+    GerenciadorGrupo.adicione(&grupo, testa_copie);
     GerenciadorGrupo.adicione(&grupo, testa_clone);
     GerenciadorGrupo.adicione(&grupo, testa_inicialize);
     GerenciadorGrupo.adicione(&grupo, testa_inicialize_nulo);

@@ -22,6 +22,7 @@ Pseudônimo Estrutura {
     // Construtora, Destrutora e Extensora
     Dados  (*crie)(Vazio);
     Vazio  (*destrua)(Dados *dados);
+    Vazio  (*copie)(Dados *destino, Dados *origem);
     Vazio  (*clone)(Dados *destino, Dados *origem);
 
     // Auxiliares
