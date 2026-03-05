@@ -1,0 +1,25 @@
+#Inclua <Convencional.int>
+
+Inteiro Início() {
+    // Terminal
+    sistema.terminal.exiba_texto("=== Exemplo Módulo Sistema ===");
+    sistema.terminal.exiba_formatado("Resultado: %d + %d = %d\n", 10, 20, 30);
+
+    // Memória
+    Inteiro *números = (Inteiro*)sistema.memória.aloque_zerado(5, meça(Inteiro));
+    números[0] = 42;
+    números[1] = 99;
+    sistema.terminal.exiba_formatado("Memória: [%d, %d]\n", números[0], números[1]);
+    sistema.memória.libere(números);
+
+    // Tempo
+    Longo agora = sistema.tempo.obtenha_tempo((Vazio*)0);
+    sistema.terminal.exiba_formatado("Timestamp: %ld\n", agora);
+
+    // Ambiente
+    sistema.ambiente.defina_variável("CTEC_EXEMPLO", "ativo");
+    Caractere *val = sistema.ambiente.obtenha_variável("CTEC_EXEMPLO");
+    sistema.terminal.exiba_formatado("Variável CTEC_EXEMPLO: %s\n", val);
+
+    Retorne 0;
+}

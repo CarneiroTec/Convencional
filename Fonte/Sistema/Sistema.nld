@@ -1,0 +1,158 @@
+#Inclua <Convencional.int>
+
+// ============================================================
+// Externals — C stdlib
+// ============================================================
+
+// Terminal
+Externo Inteiro getchar(Vazio);
+Externo Inteiro gets(Caractere*);
+Externo Inteiro printf(Imutável Caractere*, ...);
+Externo Inteiro puts(Imutável Caractere*);
+Externo Inteiro putchar(Caractere);
+Externo Inteiro scanf(Imutável Caractere*, ...);
+
+// Ambiente
+Externo Inteiro _putenv_s(Imutável Caractere*, Imutável Caractere*);
+Externo Caractere *getenv(Imutável Caractere*);
+
+// Execução
+Externo Vazio abort(Vazio);
+Externo Vazio exit(Inteiro);
+Externo Vazio _exit(Inteiro);
+Externo Inteiro atexit(Vazio(*)(Vazio));
+
+// Tempo
+Externo Longo time(Longo*);
+Externo Longo clock(Vazio);
+Externo Vazio Sleep(Longo);
+
+// Memória
+Externo Vazio *malloc(Natural Inteiro);
+Externo Vazio *calloc(Natural Inteiro, Natural Inteiro);
+Externo Vazio *realloc(Vazio*, Natural Inteiro);
+Externo Vazio free(Vazio*);
+
+// ============================================================
+// Terminal
+// ============================================================
+
+Fixo Inteiro ctec_convencional_sistema_exiba_caractere(Caractere c) {
+    Retorne putchar(c);
+}
+
+Fixo Inteiro ctec_convencional_sistema_exiba_texto(Imutável Caractere* texto) {
+    Retorne puts(texto);
+}
+
+Fixo Inteiro ctec_convencional_sistema_leia_caractere(Vazio) {
+    Retorne getchar();
+}
+
+Fixo Inteiro ctec_convencional_sistema_leia_texto(Caractere* texto) {
+    Retorne gets(texto);
+}
+
+// ============================================================
+// Ambiente
+// ============================================================
+
+Fixo Inteiro ctec_convencional_sistema_defina_variável(Imutável Caractere* nome, Imutável Caractere* valor) {
+    Retorne _putenv_s(nome, valor);
+}
+
+Fixo Caractere *ctec_convencional_sistema_obtenha_variável(Imutável Caractere* nome) {
+    Retorne getenv(nome);
+}
+
+// ============================================================
+// Execução
+// ============================================================
+
+Fixo Vazio ctec_convencional_sistema_aborte(Vazio) {
+    abort();
+}
+
+Fixo Vazio ctec_convencional_sistema_finalize(Inteiro código) {
+    exit(código);
+}
+
+Fixo Vazio ctec_convencional_sistema_finalize_imediamente(Inteiro código) {
+    _exit(código);
+}
+
+Fixo Inteiro ctec_convencional_sistema_suceda(Vazio(*função)(Vazio)) {
+    Retorne atexit(função);
+}
+
+// ============================================================
+// Tempo
+// ============================================================
+
+Fixo Longo ctec_convencional_sistema_obtenha_tempo(Longo* tempo) {
+    Retorne time(tempo);
+}
+
+Fixo Longo ctec_convencional_sistema_obtenha_relógio(Vazio) {
+    Retorne clock();
+}
+
+Fixo Vazio ctec_convencional_sistema_aguarde(Longo milissegundos) {
+    Sleep(milissegundos);
+}
+
+// ============================================================
+// Memória
+// ============================================================
+
+Fixo Vazio* ctec_convencional_sistema_aloque(Natural Inteiro tamanho) {
+    Retorne malloc(tamanho);
+}
+
+Fixo Vazio* ctec_convencional_sistema_aloque_zerado(Natural Inteiro contador, Natural Inteiro tamanho) {
+    Retorne calloc(contador, tamanho);
+}
+
+Fixo Vazio* ctec_convencional_sistema_realoque(Vazio* ponteiro, Natural Inteiro tamanho) {
+    Retorne realloc(ponteiro, tamanho);
+}
+
+Fixo Vazio ctec_convencional_sistema_libere(Vazio* ponteiro) {
+    free(ponteiro);
+}
+
+// ============================================================
+// Instância Global
+// ============================================================
+
+Imutável InterfaceGerenciadorSistema sistema = {
+    .terminal = {
+        .exiba_caractere = ctec_convencional_sistema_exiba_caractere,
+        .exiba_formatado = printf,
+        .exiba_texto = ctec_convencional_sistema_exiba_texto,
+        .leia_caractere = ctec_convencional_sistema_leia_caractere,
+        .leia_formatado = scanf,
+        .leia_texto = ctec_convencional_sistema_leia_texto
+    },
+    .ambiente = {
+        .defina_variável = ctec_convencional_sistema_defina_variável,
+        .obtenha_variável = ctec_convencional_sistema_obtenha_variável
+    },
+    .execução = {
+        .aborte = ctec_convencional_sistema_aborte,
+        .finalize = ctec_convencional_sistema_finalize,
+        .finalize_imediamente = ctec_convencional_sistema_finalize_imediamente,
+        .suceda = ctec_convencional_sistema_suceda
+    },
+    .tempo = {
+        .obtenha_tempo = ctec_convencional_sistema_obtenha_tempo,
+        .obtenha_relógio = ctec_convencional_sistema_obtenha_relógio,
+        .aguarde = ctec_convencional_sistema_aguarde
+    },
+    .memória = {
+        .aloque = ctec_convencional_sistema_aloque,
+        .aloque_zerado = ctec_convencional_sistema_aloque_zerado,
+        .realoque = ctec_convencional_sistema_realoque,
+        .libere = ctec_convencional_sistema_libere
+    }
+};
