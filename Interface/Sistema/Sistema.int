@@ -1,0 +1,54 @@
+#SeNãoDefinido CTEC_CONVENCIONAL_SISTEMA
+#Defina CTEC_CONVENCIONAL_SISTEMA
+
+Pseudônimo Enumeração {
+    CTEC_ERRO_SISTEMA_SUCESSO = 0,
+    CTEC_ERRO_SISTEMA_FALHA   = -1
+} CtecErroSistema;
+
+Pseudônimo Estrutura {
+
+    // ── Terminal ─────────────────────────────────────────────
+    Estrutura {
+        Inteiro  (*exiba_caractere)(Caractere);
+        Inteiro  (*exiba_formatado)(Imutável Caractere*, ...);
+        Inteiro  (*exiba_texto)(Imutável Caractere*);
+        Inteiro  (*leia_caractere)(Vazio);
+        Inteiro  (*leia_formatado)(Imutável Caractere*, ...);
+        Inteiro  (*leia_texto)(Caractere*);
+    } terminal;
+
+    // ── Ambiente ─────────────────────────────────────────────
+    Estrutura {
+        Inteiro    (*defina_variável)(Imutável Caractere*, Imutável Caractere*);
+        Caractere *(*obtenha_variável)(Imutável Caractere*);
+    } ambiente;
+
+    // ── Execução ─────────────────────────────────────────────
+    Estrutura {
+        Vazio   (*aborte)(Vazio);
+        Vazio   (*finalize)(Inteiro);
+        Vazio   (*finalize_imediamente)(Inteiro);
+        Inteiro (*suceda)(Vazio(*)(Vazio));
+    } execução;
+
+    // ── Tempo ────────────────────────────────────────────────
+    Estrutura {
+        Longo (*obtenha_tempo)(Longo*);
+        Longo (*obtenha_relógio)(Vazio);
+        Vazio (*aguarde)(Longo);
+    } tempo;
+
+    // ── Memória ──────────────────────────────────────────────
+    Estrutura {
+        Vazio *(*aloque)(Natural Inteiro);
+        Vazio *(*aloque_zerado)(Natural Inteiro, Natural Inteiro);
+        Vazio *(*realoque)(Vazio*, Natural Inteiro);
+        Vazio  (*libere)(Vazio*);
+    } memória;
+
+} InterfaceGerenciadorSistema;
+
+Externo Imutável InterfaceGerenciadorSistema sistema;
+
+#FimSe

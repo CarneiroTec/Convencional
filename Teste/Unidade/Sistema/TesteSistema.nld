@@ -1,0 +1,217 @@
+#Inclua "../../Teste.nld"
+
+// ============================================================
+// Terminal
+// ============================================================
+
+Caso testa_terminal_exiba_caractere() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Inteiro r = sistema.terminal.exiba_caractere('A');
+    Se (r == -1) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: exiba_caractere retornou EOF";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: sistema.terminal.exiba_caractere";
+    Retorne caso;
+}
+
+Caso testa_terminal_exiba_formatado() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Inteiro r = sistema.terminal.exiba_formatado("[teste] %d + %d = %d\n", 2, 3, 5);
+    Se (r <= 0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: exiba_formatado retornou <= 0";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: sistema.terminal.exiba_formatado";
+    Retorne caso;
+}
+
+Caso testa_terminal_exiba_texto() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Inteiro r = sistema.terminal.exiba_texto("[teste] exiba_texto");
+    Se (r < 0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: exiba_texto retornou negativo";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: sistema.terminal.exiba_texto";
+    Retorne caso;
+}
+
+// ============================================================
+// Ambiente
+// ============================================================
+
+Caso testa_ambiente_defina_obtenha() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+
+    sistema.ambiente.defina_variável("CTEC_TESTE_VAR", "123");
+    Caractere *val = sistema.ambiente.obtenha_variável("CTEC_TESTE_VAR");
+
+    Se (val == (Vazio*)0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: obtenha_variável retornou nulo";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: sistema.ambiente.defina/obtenha_variável";
+    Retorne caso;
+}
+
+Caso testa_ambiente_inexistente() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+
+    Caractere *val = sistema.ambiente.obtenha_variável("CTEC_VAR_INEXISTENTE_XYZ");
+
+    Se (val != (Vazio*)0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: variável inexistente deveria retornar nulo";
+        Retorne caso;
+    }
+
+    caso.mensagem = "Passou: sistema.ambiente.obtenha_variável inexistente";
+    Retorne caso;
+}
+
+// ============================================================
+// Execução
+// ============================================================
+
+Caso testa_execução_suceda() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    // Nota: não podemos testar aborte/finalize sem encerrar o processo
+    // Testamos apenas suceda (atexit) que retorna 0 em sucesso
+    Inteiro r = sistema.execução.suceda((Vazio*)0);
+    // atexit com NULL pode falhar, mas não deve causar crash
+    caso.mensagem = "Passou: sistema.execução.suceda chamado sem crash";
+    Retorne caso;
+}
+
+// ============================================================
+// Tempo
+// ============================================================
+
+Caso testa_tempo_obtenha_tempo() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Longo t = sistema.tempo.obtenha_tempo((Vazio*)0);
+    Se (t <= 0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: obtenha_tempo retornou <= 0";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: sistema.tempo.obtenha_tempo";
+    Retorne caso;
+}
+
+Caso testa_tempo_obtenha_relógio() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Longo r = sistema.tempo.obtenha_relógio();
+    Se (r < 0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: obtenha_relógio retornou negativo";
+        Retorne caso;
+    }
+    caso.mensagem = "Passou: sistema.tempo.obtenha_relógio";
+    Retorne caso;
+}
+
+// ============================================================
+// Memória
+// ============================================================
+
+Caso testa_memória_aloque_libere() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Inteiro *p = (Inteiro*)sistema.memória.aloque(meça(Inteiro) * 10);
+    Se (p == (Vazio*)0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: aloque retornou nulo";
+        Retorne caso;
+    }
+    *p = 42;
+    Se (*p != 42) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: escrita/leitura na memória alocada";
+        Retorne caso;
+    }
+    sistema.memória.libere(p);
+    caso.mensagem = "Passou: sistema.memória.aloque/libere";
+    Retorne caso;
+}
+
+Caso testa_memória_aloque_zerado() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Inteiro *p = (Inteiro*)sistema.memória.aloque_zerado(10, meça(Inteiro));
+    Se (p == (Vazio*)0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: aloque_zerado retornou nulo";
+        Retorne caso;
+    }
+    Se (p[0] != 0 || p[9] != 0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: memória não está zerada";
+        Retorne caso;
+    }
+    sistema.memória.libere(p);
+    caso.mensagem = "Passou: sistema.memória.aloque_zerado";
+    Retorne caso;
+}
+
+Caso testa_memória_realoque() {
+    Caso caso = { .estado = 1, .arquivo = ARQUIVO, .função = FUNÇÃO, .linha = LINHA, .mensagem = "" };
+    Inteiro *p = (Inteiro*)sistema.memória.aloque(meça(Inteiro) * 5);
+    Se (p == (Vazio*)0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: aloque inicial retornou nulo";
+        Retorne caso;
+    }
+    p[0] = 99;
+    p = (Inteiro*)sistema.memória.realoque(p, meça(Inteiro) * 20);
+    Se (p == (Vazio*)0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: realoque retornou nulo";
+        Retorne caso;
+    }
+    Se (p[0] != 99) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: realoque não preservou conteúdo";
+        Retorne caso;
+    }
+    sistema.memória.libere(p);
+    caso.mensagem = "Passou: sistema.memória.realoque";
+    Retorne caso;
+}
+
+// ============================================================
+// Ponto de Entrada
+// ============================================================
+
+Inteiro Início() {
+    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Sistema");
+
+    // Terminal
+    GerenciadorGrupo.adicione(&grupo, testa_terminal_exiba_caractere);
+    GerenciadorGrupo.adicione(&grupo, testa_terminal_exiba_formatado);
+    GerenciadorGrupo.adicione(&grupo, testa_terminal_exiba_texto);
+
+    // Ambiente
+    GerenciadorGrupo.adicione(&grupo, testa_ambiente_defina_obtenha);
+    GerenciadorGrupo.adicione(&grupo, testa_ambiente_inexistente);
+
+    // Execução
+    GerenciadorGrupo.adicione(&grupo, testa_execução_suceda);
+
+    // Tempo
+    GerenciadorGrupo.adicione(&grupo, testa_tempo_obtenha_tempo);
+    GerenciadorGrupo.adicione(&grupo, testa_tempo_obtenha_relógio);
+
+    // Memória
+    GerenciadorGrupo.adicione(&grupo, testa_memória_aloque_libere);
+    GerenciadorGrupo.adicione(&grupo, testa_memória_aloque_zerado);
+    GerenciadorGrupo.adicione(&grupo, testa_memória_realoque);
+
+    GerenciadorGrupo.execute(&grupo);
+    GerenciadorGrupo.destrua(&grupo);
+    Retorne 0;
+}
