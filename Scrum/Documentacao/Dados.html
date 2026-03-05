@@ -1,380 +1,177 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo Dados — CTEC Convencional</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #0f1117;
-            color: #e2e8f0;
-            line-height: 1.7;
-        }
-
-        header {
-            background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
-            border-bottom: 1px solid #2d3748;
-            padding: 2rem 3rem;
-        }
-
-        header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #63b3ed;
-            letter-spacing: -0.5px;
-        }
-
-        header p {
-            color: #718096;
-            margin-top: 0.25rem;
-            font-size: 0.95rem;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #2b6cb0;
-            color: #bee3f8;
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.6rem;
-            border-radius: 9999px;
-            margin-top: 0.5rem;
-            letter-spacing: 0.05em;
-        }
-
-        main {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 2.5rem 2rem;
-        }
-
-        section { margin-bottom: 3rem; }
-
-        h2 {
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: #90cdf4;
-            border-bottom: 1px solid #2d3748;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.25rem;
-        }
-
-        h3 {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: #f6e05e;
-            margin: 1.5rem 0 0.5rem 0;
-        }
-
-        p { color: #cbd5e0; margin-bottom: 0.75rem; }
-
-        /* Estrutura de campos */
-        .field-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0.75rem 0 1.5rem 0;
-            font-size: 0.9rem;
-        }
-
-        .field-table th {
-            background: #1a202c;
-            color: #a0aec0;
-            text-align: left;
-            padding: 0.6rem 1rem;
-            font-weight: 600;
-            border: 1px solid #2d3748;
-        }
-
-        .field-table td {
-            padding: 0.55rem 1rem;
-            border: 1px solid #2d3748;
-            color: #e2e8f0;
-        }
-
-        .field-table tr:nth-child(even) td { background: #1a202c; }
-        .field-table tr:hover td { background: #2d3748; }
-
-        /* Cards de função */
-        .fn-card {
-            background: #1a1f2e;
-            border: 1px solid #2d3748;
-            border-left: 3px solid #63b3ed;
-            border-radius: 6px;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .fn-signature {
-            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.9rem;
-            background: #0f1117;
-            color: #68d391;
-            padding: 0.6rem 1rem;
-            border-radius: 4px;
-            margin: 0.75rem 0;
-            border: 1px solid #2d3748;
-            overflow-x: auto;
-        }
-
-        .fn-params { margin: 0.75rem 0; }
-        .fn-params li {
-            list-style: none;
-            padding: 0.2rem 0;
-            color: #cbd5e0;
-            font-size: 0.9rem;
-        }
-        .fn-params li code {
-            font-family: monospace;
-            color: #fbd38d;
-            background: #2d3748;
-            padding: 0.1rem 0.35rem;
-            border-radius: 3px;
-            font-size: 0.85rem;
-        }
-
-        .fn-return {
-            font-size: 0.88rem;
-            color: #a0aec0;
-            margin-top: 0.5rem;
-        }
-        .fn-return strong { color: #fc8181; }
-
-        .fn-note {
-            background: #2d3748;
-            border-left: 3px solid #f6e05e;
-            padding: 0.5rem 0.8rem;
-            border-radius: 0 4px 4px 0;
-            font-size: 0.85rem;
-            color: #fefcbf;
-            margin-top: 0.75rem;
-        }
-
-        /* Enum */
-        .enum-block {
-            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.88rem;
-            background: #0f1117;
-            color: #e2e8f0;
-            padding: 1rem 1.25rem;
-            border-radius: 4px;
-            border: 1px solid #2d3748;
-            margin: 0.75rem 0;
-            white-space: pre;
-        }
-
-        .kw   { color: #63b3ed; }
-        .type { color: #68d391; }
-        .val  { color: #fbd38d; }
-        .cmt  { color: #4a5568; font-style: italic; }
-
-        /* Exemplo */
-        .example-block {
-            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.88rem;
-            background: #0f1117;
-            color: #e2e8f0;
-            padding: 1rem 1.25rem;
-            border-radius: 4px;
-            border: 1px solid #2d3748;
-            margin: 0.75rem 0;
-            white-space: pre;
-            overflow-x: auto;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #4a5568;
-            font-size: 0.8rem;
-            border-top: 1px solid #2d3748;
-            margin-top: 2rem;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header>
-    <h1>Módulo Dados</h1>
-    <p>CTEC Convencional — Biblioteca NLD</p>
-    <span class="badge">Sprint 1 · v0.1.0</span>
-</header>
+    <header data-modulo="Dados" data-sprint="Sprint 1" data-versao="v0.1.0"></header>
 
-<main>
+    <main>
 
-    <!-- VISÃO GERAL -->
-    <section>
-        <h2>Visão Geral</h2>
-        <p>
-            O módulo <strong>Dados</strong> define a estrutura base de dados genérica utilizada
-            internamente por outros módulos da biblioteca Convencional, especialmente pelo módulo
-            <code>Arquivo</code>. Fornece um gerenciador com funções para inicializar e limpar
-            instâncias desta estrutura com segurança.
-        </p>
-        <p>
-            <strong>Arquivo de interface:</strong> <code>Interface/Dados/Dados.int</code><br>
-            <strong>Arquivo de implementação:</strong> <code>Fonte/Dados/Dados.nld</code>
-        </p>
-    </section>
+        <!-- VISÃO GERAL -->
+        <section>
+            <h2>Visão Geral</h2>
+            <p>
+                O módulo <strong>Dados</strong> define a estrutura base genérica utilizada internamente
+                por outros módulos da biblioteca Convencional, especialmente pelo módulo
+                <code>Arquivo</code>. Fornece funções para inicializar e limpar instâncias desta
+                estrutura com segurança.
+            </p>
+            <p>
+                <strong>Interface:</strong> <code>Interface/Dados/Dados.int</code><br>
+                <strong>Implementação:</strong> <code>Fonte/Dados/Dados.nld</code><br>
+                <strong>Testes:</strong> <code>Teste/Unidade/Dados/TesteDados.nld</code><br>
+                <strong>Exemplo:</strong> <code>Exemplo/Dados/ExemploDados.nld</code>
+            </p>
+        </section>
 
-    <!-- ESTRUTURA Dados -->
-    <section>
-        <h2>Estrutura Principal — <code>Dados</code></h2>
-        <p>
-            Estrutura opaca que representa um bloco de dados com metadados de posição,
-            tamanho e identificação de arquivo. Usada como base para operações de I/O.
-        </p>
-        <table class="field-table">
-            <thead>
-                <tr>
-                    <th>Campo</th>
-                    <th>Tipo</th>
-                    <th>Valor Inicial</th>
-                    <th>Descrição</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>ponteiro</code></td>
-                    <td><code>Caractere*</code></td>
-                    <td><code>NULO</code></td>
-                    <td>Ponteiro para o início dos dados no buffer</td>
-                </tr>
-                <tr>
-                    <td><code>tamanho</code></td>
-                    <td><code>Inteiro</code></td>
-                    <td><code>0</code></td>
-                    <td>Tamanho atual dos dados válidos</td>
-                </tr>
-                <tr>
-                    <td><code>base</code></td>
-                    <td><code>Caractere*</code></td>
-                    <td><code>NULO</code></td>
-                    <td>Ponteiro para a base do buffer alocado</td>
-                </tr>
-                <tr>
-                    <td><code>tipo</code></td>
-                    <td><code>Inteiro</code></td>
-                    <td><code>0</code></td>
-                    <td>Tipo do fluxo (leitura, escrita, etc.)</td>
-                </tr>
-                <tr>
-                    <td><code>arquivo</code></td>
-                    <td><code>Inteiro</code></td>
-                    <td><code>-1</code></td>
-                    <td>Descritor do arquivo associado (−1 = nenhum)</td>
-                </tr>
-                <tr>
-                    <td><code>reservaCaractere</code></td>
-                    <td><code>Inteiro</code></td>
-                    <td><code>-1</code></td>
-                    <td>Caractere reservado para devolução (ungetc)</td>
-                </tr>
-                <tr>
-                    <td><code>tamanhoReserva</code></td>
-                    <td><code>Inteiro</code></td>
-                    <td><code>0</code></td>
-                    <td>Tamanho do buffer de reserva</td>
-                </tr>
-                <tr>
-                    <td><code>nomeArquivo</code></td>
-                    <td><code>Caractere*</code></td>
-                    <td><code>NULO</code></td>
-                    <td>Nome do arquivo associado à instância</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+        <!-- ESTRUTURA -->
+        <section>
+            <h2>Estrutura Principal — <code>Dados</code></h2>
+            <p>Representa um bloco de dados com metadados de posição, tamanho e identificação de arquivo.</p>
+            <table class="field-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo</th>
+                        <th>Valor Inicial</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>ponteiro</code></td>
+                        <td><code>Caractere*</code></td>
+                        <td><code>NULO</code></td>
+                        <td>Ponteiro para o início dos dados no buffer</td>
+                    </tr>
+                    <tr>
+                        <td><code>tamanho</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>0</code></td>
+                        <td>Tamanho atual dos dados válidos</td>
+                    </tr>
+                    <tr>
+                        <td><code>base</code></td>
+                        <td><code>Caractere*</code></td>
+                        <td><code>NULO</code></td>
+                        <td>Ponteiro para a base do buffer alocado</td>
+                    </tr>
+                    <tr>
+                        <td><code>tipo</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>0</code></td>
+                        <td>Tipo do fluxo (leitura, escrita, etc.)</td>
+                    </tr>
+                    <tr>
+                        <td><code>arquivo</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>-1</code></td>
+                        <td>Descritor do arquivo associado (−1 = nenhum)</td>
+                    </tr>
+                    <tr>
+                        <td><code>reservaCaractere</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>-1</code></td>
+                        <td>Caractere reservado para devolução (ungetc)</td>
+                    </tr>
+                    <tr>
+                        <td><code>tamanhoReserva</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>0</code></td>
+                        <td>Tamanho do buffer de reserva</td>
+                    </tr>
+                    <tr>
+                        <td><code>nomeArquivo</code></td>
+                        <td><code>Caractere*</code></td>
+                        <td><code>NULO</code></td>
+                        <td>Nome do arquivo associado à instância</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-    <!-- ENUM DE ERRO -->
-    <section>
-        <h2>Enumeração de Erro — <code>CtecErroDados</code></h2>
-        <p>Todos os retornos de erro do módulo Dados são tipados via este enumerador.</p>
-        <div class="enum-block"><span class="kw">Pseudônimo</span> <span class="kw">Enumeração</span> {
-    <span class="val">CTEC_ERRO_DADOS_SUCESSO</span>  =  <span class="val">0</span>,  <span class="cmt">// Operação concluída com sucesso</span>
-    <span class="val">CTEC_ERRO_DADOS_NULO</span>     = <span class="val">-1</span>,  <span class="cmt">// Ponteiro nulo fornecido</span>
-    <span class="val">CTEC_ERRO_DADOS_INVÁLIDO</span> = <span class="val">-2</span>   <span class="cmt">// Estado inválido detectado</span>
-} <span class="type">CtecErroDados</span>;</div>
-    </section>
+        <!-- ENUM DE ERRO -->
+        <section>
+            <h2>Enumeração de Erro — <code>CtecErroDados</code></h2>
+            <p>Todos os retornos de erro do módulo são tipados via este enumerador.</p>
+            <div class="enum-block"><span class="kw">Pseudônimo</span> <span class="kw">Enumeração</span> {
+                <span class="val">CTEC_ERRO_DADOS_SUCESSO</span> = <span class="val">0</span>, <span class="cmt">//
+                    Operação concluída com sucesso</span>
+                <span class="val">CTEC_ERRO_DADOS_NULO</span> = <span class="val">-1</span>, <span class="cmt">//
+                    Ponteiro nulo fornecido</span>
+                <span class="val">CTEC_ERRO_DADOS_INVÁLIDO</span> = <span class="val">-2</span> <span class="cmt">//
+                    Estado inválido detectado</span>
+                } <span class="type">CtecErroDados</span>;
+            </div>
+        </section>
 
-    <!-- GERENCIADOR -->
-    <section>
-        <h2>Interface do Gerenciador — <code>InterfaceGerenciadorDados</code></h2>
-        <p>
-            Tabela de despacho com ponteiros para as funções do módulo. Acesse sempre
-            pela instância global <code>GerenciadorDados</code>.
-        </p>
+        <!-- GERENCIADOR -->
+        <section>
+            <h2>Interface do Gerenciador — <code>InterfaceGerenciadorDados</code></h2>
+            <p>Acesse sempre pela instância global <code>GerenciadorDados</code>.</p>
 
-        <!-- inicialize -->
-        <div class="fn-card">
-            <h3>inicialize</h3>
-            <p>Inicializa todos os campos de uma instância <code>Dados</code> com seus valores padrão.
-            Deve ser chamado antes de qualquer uso da estrutura.</p>
-
-            <div class="fn-signature">GerenciadorDados.inicialize(Dados *dados);</div>
-
-            <ul class="fn-params">
-                <li><code>dados</code> — Ponteiro para a instância a ser inicializada. Se <code>NULO</code>, a função retorna sem efeito.</li>
-            </ul>
-
-            <div class="fn-return">
-                <strong>Retorno:</strong> <code>Vazio</code>
+            <div class="fn-card">
+                <h3>inicialize</h3>
+                <p>Inicializa todos os campos de uma instância <code>Dados</code> com seus valores padrão.
+                    Deve ser chamado antes de qualquer uso da estrutura.</p>
+                <div class="fn-signature">GerenciadorDados.inicialize(Dados *dados);</div>
+                <ul class="fn-params">
+                    <li><code>dados</code> — Ponteiro para a instância a ser inicializada. Se <code>NULO</code>, retorna
+                        sem efeito.</li>
+                </ul>
+                <div class="fn-return"><strong>Retorno:</strong> <code>Vazio</code></div>
+                <div class="fn-note">⚠️ Ponteiro nulo é aceito silenciosamente — sem falha.</div>
             </div>
 
-            <div class="fn-note">
-                ⚠️ Ponteiro nulo é aceito silenciosamente — a função retorna sem causar falha.
+            <div class="fn-card">
+                <h3>limpe</h3>
+                <p>Reinicia todos os campos de uma instância <code>Dados</code> para seus valores padrão.
+                    Indicado para uso após finalização do uso da estrutura.</p>
+                <div class="fn-signature">GerenciadorDados.limpe(Dados *dados);</div>
+                <ul class="fn-params">
+                    <li><code>dados</code> — Ponteiro para a instância a ser limpa. Se <code>NULO</code>, retorna sem
+                        efeito.</li>
+                </ul>
+                <div class="fn-return"><strong>Retorno:</strong> <code>Vazio</code></div>
+                <div class="fn-note">⚠️ Ponteiro nulo é aceito silenciosamente — sem falha.</div>
             </div>
-        </div>
+        </section>
 
-        <!-- limpe -->
-        <div class="fn-card">
-            <h3>limpe</h3>
-            <p>Limpa e reinicia todos os campos de uma instância <code>Dados</code> para seus valores
-            padrão. Equivalente a <code>inicialize</code>, indicado para uso após finalização de uso da estrutura.</p>
+        <!-- EXEMPLO -->
+        <section>
+            <h2>Exemplo de Uso</h2>
+            <div class="example-block"><span class="kw">#Inclua</span> <span class="val">&lt;Convencional.int&gt;</span>
 
-            <div class="fn-signature">GerenciadorDados.limpe(Dados *dados);</div>
+                <span class="type">Inteiro</span> <span class="type">Início</span>() {
+                <span class="type">Dados</span> bloco;
 
-            <ul class="fn-params">
-                <li><code>dados</code> — Ponteiro para a instância a ser limpa. Se <code>NULO</code>, a função retorna sem efeito.</li>
-            </ul>
+                <span class="cmt">// Inicializar antes do uso</span>
+                GerenciadorDados.inicialize(&amp;bloco);
 
-            <div class="fn-return">
-                <strong>Retorno:</strong> <code>Vazio</code>
+                <span class="cmt">// ... usar bloco com GerenciadorArquivo, etc. ...</span>
+                bloco.tipo = <span class="val">1</span>;
+                bloco.arquivo = <span class="val">3</span>;
+
+                <span class="cmt">// Limpar após o uso</span>
+                GerenciadorDados.limpe(&amp;bloco);
+
+                <span class="kw">Retorne</span> <span class="val">0</span>;
+                }
             </div>
+        </section>
 
-            <div class="fn-note">
-                ⚠️ Ponteiro nulo é aceito silenciosamente — a função retorna sem causar falha.
-            </div>
-        </div>
-    </section>
+    </main>
 
-    <!-- EXEMPLO DE USO -->
-    <section>
-        <h2>Exemplo de Uso</h2>
-        <div class="example-block"><span class="kw">#Inclua</span> <span class="val">&lt;Convencional.int&gt;</span>
+    <footer></footer>
 
-<span class="type">Inteiro</span> <span class="type">Início</span>() {
-    <span class="type">Dados</span> bloco;
-
-    <span class="cmt">// Inicializar antes do uso</span>
-    GerenciadorDados.inicialize(&amp;bloco);
-
-    <span class="cmt">// ... usar bloco com GerenciadorArquivo, etc. ...</span>
-
-    <span class="cmt">// Limpar após o uso</span>
-    GerenciadorDados.limpe(&amp;bloco);
-
-    <span class="kw">Retorne</span> <span class="val">0</span>;
-}</div>
-    </section>
-
-</main>
-
-<footer>
-    CTEC Convencional · Módulo Dados · Sprint 1 · v0.1.0
-</footer>
-
+    <script src="script.js"></script>
 </body>
+
 </html>
