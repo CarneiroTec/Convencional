@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 Caso testa_tempo_e_espera() {
     Caso caso = {
@@ -35,9 +35,9 @@ Caso testa_tempo_e_espera() {
 }
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Tempo");
-    GerenciadorGrupo.adicione(&grupo, testa_tempo_e_espera);
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    Grupo grupo = grupo.crie("Testando Módulo Tempo");
+    grupo.adicione(&grupo, testa_tempo_e_espera);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
     Retorne 0;
 }

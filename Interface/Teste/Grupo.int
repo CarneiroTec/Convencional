@@ -12,12 +12,12 @@ Pseudônimo Estrutura {
 } Grupo;
 
 Pseudônimo Estrutura {
-    Grupo (*crie)(Caractere* nome);
+    Grupo  (*crie)(Caractere* nome);
     Lógico (*adicione)(Grupo* grupo, FunçãoTeste função);
     Lógico (*execute)(Grupo* grupo);
     Lógico (*destrua)(Grupo* grupo);
 } InterfaceGerenciadorGrupo;
 
-Externo InterfaceGerenciadorGrupo GerenciadorGrupo;
+Externo Imutável InterfaceGerenciadorGrupo grupo;
 
 #FimSe

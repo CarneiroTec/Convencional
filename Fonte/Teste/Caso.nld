@@ -32,7 +32,7 @@ Fixo Caso ctec_convencional_teste_caso_destrua(Caso* caso) {
     caso->mensagem = (Vazio*)0;
 }
 
-InterfaceGerenciadorCaso GerenciadorCaso = {
+Imutável InterfaceGerenciadorCaso caso = {
     .crie = ctec_convencional_teste_caso_crie,
     .instancie = ctec_convencional_teste_caso_instancie,
     .destrua = ctec_convencional_teste_caso_destrua

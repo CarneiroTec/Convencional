@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 Caso testa_caso_crie() {
     Caso caso = {
@@ -117,13 +117,13 @@ Caso testa_caso_destrua() {
 }
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Caso");
-    GerenciadorGrupo.adicione(&grupo, testa_caso_crie);
-    GerenciadorGrupo.adicione(&grupo, testa_caso_instancie);
-    GerenciadorGrupo.adicione(&grupo, testa_caso_destrua);
+    Grupo grupo = grupo.crie("Testando Módulo Caso");
+    grupo.adicione(&grupo, testa_caso_crie);
+    grupo.adicione(&grupo, testa_caso_instancie);
+    grupo.adicione(&grupo, testa_caso_destrua);
 
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
 
     Retorne 0;
 }

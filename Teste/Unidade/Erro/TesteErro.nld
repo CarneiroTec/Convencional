@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 Caso testa_defina_obtenha_erro() {
     Caso caso = {
@@ -88,12 +88,12 @@ Caso testa_obtenha_erro_inicial() {
 }
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Erro");
-    GerenciadorGrupo.adicione(&grupo, testa_defina_obtenha_erro);
-    GerenciadorGrupo.adicione(&grupo, testa_defina_obtenha_outro_valor);
-    GerenciadorGrupo.adicione(&grupo, testa_mensagem_erro);
-    GerenciadorGrupo.adicione(&grupo, testa_obtenha_erro_inicial);
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    Grupo grupo = grupo.crie("Testando Módulo Erro");
+    grupo.adicione(&grupo, testa_defina_obtenha_erro);
+    grupo.adicione(&grupo, testa_defina_obtenha_outro_valor);
+    grupo.adicione(&grupo, testa_mensagem_erro);
+    grupo.adicione(&grupo, testa_obtenha_erro_inicial);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
     Retorne 0;
 }

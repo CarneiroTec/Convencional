@@ -64,7 +64,7 @@ Fixo Lógico ctec_convencional_teste_grupo_destrua(Grupo* grupo) {
     Retorne 1;
 }
 
-InterfaceGerenciadorGrupo GerenciadorGrupo = {
+Imutável InterfaceGerenciadorGrupo grupo = {
     .crie = ctec_convencional_teste_grupo_crie,
     .adicione = ctec_convencional_teste_grupo_adicione,
     .execute = ctec_convencional_teste_grupo_execute,

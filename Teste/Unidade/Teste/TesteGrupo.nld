@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 Externo Inteiro printf(Imutável Caractere*, ...);
 
@@ -11,7 +11,7 @@ Caso testa_grupo_crie() {
         .mensagem = ""
     };
 
-    Grupo novoGrupo = GerenciadorGrupo.crie("Grupo Teste");
+    Grupo novoGrupo = grupo.crie("Grupo Teste");
 
     Se (novoGrupo.nome[0] != 'G') {
         caso.estado = 0;
@@ -65,8 +65,8 @@ Caso testa_grupo_adicione() {
         .mensagem = ""
     };
 
-    Grupo novoGrupo = GerenciadorGrupo.crie("Grupo Adicione");
-    Lógico resultado = GerenciadorGrupo.adicione(&novoGrupo, auxiliar_sempre_passa);
+    Grupo novoGrupo = grupo.crie("Grupo Adicione");
+    Lógico resultado = grupo.adicione(&novoGrupo, auxiliar_sempre_passa);
 
     Se (resultado != 1) {
         caso.estado = 0;
@@ -95,12 +95,12 @@ Caso testa_grupo_execute() {
         .mensagem = ""
     };
 
-    Grupo novoGrupo = GerenciadorGrupo.crie("Grupo Execute");
-    GerenciadorGrupo.adicione(&novoGrupo, auxiliar_sempre_passa);
-    GerenciadorGrupo.adicione(&novoGrupo, auxiliar_sempre_passa);
+    Grupo novoGrupo = grupo.crie("Grupo Execute");
+    grupo.adicione(&novoGrupo, auxiliar_sempre_passa);
+    grupo.adicione(&novoGrupo, auxiliar_sempre_passa);
 
     printf("\n  [Sub-execução do teste grupo_execute]\n");
-    GerenciadorGrupo.execute(&novoGrupo);
+    grupo.execute(&novoGrupo);
 
     Se (novoGrupo.quantidadePassou != 2) {
         caso.estado = 0;
@@ -129,9 +129,9 @@ Caso testa_grupo_destrua() {
         .mensagem = ""
     };
 
-    Grupo novoGrupo = GerenciadorGrupo.crie("Grupo Destrua");
-    GerenciadorGrupo.adicione(&novoGrupo, auxiliar_sempre_passa);
-    GerenciadorGrupo.destrua(&novoGrupo);
+    Grupo novoGrupo = grupo.crie("Grupo Destrua");
+    grupo.adicione(&novoGrupo, auxiliar_sempre_passa);
+    grupo.destrua(&novoGrupo);
 
     Se (novoGrupo.nome != (Vazio*)0) {
         caso.estado = 0;
@@ -152,14 +152,14 @@ Caso testa_grupo_destrua() {
 }
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Grupo");
-    GerenciadorGrupo.adicione(&grupo, testa_grupo_crie);
-    GerenciadorGrupo.adicione(&grupo, testa_grupo_adicione);
-    GerenciadorGrupo.adicione(&grupo, testa_grupo_execute);
-    GerenciadorGrupo.adicione(&grupo, testa_grupo_destrua);
+    Grupo grupo = grupo.crie("Testando Módulo Grupo");
+    grupo.adicione(&grupo, testa_grupo_crie);
+    grupo.adicione(&grupo, testa_grupo_adicione);
+    grupo.adicione(&grupo, testa_grupo_execute);
+    grupo.adicione(&grupo, testa_grupo_destrua);
 
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
 
     Retorne 0;
 }

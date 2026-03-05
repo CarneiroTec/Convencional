@@ -1,4 +1,4 @@
-#Inclua "../../Teste.nld"
+﻿#Inclua "../../Teste.nld"
 
 Externo Inteiro printf(Imutável Caractere*, ...);
 
@@ -156,12 +156,12 @@ Caso testa_liberação_memória() {
 }
 
 Inteiro Início() {
-    Grupo grupo = GerenciadorGrupo.crie("Testando Módulo Memória");
-    GerenciadorGrupo.adicione(&grupo, testa_alocação_memória);
-    GerenciadorGrupo.adicione(&grupo, testa_alocação_zerada);
-    GerenciadorGrupo.adicione(&grupo, testa_realocação_memória);
-    GerenciadorGrupo.adicione(&grupo, testa_liberação_memória);
-    GerenciadorGrupo.execute(&grupo);
-    GerenciadorGrupo.destrua(&grupo);
+    Grupo grupo = grupo.crie("Testando Módulo Memória");
+    grupo.adicione(&grupo, testa_alocação_memória);
+    grupo.adicione(&grupo, testa_alocação_zerada);
+    grupo.adicione(&grupo, testa_realocação_memória);
+    grupo.adicione(&grupo, testa_liberação_memória);
+    grupo.execute(&grupo);
+    grupo.destrua(&grupo);
     Retorne 0;
 }
