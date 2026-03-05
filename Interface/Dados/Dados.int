@@ -23,6 +23,6 @@ Pseudônimo Estrutura {
     Vazio (*limpe)(Dados *dados);
 } InterfaceGerenciadorDados;
 
-Externo InterfaceGerenciadorDados GerenciadorDados;
+Externo InterfaceGerenciadorDados dados;
 
 #FimSe

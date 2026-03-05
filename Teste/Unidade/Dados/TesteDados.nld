@@ -8,11 +8,11 @@ Caso testa_inicializacao_dados() {
         .linha = LINHA,
         .mensagem = ""
     };
-    Dados dados;
+    Dados d;
 
-    GerenciadorDados.inicialize(&dados);
+    dados.inicialize(&d);
 
-    Se (dados.ponteiro != (Vazio*)0 || dados.tamanho != 0 || dados.arquivo != -1) {
+    Se (d.ponteiro != (Vazio*)0 || d.tamanho != 0 || d.arquivo != -1) {
         caso.estado = 0;
         caso.linha = LINHA;
         caso.mensagem = "Falhou: Dados não inicializados corretamente";
@@ -31,57 +31,41 @@ Caso testa_inicializacao_todos_campos() {
         .linha = LINHA,
         .mensagem = ""
     };
-    Dados dados;
+    Dados d;
 
-    GerenciadorDados.inicialize(&dados);
+    dados.inicialize(&d);
 
-    Se (dados.ponteiro != (Vazio*)0) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: ponteiro não é NULO";
-        Retorne caso;
+    Se (d.ponteiro != (Vazio*)0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: ponteiro não é NULO"; Retorne caso;
     }
-    Se (dados.tamanho != 0) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: tamanho não é 0";
-        Retorne caso;
+    Se (d.tamanho != 0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: tamanho não é 0"; Retorne caso;
     }
-    Se (dados.base != (Vazio*)0) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: base não é NULO";
-        Retorne caso;
+    Se (d.base != (Vazio*)0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: base não é NULO"; Retorne caso;
     }
-    Se (dados.tipo != 0) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: tipo não é 0";
-        Retorne caso;
+    Se (d.tipo != 0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: tipo não é 0"; Retorne caso;
     }
-    Se (dados.arquivo != -1) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: arquivo não é -1";
-        Retorne caso;
+    Se (d.arquivo != -1) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: arquivo não é -1"; Retorne caso;
     }
-    Se (dados.reservaCaractere != -1) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: reservaCaractere não é -1";
-        Retorne caso;
+    Se (d.reservaCaractere != -1) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: reservaCaractere não é -1"; Retorne caso;
     }
-    Se (dados.tamanhoReserva != 0) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: tamanhoReserva não é 0";
-        Retorne caso;
+    Se (d.tamanhoReserva != 0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: tamanhoReserva não é 0"; Retorne caso;
     }
-    Se (dados.nomeArquivo != (Vazio*)0) {
-        caso.estado = 0;
-        caso.linha = LINHA;
-        caso.mensagem = "Falhou: nomeArquivo não é NULO";
-        Retorne caso;
+    Se (d.nomeArquivo != (Vazio*)0) {
+        caso.estado = 0; caso.linha = LINHA;
+        caso.mensagem = "Falhou: nomeArquivo não é NULO"; Retorne caso;
     }
 
     caso.mensagem = "Passou: Todos os campos inicializados corretamente";
@@ -97,7 +81,7 @@ Caso testa_inicializacao_nulo() {
         .mensagem = ""
     };
 
-    GerenciadorDados.inicialize((Vazio*)0);
+    dados.inicialize((Vazio*)0);
 
     caso.mensagem = "Passou: inicialize com ponteiro nulo não causa falha";
     Retorne caso;
@@ -111,16 +95,16 @@ Caso testa_limpeza_dados() {
         .linha = LINHA,
         .mensagem = ""
     };
-    Dados dados;
+    Dados d;
 
-    GerenciadorDados.inicialize(&dados);
-    dados.tamanho = 100;
-    dados.arquivo = 5;
-    dados.tipo = 3;
+    dados.inicialize(&d);
+    d.tamanho = 100;
+    d.arquivo = 5;
+    d.tipo = 3;
 
-    GerenciadorDados.limpe(&dados);
+    dados.limpe(&d);
 
-    Se (dados.tamanho != 0 || dados.arquivo != -1) {
+    Se (d.tamanho != 0 || d.arquivo != -1) {
         caso.estado = 0;
         caso.linha = LINHA;
         caso.mensagem = "Falhou: Dados não limpos corretamente";
@@ -140,7 +124,7 @@ Caso testa_limpeza_nulo() {
         .mensagem = ""
     };
 
-    GerenciadorDados.limpe((Vazio*)0);
+    dados.limpe((Vazio*)0);
 
     caso.mensagem = "Passou: limpe com ponteiro nulo não causa falha";
     Retorne caso;

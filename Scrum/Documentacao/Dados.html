@@ -115,13 +115,21 @@
         <!-- GERENCIADOR -->
         <section>
             <h2>Interface do Gerenciador — <code>InterfaceGerenciadorDados</code></h2>
-            <p>Acesse sempre pela instância global <code>GerenciadorDados</code>.</p>
+            <p>
+                Acesse sempre pela <strong>instância global</strong> cujo nome é o<br>
+                <strong>nome da estrutura em minúsculo</strong>: <code>dados</code>.
+            </p>
+            <div class="fn-note">📌 Convenção: instância global = nome do tipo em minúsculo.<br>
+                <code>Dados</code> → instância <code>dados</code> &nbsp;|&nbsp;
+                <code>Arquivo</code> → instância <code>arquivo</code> &nbsp;|&nbsp;
+                <code>Sistema</code> → instância <code>sistema</code>
+            </div>
 
             <div class="fn-card">
                 <h3>inicialize</h3>
                 <p>Inicializa todos os campos de uma instância <code>Dados</code> com seus valores padrão.
                     Deve ser chamado antes de qualquer uso da estrutura.</p>
-                <div class="fn-signature">GerenciadorDados.inicialize(Dados *dados);</div>
+                <div class="fn-signature">dados.inicialize(Dados *dados);</div>
                 <ul class="fn-params">
                     <li><code>dados</code> — Ponteiro para a instância a ser inicializada. Se <code>NULO</code>, retorna
                         sem efeito.</li>
@@ -134,7 +142,7 @@
                 <h3>limpe</h3>
                 <p>Reinicia todos os campos de uma instância <code>Dados</code> para seus valores padrão.
                     Indicado para uso após finalização do uso da estrutura.</p>
-                <div class="fn-signature">GerenciadorDados.limpe(Dados *dados);</div>
+                <div class="fn-signature">dados.limpe(Dados *dados);</div>
                 <ul class="fn-params">
                     <li><code>dados</code> — Ponteiro para a instância a ser limpa. Se <code>NULO</code>, retorna sem
                         efeito.</li>
@@ -153,14 +161,14 @@
                 <span class="type">Dados</span> bloco;
 
                 <span class="cmt">// Inicializar antes do uso</span>
-                GerenciadorDados.inicialize(&amp;bloco);
+                dados.inicialize(&amp;bloco);
 
-                <span class="cmt">// ... usar bloco com GerenciadorArquivo, etc. ...</span>
+                <span class="cmt">// ... usar bloco com arquivo, sistema, etc. ...</span>
                 bloco.tipo = <span class="val">1</span>;
                 bloco.arquivo = <span class="val">3</span>;
 
                 <span class="cmt">// Limpar após o uso</span>
-                GerenciadorDados.limpe(&amp;bloco);
+                dados.limpe(&amp;bloco);
 
                 <span class="kw">Retorne</span> <span class="val">0</span>;
                 }

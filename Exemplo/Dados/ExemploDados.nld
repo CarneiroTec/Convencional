@@ -3,12 +3,12 @@
 Inteiro Início() {
     Dados bloco;
 
-    GerenciadorDados.inicialize(&bloco);
+    dados.inicialize(&bloco);
 
     bloco.tipo = 1;
     bloco.arquivo = 3;
 
-    GerenciadorDados.limpe(&bloco);
+    dados.limpe(&bloco);
 
     Retorne 0;
 }

@@ -16,7 +16,7 @@ Fixo Vazio ctec_convencional_dados_limpe(Dados *dados) {
     ctec_convencional_dados_inicialize(dados);
 }
 
-InterfaceGerenciadorDados GerenciadorDados = {
+InterfaceGerenciadorDados dados = {
     .inicialize = ctec_convencional_dados_inicialize,
     .limpe = ctec_convencional_dados_limpe
 };
