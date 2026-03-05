@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Dados — CTEC Convencional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header data-modulo="Dados" data-sprint="Sprint 1" data-versao="v0.1.0"></header>
+
+    <main>
+
+        <!-- VISÃO GERAL -->
+        <section>
+            <h2>Visão Geral</h2>
+            <p>
+                O módulo <strong>Dados</strong> define a estrutura base genérica utilizada internamente
+                por outros módulos da biblioteca Convencional, especialmente pelo módulo
+                <code>Arquivo</code>. Fornece funções para inicializar e limpar instâncias desta
+                estrutura com segurança.
+            </p>
+            <p>
+                <strong>Interface:</strong> <code>Interface/Dados/Dados.int</code><br>
+                <strong>Implementação:</strong> <code>Fonte/Dados/Dados.nld</code><br>
+                <strong>Testes:</strong> <code>Teste/Unidade/Dados/TesteDados.nld</code><br>
+                <strong>Exemplo:</strong> <code>Exemplo/Dados/ExemploDados.nld</code>
+            </p>
+        </section>
+
+        <!-- ESTRUTURA -->
+        <section>
+            <h2>Estrutura Principal — <code>Dados</code></h2>
+            <p>Representa um bloco de dados com metadados de posição, tamanho e identificação de arquivo.</p>
+            <table class="field-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo</th>
+                        <th>Valor Inicial</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>ponteiro</code></td>
+                        <td><code>Caractere*</code></td>
+                        <td><code>NULO</code></td>
+                        <td>Ponteiro para o início dos dados no buffer</td>
+                    </tr>
+                    <tr>
+                        <td><code>tamanho</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>0</code></td>
+                        <td>Tamanho atual dos dados válidos</td>
+                    </tr>
+                    <tr>
+                        <td><code>base</code></td>
+                        <td><code>Caractere*</code></td>
+                        <td><code>NULO</code></td>
+                        <td>Ponteiro para a base do buffer alocado</td>
+                    </tr>
+                    <tr>
+                        <td><code>tipo</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>0</code></td>
+                        <td>Tipo do fluxo (leitura, escrita, etc.)</td>
+                    </tr>
+                    <tr>
+                        <td><code>arquivo</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>-1</code></td>
+                        <td>Descritor do arquivo associado (−1 = nenhum)</td>
+                    </tr>
+                    <tr>
+                        <td><code>reservaCaractere</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>-1</code></td>
+                        <td>Caractere reservado para devolução (ungetc)</td>
+                    </tr>
+                    <tr>
+                        <td><code>tamanhoReserva</code></td>
+                        <td><code>Inteiro</code></td>
+                        <td><code>0</code></td>
+                        <td>Tamanho do buffer de reserva</td>
+                    </tr>
+                    <tr>
+                        <td><code>nomeArquivo</code></td>
+                        <td><code>Caractere*</code></td>
+                        <td><code>NULO</code></td>
+                        <td>Nome do arquivo associado à instância</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ENUM DE ERRO -->
+        <section>
+            <h2>Enumeração de Erro — <code>CtecErroDados</code></h2>
+            <p>Todos os retornos de erro do módulo são tipados via este enumerador.</p>
+            <div class="enum-block"><span class="kw">Pseudônimo</span> <span class="kw">Enumeração</span> {
+                <span class="val">CTEC_ERRO_DADOS_SUCESSO</span> = <span class="val">0</span>, <span class="cmt">//
+                    Operação concluída com sucesso</span>
+                <span class="val">CTEC_ERRO_DADOS_NULO</span> = <span class="val">-1</span>, <span class="cmt">//
+                    Ponteiro nulo fornecido</span>
+                <span class="val">CTEC_ERRO_DADOS_INVÁLIDO</span> = <span class="val">-2</span> <span class="cmt">//
+                    Estado inválido detectado</span>
+                } <span class="type">CtecErroDados</span>;
+            </div>
+        </section>
+
+        <!-- GERENCIADOR -->
+        <section>
+            <h2>Interface do Gerenciador — <code>InterfaceGerenciadorDados</code></h2>
+            <p>
+                Acesse sempre pela <strong>instância global</strong> cujo nome é o<br>
+                <strong>nome da estrutura em minúsculo</strong>: <code>dados</code>.
+            </p>
+            <div class="fn-note">📌 Convenção: instância global = nome do tipo em minúsculo.<br>
+                <code>Dados</code> → instância <code>dados</code> &nbsp;|&nbsp;
+                <code>Arquivo</code> → instância <code>arquivo</code> &nbsp;|&nbsp;
+                <code>Sistema</code> → instância <code>sistema</code>
+            </div>
+
+            <div class="fn-card">
+                <h3>inicialize</h3>
+                <p>Inicializa todos os campos de uma instância <code>Dados</code> com seus valores padrão.
+                    Deve ser chamado antes de qualquer uso da estrutura.</p>
+                <div class="fn-signature">dados.inicialize(Dados *dados);</div>
+                <ul class="fn-params">
+                    <li><code>dados</code> — Ponteiro para a instância a ser inicializada. Se <code>NULO</code>, retorna
+                        sem efeito.</li>
+                </ul>
+                <div class="fn-return"><strong>Retorno:</strong> <code>Vazio</code></div>
+                <div class="fn-note">⚠️ Ponteiro nulo é aceito silenciosamente — sem falha.</div>
+            </div>
+
+            <div class="fn-card">
+                <h3>limpe</h3>
+                <p>Reinicia todos os campos de uma instância <code>Dados</code> para seus valores padrão.
+                    Indicado para uso após finalização do uso da estrutura.</p>
+                <div class="fn-signature">dados.limpe(Dados *dados);</div>
+                <ul class="fn-params">
+                    <li><code>dados</code> — Ponteiro para a instância a ser limpa. Se <code>NULO</code>, retorna sem
+                        efeito.</li>
+                </ul>
+                <div class="fn-return"><strong>Retorno:</strong> <code>Vazio</code></div>
+                <div class="fn-note">⚠️ Ponteiro nulo é aceito silenciosamente — sem falha.</div>
+            </div>
+        </section>
+
+        <!-- EXEMPLO -->
+        <section>
+            <h2>Exemplo de Uso</h2>
+            <div class="example-block"><span class="kw">#Inclua</span> <span class="val">&lt;Convencional.int&gt;</span>
+
+                <span class="type">Inteiro</span> <span class="type">Início</span>() {
+                <span class="type">Dados</span> bloco;
+
+                <span class="cmt">// Inicializar antes do uso</span>
+                dados.inicialize(&amp;bloco);
+
+                <span class="cmt">// ... usar bloco com arquivo, sistema, etc. ...</span>
+                bloco.tipo = <span class="val">1</span>;
+                bloco.arquivo = <span class="val">3</span>;
+
+                <span class="cmt">// Limpar após o uso</span>
+                dados.limpe(&amp;bloco);
+
+                <span class="kw">Retorne</span> <span class="val">0</span>;
+                }
+            </div>
+        </section>
+
+    </main>
+
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

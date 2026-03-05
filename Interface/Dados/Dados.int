@@ -12,11 +12,17 @@ Pseudônimo Estrutura {
     Caractere *nomeArquivo;
 } Dados;
 
+Pseudônimo Enumeração {
+    CTEC_ERRO_DADOS_SUCESSO  =  0,
+    CTEC_ERRO_DADOS_NULO     = -1,
+    CTEC_ERRO_DADOS_INVÁLIDO = -2
+} CtecErroDados;
+
 Pseudônimo Estrutura {
     Vazio (*inicialize)(Dados *dados);
     Vazio (*limpe)(Dados *dados);
 } InterfaceGerenciadorDados;
 
-Externo InterfaceGerenciadorDados GerenciadorDados;
+Externo InterfaceGerenciadorDados dados;
 
 #FimSe
